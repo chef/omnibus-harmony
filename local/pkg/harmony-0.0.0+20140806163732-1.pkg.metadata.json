@@ -1,0 +1,15 @@
+{
+  "basename": "harmony-0.0.0+20140806163732-1.pkg",
+  "md5": "32ae895778285a3811224bd5c9cf83ea",
+  "sha1": "9b42a997554757b0b529f207bc9ac810c8d8cc75",
+  "sha256": "c424f4d67a58ade5a6d5455e3abe1dc95efd3f63e21e88b4abd5a85d28ae0f74",
+  "sha512": "df452d6441731aeec13624aebfefca05a3f98b3ff1cac559a9ab3f2595f0697a44c4eb95da43443bc096437b6d26eac8407beb8f8e4d693863fda6ddb64779ce",
+  "platform": "mac_os_x",
+  "platform_version": "10.10",
+  "arch": "x86_64",
+  "name": "harmony",
+  "friendly_name": "Harmony",
+  "homepage": "https://getchef.com",
+  "version": "0.0.0+20140806163732",
+  "iteration": 1
+}

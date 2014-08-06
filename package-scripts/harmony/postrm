@@ -1,0 +1,9 @@
+#!/bin/bash
+#
+# Perform necessary harmony removal steps
+# after package is uninstalled.
+#
+
+echo "harmony has been uninstalled!"
+
+exit 0
