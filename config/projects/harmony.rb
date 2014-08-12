@@ -10,7 +10,11 @@ build_iteration 1
 dependency 'preparation'
 
 # harmony dependencies/components
-dependency 'rsync'
+if windows?
+  # nothing right now
+else
+  dependency 'rsync'
+end
 
 # version manifest file
 dependency 'version-manifest'
