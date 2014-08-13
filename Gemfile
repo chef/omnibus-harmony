@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Install omnibus software
-gem 'omnibus', github: 'opscode/omnibus'
+gem 'omnibus', github: 'opscode/omnibus', branch: 'sethvargo/packager_dsl'
 
 # Use Chef's software definitions. It is recommended that you write your own
 # software definitions, but you can clone/fork Chef's to get you started.

@@ -22,3 +22,11 @@ dependency 'version-manifest'
 exclude '\.git*'
 exclude 'bundler\/git'
 exclude 'man\/'
+
+package :pkg do
+  identifier 'com.getchef.harmony'
+end
+
+package :msi do
+  upgrade_code '3AA89B1F-D8F3-4D46-8CB2-534C8313DBFD'
+end
