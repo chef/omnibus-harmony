@@ -11,7 +11,7 @@ dependency 'preparation'
 
 # harmony dependencies/components
 if windows?
-  # nothing right now
+  dependency 'libyaml-windows'
 else
   dependency 'rsync'
 end
