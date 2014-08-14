@@ -2,11 +2,7 @@ name 'harmony'
 maintainer 'Chef Software'
 homepage 'https://getchef.com'
 
-if windows?
-  install_dir 'C:/harmony'
-else
-  install_dir '/opt/harmony'
-end
+install_dir "#{default_root}/#{name}"
 
 build_version   '1.0.0'
 build_iteration 1
