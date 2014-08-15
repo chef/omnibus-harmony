@@ -4,7 +4,7 @@ homepage 'https://getchef.com'
 
 install_dir "#{default_root}/#{name}"
 
-build_version   '1.0.0'
+build_version   Omnibus::BuildVersion.semver
 build_iteration 1
 
 # creates required build directories
