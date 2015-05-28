@@ -32,10 +32,10 @@ use_git_caching false
 
 # Enable S3 asset caching
 # ------------------------------
-# use_s3_caching true
+use_s3_caching true
 # s3_access_key  ENV['S3_ACCESS_KEY']
 # s3_secret_key  ENV['S3_SECRET_KEY']
-# s3_bucket      ENV['S3_BUCKET']
+s3_bucket      'opscode-omnibus-cache'
 
 # Customize compiler bits
 # ------------------------------
@@ -49,3 +49,4 @@ build_retries 0
 # ------------------------------
 # software_gems ['omnibus-software', 'my-company-software']
 # local_software_dirs ['/path/to/local/software']
+append_timestamp false
