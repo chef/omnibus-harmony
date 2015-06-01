@@ -23,7 +23,7 @@ default_version "0.0.1"
 
 dependency "zlib"
 
-source url: "https://chef-releng.s3.amazonaws.com/discord-#{version}.tar.gz",
+source url: "https://chef-releng.s3.amazonaws.com/discord/discord-#{version}.tar.gz",
        md5: "f16120be63e9c8c7597d3f30a5c2dd40"
 
 relative_path "discord-#{version}"
