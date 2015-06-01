@@ -10,14 +10,13 @@ build_iteration 1
 # creates required build directories
 dependency 'preparation'
 
-# builds the 'discord' dummy project
-# see the discord software def. for more details
-dependency 'discord'
-
 # harmony dependencies/components
 if windows?
   dependency 'libyaml-windows'
 else
+  # builds the 'discord' dummy project
+  # see the discord software def. for more details
+  dependency 'discord'
   dependency 'rsync'
 end
 
