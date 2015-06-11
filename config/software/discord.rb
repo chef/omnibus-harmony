@@ -19,17 +19,22 @@
 # handling issues. Discord's makefile also creates hardlinks.
 
 name "discord"
-default_version "0.0.1"
+default_version "0.0.2"
 
 dependency "zlib"
 
-source url: "https://chef-releng.s3.amazonaws.com/discord/discord-#{version}.tar.gz",
-       md5: "f16120be63e9c8c7597d3f30a5c2dd40"
+version("0.0.1") { source md5: "f16120be63e9c8c7597d3f30a5c2dd40" }
+version("0.0.2") { source md5: "58c54b48517a8359f219e926f89f39e7" }
+
+source url: "https://chef-releng.s3.amazonaws.com/discord/discord-#{version}.tar.gz"
 
 relative_path "discord-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
+
+  env['PREFIX'] = "#{install_dir}/embedded"
+
   make "-j #{workers}", env: env
   make "-j #{workers} install", env: env
 end
