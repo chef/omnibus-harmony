@@ -33,4 +33,5 @@ end
 
 package :msi do
   upgrade_code '3AA89B1F-D8F3-4D46-8CB2-534C8313DBFD'
+  signing_identity '15abefe384ee2c829ea11f4e11da29e5b9595d53', machine_store: true
 end
