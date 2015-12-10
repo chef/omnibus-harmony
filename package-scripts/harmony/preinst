@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 #
 # Perform necessary harmony setup steps
 # before package is installed.
