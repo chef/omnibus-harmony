@@ -19,7 +19,7 @@
 # handling issues. Discord's makefile also creates hardlinks.
 
 name "discord"
-default_version "0.0.6"
+default_version "0.0.7"
 
 dependency "zlib"
 
@@ -27,6 +27,7 @@ version("0.0.1") { source md5: "f16120be63e9c8c7597d3f30a5c2dd40" }
 version("0.0.2") { source md5: "58c54b48517a8359f219e926f89f39e7" }
 version("0.0.5") { source md5: "d8993994f54f624c830518c483ac43f9" }
 version("0.0.6") { source md5: "37eff013cdd48f16eb51061513593cb3" }
+version("0.0.7") { source md5: "9a314b69fb7a41fa3692553fbb071872" }
 
 source url: "https://chef-releng.s3.amazonaws.com/discord/discord-#{version}.tar.gz"
 
