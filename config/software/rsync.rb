@@ -18,6 +18,7 @@ name "rsync"
 default_version "3.1.1"
 
 dependency "popt"
+dependency "config_guess"
 
 source url: "http://rsync.samba.org/ftp/rsync/src/rsync-3.1.1.tar.gz",
        md5: "43bd6676f0b404326eee2d63be3cdcfe"
@@ -26,6 +27,8 @@ relative_path "rsync-3.1.1"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
+
+  update_config_guess
 
   command "./configure" \
           " --prefix=#{install_dir}/embedded" \
