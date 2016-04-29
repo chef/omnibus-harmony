@@ -17,6 +17,8 @@
 name "popt"
 default_version "1.16"
 
+dependency "config_guess"
+
 source url: "http://rpm5.org/files/popt/popt-1.16.tar.gz",
        md5: "3743beefa3dd6247a73f8f7a32c14c33"
 
@@ -24,6 +26,8 @@ relative_path "popt-1.16"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
+
+  update_config_guess
 
   # --disable-nls => Disable localization support.
   command "./configure" \
