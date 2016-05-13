@@ -27,6 +27,10 @@ exclude '\.git*'
 exclude 'bundler\/git'
 exclude 'man\/'
 
+package :rpm do
+  signing_passphrase ENV["OMNIBUS_RPM_SIGNING_PASSPHRASE"]
+end
+
 package :pkg do
   identifier 'com.getchef.harmony'
 end
