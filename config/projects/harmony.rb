@@ -13,6 +13,10 @@ dependency 'preparation'
 # harmony dependencies/components
 if windows?
   dependency 'libyaml-windows'
+  # openssl-windows has read-only files in its
+  # tar file. This makes libarchive sad on windows.
+  # We need to make sure it works
+  dependency 'openssl-windows'
 else
   # builds the 'discord' dummy project
   # see the discord software def. for more details
