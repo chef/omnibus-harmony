@@ -1,6 +1,8 @@
 name 'harmony'
-maintainer 'Chef Software'
-homepage 'https://getchef.com'
+maintainer "Chef Software Inc"
+homepage   "https://www.chef.io"
+license "Apache-2.0"
+license_file "LICENSE"
 
 install_dir "#{default_root}/#{name}"
 
@@ -11,17 +13,18 @@ build_iteration 1
 dependency 'preparation'
 
 # harmony dependencies/components
-if windows?
-  dependency 'libyaml-windows'
-else
+dependency "libxml2"
+dependency "libxslt"
+dependency "libiconv"
+dependency "liblzma"
+dependency "zlib"
+dependency 'openssl'
+
+unless windows?
   # builds the 'discord' dummy project
   # see the discord software def. for more details
   dependency 'discord'
-  dependency 'rsync'
 end
-
-# version manifest file
-dependency 'version-manifest'
 
 exclude '\.git*'
 exclude 'bundler\/git'

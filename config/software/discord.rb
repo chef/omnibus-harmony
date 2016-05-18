@@ -21,6 +21,8 @@
 name "discord"
 default_version "0.0.8"
 
+license :project_license
+
 dependency "zlib"
 
 version("0.0.1") { source md5: "f16120be63e9c8c7597d3f30a5c2dd40" }
