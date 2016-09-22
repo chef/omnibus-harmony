@@ -1,0 +1,7 @@
+ec2_attributes: &ec2_attributes
+  opscode-ci:
+    master:
+      host_name: <%= ENV['USER'] %>-jenkins-master.dev.chef.co
+      github_oauth:
+        client-id: <%= ENV['GITHUB_OAUTH_ID'] %>
+        client-secret: <%= ENV['GITHUB_OAUTH_SECRET'] %>
