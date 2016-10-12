@@ -13,12 +13,14 @@ build_iteration 1
 dependency 'preparation'
 
 # harmony dependencies/components
-dependency "libxml2"
-dependency "libxslt"
-dependency "libiconv"
-dependency "liblzma"
-dependency "zlib"
-dependency 'openssl'
+# dependency "libxml2"
+# dependency "libxslt"
+# dependency "libiconv"
+# dependency "liblzma"
+# dependency "zlib"
+# dependency 'openssl'
+
+#dependency 'rubygems'
 
 unless windows?
   # builds the 'discord' dummy project
