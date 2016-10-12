@@ -20,7 +20,7 @@ dependency 'preparation'
 # dependency "zlib"
 # dependency 'openssl'
 
-#dependency 'rubygems'
+dependency 'rubygems'
 
 unless windows?
   # builds the 'discord' dummy project
