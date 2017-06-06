@@ -19,7 +19,7 @@
 # handling issues. Discord's makefile also creates hardlinks.
 
 name "discord"
-default_version "0.0.8"
+default_version "0.0.7"
 
 license :project_license
 
