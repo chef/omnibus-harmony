@@ -1,0 +1,54 @@
+#
+# Activate this file by setting by setting the following environment variable
+#
+# BASH:
+#   export KITCHEN_LOCAL_YAML=.kitchen.ec2.yml
+#
+# FISH:
+#   set -gx KITCHEN_LOCAL_YAML .kitchen.ec2.yml
+driver:
+  name: ec2
+
+  # Set the following with your chef-aws IAM creds:
+  # ENV['AWS_ACCESS_KEY_ID']
+  # ENV['AWS_SECRET_ACCESS_KEY']
+  aws_ssh_key_id: <%= ENV['AWS_SSH_KEY_ID'] || ENV['USER'] %>
+  # IAM Instance Profile for Route53 access to dev.chef.co
+  # arn:aws:iam::862552916454:instance-profile/opscode-ci-test-kitchen
+  iam_profile_name: opscode-ci-test-kitchen
+
+  # The default flavor we use for Jenkins slave instances
+  instance_type: t2.medium
+
+  # The following settings will deploy test instances into the same
+  # VPC subnet we use for CI.
+  region: us-west-2
+  availability_zone: a
+  security_group_ids: ['sg-96274af3']
+  subnet_id: subnet-19ac017c
+  interface: private
+
+  # Spot requests usually take less than 30 seconds to fulfill when their
+  # price is valid. This is a fairly safe price which is less than a reserved
+  # c4.large and less expensive than a t2.large.
+  # spot_price: 0.07
+  # block_duration_minutes: 240
+
+# provisioner:
+#   client_rb:
+#     environment: dev-ec2
+
+transport:
+  name: rsync
+
+
+# These AMIs explicitly map to the node type and size that we spin up here:
+# https://github.com/chef/releng-chef-repo/blob/master/script/ci#L56-L103
+platforms:
+  - name: amazon-2017.03
+    driver:
+      image_id: ami-4836a428
+    transport:
+      username: ec2-user
+    # attributes:
+    #   <<: *ec2_attributes
