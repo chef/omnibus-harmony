@@ -1,0 +1,26 @@
+# Documentation available at http://expeditor-docs.es.chef.io/
+product_key: harmony
+
+# Slack channel in Chef Software slack to send notifications about build failures, etc
+slack:
+  notify_channel: eng-services-notify
+
+github:
+  # The Github Team primarily responsible for handling incoming Pull Requests.
+  maintainer_group: chef/engineering-services
+
+# These actions are taken, in order they are specified, anytime a Pull Request is merged.
+merge_actions:
+  - built_in:trigger_omnibus_build:
+      ignore_labels:
+        - "Omnibus: Skip Build"
+        - "Expeditor: Skip All"
+
+# Subscription to workload action of pull request merge to master on omnibus-software
+# project will allow us to trigger an uncached omnibus build for harmony
+# TODO add configuration based on config files with only_if_modified:
+subscriptions:
+  # chef/omnibus-software
+  - workload: pull_request_merged:chef/omnibus-software:master:*
+    actions:
+      - built_in:trigger_omnibus_expcache_build
