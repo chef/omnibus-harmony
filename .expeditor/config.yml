@@ -3,7 +3,7 @@ product_key: harmony
 
 # Slack channel in Chef Software slack to send notifications about build failures, etc
 slack:
-  notify_channel: eng-services-notify
+  notify_channel: benthos-notify
 
 github:
   # The Github Team primarily responsible for handling incoming Pull Requests.
