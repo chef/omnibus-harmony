@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Install omnibus
-gem 'omnibus', github: 'chef/omnibus', branch: 'shain/allow_cache_suffix'
+gem 'omnibus', github: 'chef/omnibus', tag: 'v5.6.1'
 
 # Use Chef's software definitions. It is recommended that you write your own
 # software definitions, but you can clone/fork Chef's to get you started.
