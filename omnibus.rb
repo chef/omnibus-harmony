@@ -34,7 +34,6 @@ windows_arch   %w{x86 x64}.include?((ENV['OMNIBUS_WINDOWS_ARCH'] || '').downcase
 # Disable git caching
 # ------------------------------
 use_git_caching true
-cache_suffix 'harmony'
 
 # Enable S3 asset caching
 # ------------------------------
