@@ -5,7 +5,7 @@ export PROJECT_NAME=harmony
 
 sudo rm -rf /opt/$PROJECT_NAME
 sudo mkdir /opt/$PROJECT_NAME
-sudo chown build:build /opt/$PROJECT_NAME
+sudo chown build /opt/$PROJECT_NAME
 
 bundle install --without development --path vendor/bundle --retry 5
 
