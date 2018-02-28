@@ -2,6 +2,7 @@
 set -e
 
 export PROJECT_NAME=harmony
+export OMNIBUS_CACHE_DIR=~/omnibus/cache
 
 bundle install --without development --path vendor/bundle --retry 5
 
