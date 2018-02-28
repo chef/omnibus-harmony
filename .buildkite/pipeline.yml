@@ -1,0 +1,7 @@
+steps:
+  - command: "scripts/build.sh"
+    label: "build stage"
+    agents:
+      - "omnibus=true"
+
+  - wait
