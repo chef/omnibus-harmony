@@ -5,6 +5,17 @@ product_key: harmony
 slack:
   notify_channel: releng-notify
 
+buffers:
+  # If multiple PRs are merged into omnibus-software within 10 minutes of each other,
+  # only trigger a build once. Defer execution at most two times before building anyways.
+  - cache_builds:
+      type: delay
+      workload_type: github_pull_request
+      delay: 600
+      max_deferments: 2
+      actions:
+        - built_in:trigger_omnibus_expcache_build
+
 # These actions are taken, in order they are specified, anytime a Pull Request is merged.
 merge_actions:
   - built_in:trigger_omnibus_build:
@@ -19,4 +30,4 @@ subscriptions:
   # chef/omnibus-software
   - workload: pull_request_merged:chef/omnibus-software:master:*
     actions:
-      - built_in:trigger_omnibus_expcache_build
+      - buffer:cache_builds
