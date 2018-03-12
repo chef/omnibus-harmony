@@ -20,11 +20,11 @@ dependency 'preparation'
 dependency "zlib"
 # dependency 'openssl'
 
-unless windows?
-  # builds the 'discord' dummy project
-  # see the discord software def. for more details
-  dependency 'discord'
-end
+# unless windows?
+#   # builds the 'discord' dummy project
+#   # see the discord software def. for more details
+#   dependency 'discord'
+# end
 
 exclude '\.git*'
 exclude 'bundler\/git'

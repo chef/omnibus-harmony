@@ -1,13 +1,13 @@
 steps:
   - command: "scripts/build_ubuntu.sh"
     label: "ubuntu build"
-    artifact_paths: "workdir/pkg/*"
+    artifact_paths: "$workdir/outputs/*"
     agents:
       - "queue=default"
     plugins:
       docker#v1.1.1:
         always-pull: true
-        # debug: true
+        debug: true
         image: "shain/seabass:latest-ubuntu1404-build"
         # mounts:
         #   - /outputs:/outputs
