@@ -1,14 +1,14 @@
 steps:
   - command: "scripts/build_ubuntu.sh"
     label: "ubuntu build"
-    artifact_paths: "dist/*"
+    artifact_paths: "outputs/*"
     agents:
       - "queue=default"
     plugins:
       docker#v1.1.1:
         image: "shain/seabass:latest-ubuntu1404-build"
         mounts:
-          - "./outputs:/home/omnibus/outputs"
+          - "/outputs:/outputs"
         environment:
           - PROJECT_NAME=harmony
           - PROJECT_GIT_URL=https://github.com/chef/omnibus-harmony.git
@@ -17,12 +17,14 @@ steps:
 
   - command: "scripts/build_rhel.sh"
     label: "rhel build"
-    artifact_paths: "dist/*"
+    artifact_paths: "outputs/*"
     agents:
       - "queue=default"
     plugins:
       docker#v1.1.1:
         image: "shain/seabass:latest-rhel-7-build"
+        mounts:
+          - "/outputs:/outputs"
         environment:
           - PROJECT_NAME=harmony
           - PROJECT_GIT_URL=https://github.com/chef/omnibus-harmony.git
