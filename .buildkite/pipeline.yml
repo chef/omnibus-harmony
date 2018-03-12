@@ -1,7 +1,7 @@
 steps:
   - command: "scripts/build_ubuntu.sh"
     label: "ubuntu build"
-    artifact_paths: "$workdir/outputs/*"
+    artifact_paths: "local/pkg/*"
     agents:
       - "queue=default"
     plugins:
