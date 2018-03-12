@@ -14,6 +14,7 @@ steps:
         environment:
           - PROJECT_NAME=harmony
           - PROJECT_GIT_URL=https://github.com/chef/omnibus-harmony.git
+          - PROJECT_BRANCH=shain/buildkite_test
           # - PROJECT_NAME=chef-dk
           # - PROJECT_GIT_URL=https://github.com/chef/chef-dk.git
 
