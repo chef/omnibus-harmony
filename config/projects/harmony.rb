@@ -17,7 +17,7 @@ dependency 'preparation'
 # dependency "libxslt"
 # dependency "libiconv"
 # dependency "liblzma"
-dependency "zlib"
+# dependency "zlib"
 # dependency 'openssl'
 
 # unless windows?
