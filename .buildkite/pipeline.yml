@@ -2,7 +2,9 @@ steps:
   - command: "scripts/build.sh"
     label: "build stage"
     agents:
-      queue: omnibus
-      # - "omnibus=true"
+      - "queue=default"
+    plugins:
+      docker#v1.1.1:
+        image: "ubuntu:14.04"
 
   - wait
