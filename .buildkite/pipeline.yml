@@ -7,10 +7,10 @@ steps:
     plugins:
       docker#v1.1.1:
         always-pull: true
-        debug: true
+        # debug: true
         image: "shain/seabass:latest-ubuntu1404-build"
-        # mounts:
-        #   - /outputs:/outputs
+        mounts:
+          - $workdir/outputs:/outputs
         environment:
           - PROJECT_NAME=harmony
           - PROJECT_GIT_URL=https://github.com/chef/omnibus-harmony.git
