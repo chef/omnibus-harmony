@@ -5,6 +5,7 @@ steps:
       - "queue=default"
     plugins:
       docker#v1.1.1:
-        image: "ubuntu:14.04"
+        image: "scotthain/seabass:latest-rhel-7-build"
+        # image: "ubuntu:14.04"
 
   - wait
