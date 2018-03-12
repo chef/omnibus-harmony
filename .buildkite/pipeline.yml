@@ -6,6 +6,9 @@ steps:
     plugins:
       docker#v1.1.1:
         image: "shain/seabass:latest-ubuntu1404-build"
+        environment:
+          - PROJECT_NAME="omnibus-harmony"
+          - PROJECT_GIT_URL="https://github.com/chef/omnibus-harmony.git"
 
   - command: "scripts/build_rhel.sh"
     label: "rhel build"
@@ -13,10 +16,9 @@ steps:
       - "queue=default"
     plugins:
       docker#v1.1.1:
-        image: "shain/seabass:latest-rhel7-build"
+        image: "shain/seabass:latest-rhel-7-build"
         environment:
           - PROJECT_NAME="omnibus-harmony"
-            PROJECT_GIT_URL="https://github.com/chef/omnibus-harmony.git"
-            TOOLCHAIN_NAME="omnibus-toolchain"
+          - PROJECT_GIT_URL="https://github.com/chef/omnibus-harmony.git"
 
   - wait
