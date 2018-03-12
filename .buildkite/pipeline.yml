@@ -8,7 +8,7 @@ steps:
       docker#v1.1.1:
         image: "shain/seabass:latest-ubuntu1404-build"
         mounts:
-          - /outputs:/outputs
+          - /outputs:/home/omnibus/omnibus-harmony/pkg
         environment:
           - PROJECT_NAME=harmony
           - PROJECT_GIT_URL=https://github.com/chef/omnibus-harmony.git
@@ -24,7 +24,7 @@ steps:
       docker#v1.1.1:
         image: "shain/seabass:latest-rhel-7-build"
         mounts:
-          - /outputs:/outputs
+          - /outputs:/home/omnibus/omnibus-harmony/pkg
         environment:
           - PROJECT_NAME=harmony
           - PROJECT_GIT_URL=https://github.com/chef/omnibus-harmony.git
