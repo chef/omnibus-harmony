@@ -9,7 +9,7 @@ steps:
         always-pull: true
         image: "shain/seabass:latest-ubuntu1404-build"
         mounts:
-          - /outputs:/home/omnibus/omnibus-harmony/pkg
+          - /outputs:/outputs
         environment:
           - PROJECT_NAME=harmony
           - PROJECT_GIT_URL=https://github.com/chef/omnibus-harmony.git
