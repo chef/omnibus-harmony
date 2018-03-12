@@ -1,11 +1,22 @@
 steps:
-  - command: "scripts/build_ubuntu.sh"
-    label: "build stage"
+  - command: "scripts/build.sh"
+    label: "ubuntu build"
     agents:
       - "queue=default"
     plugins:
       docker#v1.1.1:
-        # image: "ubuntu:14.04"
         image: "shain/seabass:latest-ubuntu1404-build"
+
+  - command: "scripts/build_rhel.sh"
+    label: "rhel build"
+    agents:
+      - "queue=default"
+    plugins:
+      docker#v1.1.1:
+        image: "shain/seabass:latest-rhel7-build"
+        environment:
+          - PROJECT_NAME="omnibus-harmony"
+            PROJECT_GIT_URL="https://github.com/chef/omnibus-harmony.git"
+            TOOLCHAIN_NAME="omnibus-toolchain"
 
   - wait
