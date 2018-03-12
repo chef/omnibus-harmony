@@ -6,6 +6,7 @@ steps:
       - "queue=default"
     plugins:
       docker#v1.1.1:
+        always-pull: true
         image: "shain/seabass:latest-ubuntu1404-build"
         mounts:
           - /outputs:/home/omnibus/omnibus-harmony/pkg
@@ -22,7 +23,8 @@ steps:
       - "queue=default"
     plugins:
       docker#v1.1.1:
-        image: "shain/seabass:latest-rhel-7-build"
+        always-pull: true
+        image: "shain/seabass:latest-rhel7-build"
         mounts:
           - /outputs:/home/omnibus/omnibus-harmony/pkg
         environment:
