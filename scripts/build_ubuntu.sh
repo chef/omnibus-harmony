@@ -3,6 +3,7 @@ set -e
 
 export PROJECT_NAME=harmony
 
+apt-get update -y
 apt-get install -y autoconf binutils-doc bison build-essential flex gettext ncurses-dev sudo
 
 curl -L https://omnitruck.chef.io/install.sh | sudo bash -s -- -P omnibus-toolchain
