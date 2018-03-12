@@ -7,6 +7,7 @@ steps:
     plugins:
       docker#v1.1.1:
         always-pull: true
+        debug: true
         image: "shain/seabass:latest-ubuntu1404-build"
         mounts:
           - /outputs:/outputs
@@ -16,20 +17,20 @@ steps:
           # - PROJECT_NAME=chef-dk
           # - PROJECT_GIT_URL=https://github.com/chef/chef-dk.git
 
-  - command: "scripts/build_rhel.sh"
-    label: "rhel build"
-    artifact_paths: "outputs/*"
-    agents:
-      - "queue=default"
-    plugins:
-      docker#v1.1.1:
-        always-pull: true
-        image: "shain/seabass:latest-rhel7-build"
-        mounts:
-          - /outputs:/home/omnibus/omnibus-harmony/pkg
-        environment:
-          - PROJECT_NAME=harmony
-          - PROJECT_GIT_URL=https://github.com/chef/omnibus-harmony.git
+  # - command: "scripts/build_rhel.sh"
+  #   label: "rhel build"
+  #   artifact_paths: "outputs/*"
+  #   agents:
+  #     - "queue=default"
+  #   plugins:
+  #     docker#v1.1.1:
+  #       always-pull: true
+  #       image: "shain/seabass:latest-rhel7-build"
+  #       mounts:
+  #         - /outputs:/outputs
+  #       environment:
+  #         - PROJECT_NAME=harmony
+  #         - PROJECT_GIT_URL=https://github.com/chef/omnibus-harmony.git
 
   # - command: "scripts/build_macos.sh"
   #   label: "macos build"
