@@ -1,5 +1,5 @@
 steps:
-  - command: "scripts/build.sh"
+  - command: "scripts/build_ubuntu.sh"
     label: "build stage"
     agents:
       - "queue=default"
