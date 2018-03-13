@@ -3,10 +3,7 @@ set -e
 
 # export PROJECT_NAME=harmony
 
-echo "THINGS GO HERE YAY"
-whoami
-id
-ls -la /home/omnibus/
+bash -c /home/omnibus/build_project.sh
 buildkite-agent --version
 
 # apt-get update -y
