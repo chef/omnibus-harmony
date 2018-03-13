@@ -40,7 +40,7 @@ steps:
           - PROJECT_GIT_URL=https://github.com/chef/omnibus-harmony.git
           - PROJECT_BRANCH=shain/buildkite_test
 
-- command: "scripts/build_rhel.sh"
+  - command: "scripts/build_rhel.sh"
     label: "[EL][7] Build"
     agents:
       - "queue=default"
