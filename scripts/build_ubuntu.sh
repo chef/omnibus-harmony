@@ -4,8 +4,8 @@ set -e
 # export PROJECT_NAME=harmony
 
 bash -c /home/omnibus/build_project.sh
-buildkite-agent --version
 
+ls -la /home/omnibus/$PROJECT_NAME/pkg
 # apt-get update -y
 # apt-get install -y autoconf binutils-doc bison build-essential flex gettext ncurses-dev sudo
 
