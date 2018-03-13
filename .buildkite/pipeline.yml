@@ -7,7 +7,7 @@ steps:
     plugins:
       docker#v1.1.1:
         always-pull: true
-        debug: true
+        # debug: true
         image: "shain/seabass:latest-ubuntu1404-build"
         environment:
           - PROJECT_NAME=harmony

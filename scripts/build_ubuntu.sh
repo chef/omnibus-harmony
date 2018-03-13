@@ -4,7 +4,9 @@ set -e
 # export PROJECT_NAME=harmony
 
 echo "THINGS GO HERE YAY"
-
+whoami
+id
+ls -la /home/omnibus/
 buildkite-agent --version
 
 # apt-get update -y
