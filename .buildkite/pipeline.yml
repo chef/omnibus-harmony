@@ -1,16 +1,14 @@
 steps:
   - command: "scripts/build_ubuntu.sh"
+    # - ""
     label: "ubuntu build"
-    artifact_paths: "local/pkg/*"
     agents:
       - "queue=default"
     plugins:
       docker#v1.1.1:
         always-pull: true
-        # debug: true
+        debug: true
         image: "shain/seabass:latest-ubuntu1404-build"
-        mounts:
-          - $workdir/outputs:/outputs
         environment:
           - PROJECT_NAME=harmony
           - PROJECT_GIT_URL=https://github.com/chef/omnibus-harmony.git

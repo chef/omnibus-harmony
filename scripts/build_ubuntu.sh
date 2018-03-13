@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 set -e
 
-export PROJECT_NAME=harmony
+# export PROJECT_NAME=harmony
 
+echo "THINGS GO HERE YAY"
 
+buildkite-agent --version
 # apt-get update -y
 # apt-get install -y autoconf binutils-doc bison build-essential flex gettext ncurses-dev sudo
 
