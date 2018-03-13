@@ -5,4 +5,4 @@ set -e
 
 bash -c /home/omnibus/build_project.sh
 
-ls -la /home/omnibus/$PROJECT_NAME/pkg
+buildkite-agent artifact upload /home/omnibus/$PROJECT_NAME/pkg/*.deb
