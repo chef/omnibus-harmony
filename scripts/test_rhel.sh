@@ -3,6 +3,7 @@ set -e
 
 sudo buildkite-agent artifact download "*.el7.*.rpm" .
 ls -la /opt/
+ls -la .
 
 sudo rpm -i *.rpm
 
