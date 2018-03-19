@@ -105,6 +105,7 @@ steps:
           - PROJECT_NAME=harmony
           - PROJECT_GIT_URL=https://github.com/chef/omnibus-harmony.git
           - PROJECT_BRANCH=shain/buildkite_test
+          - VERIFY_COMMAND=ls -la /opt/harmony/embedded/bin
           - PLATFORM_PACKAGE_KEY=ubuntu1404
 
   - command: "scripts/test_ubuntu.sh"
@@ -119,4 +120,5 @@ steps:
           - PROJECT_NAME=harmony
           - PROJECT_GIT_URL=https://github.com/chef/omnibus-harmony.git
           - PROJECT_BRANCH=shain/buildkite_test
+          - VERIFY_COMMAND=ls -la /opt/harmony/embedded/bin
           - PLATFORM_PACKAGE_KEY=ubuntu1604
