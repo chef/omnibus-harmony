@@ -2,6 +2,7 @@
 set -ex
 
 # Build the project itself here
+export OMNIBUS_BUILD_OPTIONS="-l internal fatal_licensing_warnings:true cache_suffix:$PROJECT_NAME append_timestamp:false"
 /home/omnibus/build_project.sh
 
 # Upload the artifact to the buildkite job
