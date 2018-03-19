@@ -2,7 +2,7 @@
 set -ex
 
 # Build the project itself here
-bash -c "OMNIBUS_BUILD_OPTIONS='-l internal fatal_licensing_warnings:true cache_suffix:$PROJECT_NAME append_timestamp:false' /home/omnibus/build_project.sh"
+/home/omnibus/build_project.sh
 
 # Upload the artifact to the buildkite job
 # We make an arbitrarily named directory structure so we can grab the correct package
