@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -e
+set -ex
 
 # Build the project itself here
 bash -c /home/omnibus/build_project.sh
