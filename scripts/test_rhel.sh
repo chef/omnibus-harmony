@@ -1,13 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
-sudo buildkite-agent artifact download "*.el7.*.rpm" .
-ls -la /opt/
-ls -la home/omnibus/harmony/pkg/
+sudo buildkite-agent artifact download "*.$PLATFORM_PACKAGE_KEY.*.rpm" .
 
-sudo rpm -i home/omnibus/harmony/pkg/*.rpm
+sudo rpm -i *.rpm
 
-# Build the project itself here
+# Test the project itself here
 bash -c /home/omnibus/test_project.sh
-
-ls -la /home/omnibus

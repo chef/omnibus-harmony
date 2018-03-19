@@ -5,4 +5,6 @@ set -e
 bash -c /home/omnibus/build_project.sh
 
 # Upload the artifact to the buildkite job
-buildkite-agent artifact upload /home/omnibus/$PROJECT_NAME/pkg/*.deb
+# We cd to the directory so we only get the package and not the dir structure
+cd /home/omnibus/$PROJECT_NAME/pkg/
+buildkite-agent artifact upload *.deb

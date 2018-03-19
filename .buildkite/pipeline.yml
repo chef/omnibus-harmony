@@ -1,44 +1,42 @@
 steps:
-  # - command: "scripts/build_ubuntu.sh"
-  #   label: "[Ubuntu][14.04] Build"
-  #   agents:
-  #     - "queue=default"
-  #   plugins:
-  #     docker#v1.1.1:
-  #       always-pull: true
-  #       image: "shain/seabass:latest-ubuntu1404-build"
-  #       environment:
-  #         - PROJECT_NAME=harmony
-  #         - PROJECT_GIT_URL=https://github.com/chef/omnibus-harmony.git
-  #         - PROJECT_BRANCH=shain/buildkite_test
-  #         # - PROJECT_NAME=chef-dk
-  #         # - PROJECT_GIT_URL=https://github.com/chef/chef-dk.git
+  - command: "scripts/build_ubuntu.sh"
+    label: "[Ubuntu][14.04] Build"
+    agents:
+      - "queue=default"
+    plugins:
+      docker#v1.1.1:
+        always-pull: true
+        image: "shain/seabass:latest-ubuntu1404-build"
+        environment:
+          - PROJECT_NAME=harmony
+          - PROJECT_GIT_URL=https://github.com/chef/omnibus-harmony.git
+          - PROJECT_BRANCH=shain/buildkite_test
 
-  # - command: "scripts/build_ubuntu.sh"
-  #   label: "[Ubuntu][16.04] Build"
-  #   agents:
-  #     - "queue=default"
-  #   plugins:
-  #     docker#v1.1.1:
-  #       always-pull: true
-  #       image: "shain/seabass:latest-ubuntu1604-build"
-  #       environment:
-  #         - PROJECT_NAME=harmony
-  #         - PROJECT_GIT_URL=https://github.com/chef/omnibus-harmony.git
-  #         - PROJECT_BRANCH=shain/buildkite_test
+  - command: "scripts/build_ubuntu.sh"
+    label: "[Ubuntu][16.04] Build"
+    agents:
+      - "queue=default"
+    plugins:
+      docker#v1.1.1:
+        always-pull: true
+        image: "shain/seabass:latest-ubuntu1604-build"
+        environment:
+          - PROJECT_NAME=harmony
+          - PROJECT_GIT_URL=https://github.com/chef/omnibus-harmony.git
+          - PROJECT_BRANCH=shain/buildkite_test
 
-  # - command: "scripts/build_rhel.sh"
-  #   label: "[EL][6] Build"
-  #   agents:
-  #     - "queue=default"
-  #   plugins:
-  #     docker#v1.1.1:
-  #       always-pull: true
-  #       image: "shain/seabass:latest-rhel6-build"
-  #       environment:
-  #         - PROJECT_NAME=harmony
-  #         - PROJECT_GIT_URL=https://github.com/chef/omnibus-harmony.git
-  #         - PROJECT_BRANCH=shain/buildkite_test
+  - command: "scripts/build_rhel.sh"
+    label: "[EL][6] Build"
+    agents:
+      - "queue=default"
+    plugins:
+      docker#v1.1.1:
+        always-pull: true
+        image: "shain/seabass:latest-rhel6-build"
+        environment:
+          - PROJECT_NAME=harmony
+          - PROJECT_GIT_URL=https://github.com/chef/omnibus-harmony.git
+          - PROJECT_BRANCH=shain/buildkite_test
 
   - command: "scripts/build_rhel.sh"
     label: "[EL][7] Build"
@@ -62,6 +60,21 @@ steps:
   - wait
 
   - command: "scripts/test_rhel.sh"
+    label: "[EL][6] Test"
+    agents:
+      - "queue=default"
+    plugins:
+      docker#v1.1.1:
+        always-pull: true
+        image: "shain/seabass:latest-rhel6-test"
+        environment:
+          - PROJECT_NAME=harmony
+          - PROJECT_GIT_URL=https://github.com/chef/omnibus-harmony.git
+          - PROJECT_BRANCH=shain/buildkite_test
+          - VERIFY_COMMAND=ls -la /opt/harmony/embedded/bin
+          - PLATFORM_PACKAGE_KEY=el6
+
+  - command: "scripts/test_rhel.sh"
     label: "[EL][7] Test"
     agents:
       - "queue=default"
@@ -74,3 +87,32 @@ steps:
           - PROJECT_GIT_URL=https://github.com/chef/omnibus-harmony.git
           - PROJECT_BRANCH=shain/buildkite_test
           - VERIFY_COMMAND=ls -la /opt/harmony/embedded/bin
+          - PLATFORM_PACKAGE_KEY=el7
+
+  - command: "scripts/test_ubuntu.sh"
+    label: "[Ubuntu][14.04] Test"
+    agents:
+      - "queue=default"
+    plugins:
+      docker#v1.1.1:
+        always-pull: true
+        image: "shain/seabass:latest-ubuntu1404-test"
+        environment:
+          - PROJECT_NAME=harmony
+          - PROJECT_GIT_URL=https://github.com/chef/omnibus-harmony.git
+          - PROJECT_BRANCH=shain/buildkite_test
+          - PLATFORM_PACKAGE_KEY=ubuntu1404
+
+  - command: "scripts/test_ubuntu.sh"
+    label: "[Ubuntu][16.04] Test"
+    agents:
+      - "queue=default"
+    plugins:
+      docker#v1.1.1:
+        always-pull: true
+        image: "shain/seabass:latest-ubuntu1604-test"
+        environment:
+          - PROJECT_NAME=harmony
+          - PROJECT_GIT_URL=https://github.com/chef/omnibus-harmony.git
+          - PROJECT_BRANCH=shain/buildkite_test
+          - PLATFORM_PACKAGE_KEY=ubuntu1604
