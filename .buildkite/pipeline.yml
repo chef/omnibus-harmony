@@ -11,6 +11,7 @@ steps:
           - PROJECT_NAME=harmony
           - PROJECT_GIT_URL=https://github.com/chef/omnibus-harmony.git
           - PROJECT_BRANCH=shain/buildkite_test
+          - PLATFORM_PACKAGE_KEY=ubuntu1404
 
   - command: "scripts/build_ubuntu.sh"
     label: "[Ubuntu][16.04] Build"
@@ -24,6 +25,7 @@ steps:
           - PROJECT_NAME=harmony
           - PROJECT_GIT_URL=https://github.com/chef/omnibus-harmony.git
           - PROJECT_BRANCH=shain/buildkite_test
+          - PLATFORM_PACKAGE_KEY=ubuntu1604
 
   - command: "scripts/build_rhel.sh"
     label: "[EL][6] Build"
@@ -37,6 +39,7 @@ steps:
           - PROJECT_NAME=harmony
           - PROJECT_GIT_URL=https://github.com/chef/omnibus-harmony.git
           - PROJECT_BRANCH=shain/buildkite_test
+          - PLATFORM_PACKAGE_KEY=el6
 
   - command: "scripts/build_rhel.sh"
     label: "[EL][7] Build"
@@ -50,6 +53,7 @@ steps:
           - PROJECT_NAME=harmony
           - PROJECT_GIT_URL=https://github.com/chef/omnibus-harmony.git
           - PROJECT_BRANCH=shain/buildkite_test
+          - PLATFORM_PACKAGE_KEY=el7
 
   # - command: "scripts/build_macos.sh"
   #   label: "macos build"

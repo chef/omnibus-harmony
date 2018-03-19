@@ -5,6 +5,9 @@ set -ex
 bash -c /home/omnibus/build_project.sh
 
 # Upload the artifact to the buildkite job
-# We cd to the directory so we only get the package and not the dir structure
+# We make an arbitrarily named directory structure so we can grab the correct package
+# in the test phase.
 cd /home/omnibus/$PROJECT_NAME/pkg/
-buildkite-agent artifact upload *.rpm
+mkdir $PLATFORM_PACKAGE_KEY
+mv *.rpm $PLATFORM_PACKAGE_KEY/
+buildkite-agent artifact upload $PLATFORM_PACKAGE_KEY/*.rpm
