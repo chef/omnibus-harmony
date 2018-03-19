@@ -10,4 +10,4 @@ bash -c /home/omnibus/build_project.sh
 cd /home/omnibus/$PROJECT_NAME/pkg/
 mkdir $PLATFORM_PACKAGE_KEY
 mv *.deb $PLATFORM_PACKAGE_KEY/
-buildkite-agent artifact upload *.deb
+buildkite-agent artifact upload $PLATFORM_PACKAGE_KEY/*.deb
