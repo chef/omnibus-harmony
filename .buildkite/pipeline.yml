@@ -55,70 +55,69 @@ steps:
           - PROJECT_BRANCH=shain/buildkite_test
           - PLATFORM_PACKAGE_KEY=el7
 
-  # - command: "scripts/build_macos.sh"
-  #   label: "macos build"
-  #   artifact_paths: "outputs/*"
-  #   agents:
-  #     - "omnibus=true"
+
 
   - wait
 
-  - command: "scripts/test_rhel.sh"
-    label: "[EL][6] Test"
-    agents:
-      - "queue=default"
-    plugins:
-      docker#v1.1.1:
-        always-pull: true
-        image: "shain/seabass:latest-rhel6-test"
-        environment:
-          - PROJECT_NAME=harmony
-          - PROJECT_GIT_URL=https://github.com/chef/omnibus-harmony.git
-          - PROJECT_BRANCH=shain/buildkite_test
-          - VERIFY_COMMAND=ls -la /opt/harmony/embedded/bin
-          - PLATFORM_PACKAGE_KEY=el6
+  - command: "scripts/upload_artifacts.sh"
+    label: "Package Upload"
 
-  - command: "scripts/test_rhel.sh"
-    label: "[EL][7] Test"
-    agents:
-      - "queue=default"
-    plugins:
-      docker#v1.1.1:
-        always-pull: true
-        image: "shain/seabass:latest-rhel7-test"
-        environment:
-          - PROJECT_NAME=harmony
-          - PROJECT_GIT_URL=https://github.com/chef/omnibus-harmony.git
-          - PROJECT_BRANCH=shain/buildkite_test
-          - VERIFY_COMMAND=ls -la /opt/harmony/embedded/bin
-          - PLATFORM_PACKAGE_KEY=el7
+  # - command: "scripts/test_rhel.sh"
+  #   label: "[EL][6] Test"
+  #   agents:
+  #     - "queue=default"
+  #   plugins:
+  #     docker#v1.1.1:
+  #       always-pull: true
+  #       image: "shain/seabass:latest-rhel6-test"
+  #       environment:
+  #         - PROJECT_NAME=harmony
+  #         - PROJECT_GIT_URL=https://github.com/chef/omnibus-harmony.git
+  #         - PROJECT_BRANCH=shain/buildkite_test
+  #         - VERIFY_COMMAND=ls -la /opt/harmony/embedded/bin
+  #         - PLATFORM_PACKAGE_KEY=el6
 
-  - command: "scripts/test_ubuntu.sh"
-    label: "[Ubuntu][14.04] Test"
-    agents:
-      - "queue=default"
-    plugins:
-      docker#v1.1.1:
-        always-pull: true
-        image: "shain/seabass:latest-ubuntu1404-test"
-        environment:
-          - PROJECT_NAME=harmony
-          - PROJECT_GIT_URL=https://github.com/chef/omnibus-harmony.git
-          - PROJECT_BRANCH=shain/buildkite_test
-          - VERIFY_COMMAND=ls -la /opt/harmony/embedded/bin
-          - PLATFORM_PACKAGE_KEY=ubuntu1404
+  # - command: "scripts/test_rhel.sh"
+  #   label: "[EL][7] Test"
+  #   agents:
+  #     - "queue=default"
+  #   plugins:
+  #     docker#v1.1.1:
+  #       always-pull: true
+  #       image: "shain/seabass:latest-rhel7-test"
+  #       environment:
+  #         - PROJECT_NAME=harmony
+  #         - PROJECT_GIT_URL=https://github.com/chef/omnibus-harmony.git
+  #         - PROJECT_BRANCH=shain/buildkite_test
+  #         - VERIFY_COMMAND=ls -la /opt/harmony/embedded/bin
+  #         - PLATFORM_PACKAGE_KEY=el7
 
-  - command: "scripts/test_ubuntu.sh"
-    label: "[Ubuntu][16.04] Test"
-    agents:
-      - "queue=default"
-    plugins:
-      docker#v1.1.1:
-        always-pull: true
-        image: "shain/seabass:latest-ubuntu1604-test"
-        environment:
-          - PROJECT_NAME=harmony
-          - PROJECT_GIT_URL=https://github.com/chef/omnibus-harmony.git
-          - PROJECT_BRANCH=shain/buildkite_test
-          - VERIFY_COMMAND=ls -la /opt/harmony/embedded/bin
-          - PLATFORM_PACKAGE_KEY=ubuntu1604
+  # - command: "scripts/test_ubuntu.sh"
+  #   label: "[Ubuntu][14.04] Test"
+  #   agents:
+  #     - "queue=default"
+  #   plugins:
+  #     docker#v1.1.1:
+  #       always-pull: true
+  #       image: "shain/seabass:latest-ubuntu1404-test"
+  #       environment:
+  #         - PROJECT_NAME=harmony
+  #         - PROJECT_GIT_URL=https://github.com/chef/omnibus-harmony.git
+  #         - PROJECT_BRANCH=shain/buildkite_test
+  #         - VERIFY_COMMAND=ls -la /opt/harmony/embedded/bin
+  #         - PLATFORM_PACKAGE_KEY=ubuntu1404
+
+  # - command: "scripts/test_ubuntu.sh"
+  #   label: "[Ubuntu][16.04] Test"
+  #   agents:
+  #     - "queue=default"
+  #   plugins:
+  #     docker#v1.1.1:
+  #       always-pull: true
+  #       image: "shain/seabass:latest-ubuntu1604-test"
+  #       environment:
+  #         - PROJECT_NAME=harmony
+  #         - PROJECT_GIT_URL=https://github.com/chef/omnibus-harmony.git
+  #         - PROJECT_BRANCH=shain/buildkite_test
+  #         - VERIFY_COMMAND=ls -la /opt/harmony/embedded/bin
+  #         - PLATFORM_PACKAGE_KEY=ubuntu1604
