@@ -12,6 +12,6 @@ error_exit()
   exit 1
 }
 
-echo "Thank you for installing harmony!"
+echo "Thank you for installing Harmony!"
 
 exit 0

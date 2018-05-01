@@ -4,6 +4,6 @@
 # after package is uninstalled.
 #
 
-echo "harmony has been uninstalled!"
+echo "Harmony has been uninstalled!"
 
 exit 0
