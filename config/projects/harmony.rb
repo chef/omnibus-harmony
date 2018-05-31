@@ -12,19 +12,23 @@ build_iteration 1
 # creates required build directories
 dependency 'preparation'
 
-# harmony dependencies/components
-dependency "libxml2"
-dependency "libxslt"
-dependency "libiconv"
-dependency "liblzma"
-dependency "zlib"
-dependency 'openssl'
+override :git, version: "2.17.1"
 
-unless windows?
+
+# harmony dependencies/components
+# dependency "libxml2"
+# dependency "libxslt"
+# dependency "libiconv"
+# dependency "liblzma"
+# dependency "zlib"
+# dependency 'openssl'
+dependency 'git'
+
+#unless windows?
   # builds the 'discord' dummy project
   # see the discord software def. for more details
-  dependency 'discord'
-end
+#  dependency 'discord'
+#end
 
 exclude '\.git*'
 exclude 'bundler\/git'
