@@ -1,10 +1,10 @@
 steps:
   - label: "dooooooot"
     command: uname -a
+    agents:
       queue: omnibus
       os: Darwin
       "os:version": 10.13
-
 
 # steps:
 #   - command: "scripts/build_ubuntu.sh"
