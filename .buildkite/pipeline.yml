@@ -1,6 +1,8 @@
 steps:
   - label: "dooooooot"
-    command: "uname -a"
+    command: uname -a
+    concurrency_group: "harmony/test/macos"
+    concurrency: 1
     agents:
       queue: omnibus
       os: Darwin
