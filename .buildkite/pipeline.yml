@@ -1,3 +1,4 @@
+steps:
   - label: "dooooooot"
     command: uname -a
       queue: omnibus
