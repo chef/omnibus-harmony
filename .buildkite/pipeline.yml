@@ -1,6 +1,6 @@
 steps:
   - label: "dooooooot"
-    command: uname -a
+    command: "uname -a"
     agents:
       queue: omnibus
       os: Darwin
