@@ -10,3 +10,4 @@ files/**/cache/
 vendor/cookbooks
 Gemfile.lock
 Berksfile.lock
+local/*
