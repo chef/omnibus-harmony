@@ -12,6 +12,11 @@ github:
   expire_cache_labels:
     - "Omnibus: Expire Cache"
 
+pipelines:
+  - build/omnibus:
+      description: Beta for Buildkite Omnibus Builds
+      definition: .expeditor/build_omnibus.pipeline.yml
+
 # These actions are taken, in order they are specified, anytime a Pull Request is merged.
 merge_actions:
   - built_in:trigger_omnibus_build:
