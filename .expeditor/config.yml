@@ -13,9 +13,10 @@ github:
     - "Omnibus: Expire Cache"
 
 pipelines:
-  - build/omnibus:
-      description: Beta for Buildkite Omnibus Builds
-      definition: .expeditor/build_omnibus.pipeline.yml
+  - omnibus/build
+  - omnibus/acceptance:
+      env:
+        - EXPEDITOR_CHANNEL: acceptance
 
 # These actions are taken, in order they are specified, anytime a Pull Request is merged.
 merge_actions:
@@ -32,3 +33,6 @@ subscriptions:
   - workload: pull_request_merged:chef/omnibus-software:master:*
     actions:
       - built_in:trigger_omnibus_expcache_build
+  - workload: buildkite_build_finished:chef/expeditor:master:chef-expeditor-master-deploy-acceptance:*
+    actions:
+      - trigger_pipeline:omnibus/acceptance
