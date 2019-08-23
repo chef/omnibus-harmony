@@ -18,29 +18,23 @@
 # of a simple makefile and C program to aid in debugging Omnibus packaging, file
 # handling issues. Discord's makefile also creates hardlinks.
 
-name "discord"
-default_version "0.0.8"
+name "patchelf"
+default_version "0.10"
 
 license :project_license
 
-dependency "zlib"
+version("0.10") { source md5: "228ade8c1b4033670bcf7f77c0ea1fb7" }
 
-version("0.0.1") { source md5: "f16120be63e9c8c7597d3f30a5c2dd40" }
-version("0.0.2") { source md5: "58c54b48517a8359f219e926f89f39e7" }
-version("0.0.5") { source md5: "d8993994f54f624c830518c483ac43f9" }
-version("0.0.6") { source md5: "37eff013cdd48f16eb51061513593cb3" }
-version("0.0.7") { source md5: "9a314b69fb7a41fa3692553fbb071872" }
-version("0.0.8") { source md5: "984cf3016820dac7b2e4a8804d01e4ac" }
+source url: "https://nixos.org/releases/patchelf/patchelf-#{version}/patchelf-#{version}.tar.gz"
 
-source url: "https://chef-releng.s3.amazonaws.com/discord/discord-#{version}.tar.gz"
-
-relative_path "discord-#{version}"
+relative_path "patchelf-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  env['PREFIX'] = "#{install_dir}/embedded"
+  
+  configure "--prefix #{install_dir}/embedded"
 
-  make "-j #{workers}", env: env
-  make "-j #{workers} install", env: env
+  make env: env
+  make "install", env: env
 end
