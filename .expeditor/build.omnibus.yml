@@ -2,7 +2,6 @@
 project-name: harmony
 test-path: omnibus-test.sh
 builder-to-testers-map:
-builder-to-testers-map:
   aix-7.1-powerpc:
     - aix-7.1-powerpc
     - aix-7.2-powerpc
