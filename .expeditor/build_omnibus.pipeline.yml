@@ -1,0 +1,300 @@
+env:
+  BUILD_TIMESTAMP: 2019-09-25_11-22-33
+
+steps:
+  - label: ":hammer_and_wrench: debian-8-x86_64"
+    agents:
+      queue: omnibus-debian-8-x86_64
+    plugins:
+      chef/omnibus#master:
+        build: harmony
+        omnibus-pipeline-definition-path: .expeditor/build.omnibus.yml
+        adhoc: true
+
+  - label: ":hammer_and_wrench: el-6-i386"
+    agents:
+      queue: omnibus-el-6-i386
+    plugins:
+      chef/omnibus#master:
+        build: harmony
+        omnibus-pipeline-definition-path: .expeditor/build.omnibus.yml
+        adhoc: true
+
+  - label: ":hammer_and_wrench: el-6-x86_64"
+    agents:
+      queue: omnibus-el-6-x86_64
+    plugins:
+      chef/omnibus#master:
+        build: harmony
+        omnibus-pipeline-definition-path: .expeditor/build.omnibus.yml
+        adhoc: true
+
+  - label: ":hammer_and_wrench: el-7-aarch64"
+    agents:
+      queue: omnibus-el-7-aarch64
+    plugins:
+      chef/omnibus#master:
+        build: harmony
+        omnibus-pipeline-definition-path: .expeditor/build.omnibus.yml
+        adhoc: true
+
+  - label: ":hammer_and_wrench: el-7-x86_64"
+    agents:
+      queue: omnibus-el-7-x86_64
+    plugins:
+      chef/omnibus#master:
+        build: harmony
+        omnibus-pipeline-definition-path: .expeditor/build.omnibus.yml
+        adhoc: true
+
+  - label: ":hammer_and_wrench: mac_os_x-10.13-x86_64"
+    agents:
+      queue: "anka-trial"
+    plugins:
+      - chef/omnibus#master:
+          build: harmony
+          omnibus-pipeline-definition-path: .expeditor/build.omnibus.yml
+          adhoc: true
+      - chef/anka#master:
+          vm-name: "macos-omnibus-10.13"
+          wait-network: true
+
+  - label: ":hammer_and_wrench: sles-12-x86_64"
+    agents:
+      queue: omnibus-sles-12-x86_64
+    plugins:
+      chef/omnibus#master:
+        build: harmony
+        omnibus-pipeline-definition-path: .expeditor/build.omnibus.yml
+        adhoc: true
+
+  - label: ":hammer_and_wrench: ubuntu-16.04-x86_64"
+    agents:
+      queue: omnibus-ubuntu-16.04-x86_64
+    plugins:
+      chef/omnibus#master:
+        build: harmony
+        omnibus-pipeline-definition-path: .expeditor/build.omnibus.yml
+        adhoc: true
+
+  - label: ":hammer_and_wrench: windows-2012r2-i386"
+    agents:
+      queue: omnibus-windows-2012r2-i386
+    plugins:
+      chef/omnibus#master:
+        build: harmony
+        omnibus-pipeline-definition-path: .expeditor/build.omnibus.yml
+        adhoc: true
+
+  - label: ":hammer_and_wrench: windows-2012r2-x86_64"
+    agents:
+      queue: omnibus-windows-2012r2-x86_64
+    plugins:
+      chef/omnibus#master:
+        build: harmony
+        omnibus-pipeline-definition-path: .expeditor/build.omnibus.yml
+        adhoc: true
+
+  - wait
+
+  - label: Create Build Record
+    plugins:
+      chef/omnibus#master:
+        create-build-record: harmony
+
+  # - label: set metadata
+  #   command: buildkite-agent meta-data set "harmony_build_version" "0.1.0+20190315112233.git.54.18d8f48"
+
+  - wait
+
+  - label: ":mag: debian-8-x86_64"
+    agents:
+      queue: omnibus-debian-8-x86_64
+    plugins:
+      chef/omnibus#master:
+        test: harmony
+        test-path: omnibus-test.sh
+
+  - label: ":mag: debian-9-x86_64"
+    agents:
+      queue: omnibus-debian-9-x86_64
+    plugins:
+      chef/omnibus#master:
+        test: harmony
+        test-path: omnibus-test.sh
+
+  - label: ":mag: el-6-i386"
+    agents:
+      queue: omnibus-el-6-i386
+    plugins:
+      chef/omnibus#master:
+        test: harmony
+        test-path: omnibus-test.sh
+
+  - label: ":mag: el-6-x86_64"
+    agents:
+      queue: omnibus-el-6-x86_64
+    plugins:
+      chef/omnibus#master:
+        test: harmony
+        test-path: omnibus-test.sh
+
+  - label: ":mag: el-7-aarch64"
+    agents:
+      queue: omnibus-el-7-aarch64
+    plugins:
+      chef/omnibus#master:
+        test: harmony
+        test-path: omnibus-test.sh
+
+  - label: ":mag: el-7-x86_64"
+    agents:
+      queue: omnibus-el-7-x86_64
+    plugins:
+      chef/omnibus#master:
+        test: harmony
+        test-path: omnibus-test.sh
+
+  - label: ":mag: el-8-x86_64"
+    agents:
+      queue: omnibus-el-8-x86_64
+    plugins:
+      chef/omnibus#master:
+        test: harmony
+        test-path: omnibus-test.sh
+
+  - label: ":mag: freebsd-11-amd64"
+    agents:
+      queue: omnibus-freebsd-11-amd64
+    plugins:
+      chef/omnibus#master:
+        test: harmony
+        test-path: omnibus-test.sh
+
+  - label: ":mag: freebsd-12-amd64"
+    agents:
+      queue: omnibus-freebsd-12-amd64
+    plugins:
+      chef/omnibus#master:
+        test: harmony
+        test-path: omnibus-test.sh
+
+  - label: ":mag: mac_os_x-10.13-x86_64"
+    agents:
+      queue: "anka-trial"
+    plugins:
+      - chef/omnibus#master:
+          test: harmony
+          test-path: omnibus-test.sh
+      - chef/anka#master:
+          vm-name: "macos-omnibus-10.13"
+          wait-network: true
+
+  - label: ":mag: mac_os_x-10.14-x86_64"
+    agents:
+      queue: "anka-trial"
+    plugins:
+      - chef/omnibus#master:
+          test: harmony
+          test-path: omnibus-test.sh
+      - chef/anka#master:
+          vm-name: "macos-omnibus-10.14"
+          wait-network: true
+
+  - label: ":mag: mac_os_x-10.15-x86_64"
+    agents:
+      queue: "anka-trial"
+    plugins:
+      - chef/omnibus#master:
+          test: harmony
+          test-path: omnibus-test.sh
+      - chef/anka#master:
+          vm-name: "macos-omnibus-10.15"
+          wait-network: true
+
+  - label: ":mag: sles-12-x86_64"
+    agents:
+      queue: omnibus-sles-12-x86_64
+    plugins:
+      chef/omnibus#master:
+        test: harmony
+        test-path: omnibus-test.sh
+
+  - label: ":mag: sles-15-x86_64"
+    agents:
+      queue: omnibus-sles-15-x86_64
+    plugins:
+      chef/omnibus#master:
+        test: harmony
+        test-path: omnibus-test.sh
+
+  - label: ":mag: ubuntu-16.04-x86_64"
+    agents:
+      queue: omnibus-ubuntu-16.04-x86_64
+    plugins:
+      chef/omnibus#master:
+        test: harmony
+        test-path: omnibus-test.sh
+
+  - label: ":mag: ubuntu-18.04-x86_64"
+    agents:
+      queue: omnibus-ubuntu-18.04-x86_64
+    plugins:
+      chef/omnibus#master:
+        test: harmony
+        test-path: omnibus-test.sh
+
+  - label: ":mag: windows-2008r2-x86_64"
+    agents:
+      queue: omnibus-windows-2008r2-x86_64
+    plugins:
+      chef/omnibus#master:
+        test: harmony
+        test-path-windows: omnibus-test.ps1
+
+  - label: ":mag: windows-2012-x86_64"
+    agents:
+      queue: omnibus-windows-2012-x86_64
+    plugins:
+      chef/omnibus#master:
+        test: harmony
+        test-path-windows: omnibus-test.ps1
+
+  - label: ":mag: windows-2012r2-i386"
+    agents:
+      queue: omnibus-windows-2012r2-i386
+    plugins:
+      chef/omnibus#master:
+        test: harmony
+        test-path-windows: omnibus-test.ps1
+
+  - label: ":mag: windows-2012r2-x86_64"
+    agents:
+      queue: omnibus-windows-2012r2-x86_64
+    plugins:
+      chef/omnibus#master:
+        test: harmony
+        test-path-windows: omnibus-test.ps1
+
+  - label: ":mag: windows-2016-x86_64"
+    agents:
+      queue: omnibus-windows-2016-x86_64
+    plugins:
+      chef/omnibus#master:
+        test: harmony
+        test-path-windows: omnibus-test.ps1
+
+  - label: ":mag: windows-2019-x86_64"
+    agents:
+      queue: omnibus-windows-2019-x86_64
+    plugins:
+      chef/omnibus#master:
+        test: harmony
+        test-path-windows: omnibus-test.ps1
+
+  # # - wait
+
+  # # - label: Promote to Current
+  # #   plugins:
+  # #     chef/omnibus#master:
+  # #       promote: harmony

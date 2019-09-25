@@ -36,9 +36,11 @@ end
 
 package :pkg do
   identifier 'com.getchef.harmony'
+  signing_identity 'Developer ID Installer: Chef Software, Inc. (EU3VF8YLX2)'
 end
 compress :dmg
 
 package :msi do
   upgrade_code '3AA89B1F-D8F3-4D46-8CB2-534C8313DBFD'
+  signing_identity "E05FF095D07F233B78EB322132BFF0F035E11B5B", machine_store: true
 end
