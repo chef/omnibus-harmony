@@ -1,10 +1,31 @@
-source 'https://rubygems.org'
+source "https://rubygems.org"
 
-# Install omnibus
-gem 'omnibus', github: 'chef/omnibus'
+gem "omnibus", git: "https://github.com/chef/omnibus", branch: "master"
+gem "omnibus-software", git: "https://github.com/chef/omnibus-software", branch: "master"
+gem "artifactory"
 
-# Use Chef's software definitions. It is recommended that you write your own
-# software definitions, but you can clone/fork Chef's to get you started.
-gem 'omnibus-software', github: 'chef/omnibus-software'
+gem "pedump"
+gem "jaytest1"
 
-gem 'artifactory'
+# This development group is installed by default when you run `bundle install`,
+# but if you are using Omnibus in a CI-based infrastructure, you do not need
+# the Test Kitchen-based build lab. You can skip these unnecessary dependencies
+# by running `bundle install --without development` to speed up build times.
+group :development do
+  # Use Berkshelf for resolving cookbook dependencies
+  gem "berkshelf", ">= 7.0"
+
+  # We pin here to the last release Ohai so prevent more current chef coming in
+  gem "ohai"
+
+  # Use Test Kitchen with Vagrant for converging the build environment
+  gem "test-kitchen", ">= 1.23"
+  gem "kitchen-vagrant", ">= 1.3.1"
+  gem "winrm-fs", "~> 1.0"
+end
+
+instance_eval(ENV["GEMFILE_MOD"]) if ENV["GEMFILE_MOD"]
+
+# If you want to load debugging tools into the bundle exec sandbox,
+# add these additional dependencies into Gemfile.local
+eval_gemfile(__FILE__ + ".local") if File.exist?(__FILE__ + ".local")
