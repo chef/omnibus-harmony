@@ -36,7 +36,7 @@ end
 
 package :pkg do
   identifier 'com.getchef.harmony'
-  signing_identity 'Developer ID Installer: Chef Software, Inc. (EU3VF8YLX2)'
+  signing_identity 'Chef Software, Inc. (EU3VF8YLX2)'
 end
 compress :dmg
 
