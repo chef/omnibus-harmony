@@ -25,6 +25,11 @@ pipelines:
       env:
         - ADHOC: true
         - EXPIRE_CACHE: true
+  - omnibus/adhoc-canary:
+      canary: true
+      definition: .expeditor/adhoc.omnibus.yml
+      env:
+        - ADHOC: true
 
 subscriptions:
   - workload: pull_request_merged:{{github_repo}}:{{release_branch}}:*
