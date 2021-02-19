@@ -42,7 +42,7 @@ compress :dmg
 
 package :msi do
   fast_msi true
-  git upgrade_code "3AA89B1F-D8F3-4D46-8CB2-534C8313DBFD"
+  upgrade_code "3AA89B1F-D8F3-4D46-8CB2-534C8313DBFD"
   wix_light_extension "WixUtilExtension"
   signing_identity "AF21BA8C9E50AE20DA9907B6E2D4B0CC3306CA03", machine_store: true
 end
