@@ -20,11 +20,53 @@
 
     <Media Id="1" Cabinet="Project.cab" EmbedCab="yes" CompressionLevel="high" />
 
-    <!-- Major upgrade -->
-    <Upgrade Id="$(var.UpgradeCode)">
-      <UpgradeVersion OnlyDetect="yes" Minimum="$(var.VersionNumber)" IncludeMinimum="no" Property="NEWERVERSIONDETECTED" />
-      <UpgradeVersion Minimum="0.0.0.0" IncludeMinimum="yes" Maximum="$(var.VersionNumber)" IncludeMaximum="no" Property="OLDERVERSIONBEINGUPGRADED" />
-    </Upgrade>
+    <!--
+      Uncomment launch condition below to check for minimum OS
+      601 = Windows 7/Server 2008R2.
+    -->
+    <!-- Condition Message="!(loc.MinimumOSVersionMessage)">
+      <![CDATA[Installed OR VersionNT >= 601]]>
+    </Condition -->
+
+    <!-- We always do Major upgrades -->
+    <MajorUpgrade DowngradeErrorMessage="!(loc.DowngradeErrorMessage)" />
+
+    <!--
+      If fastmsi is set, custom actions will be invoked during install to unzip
+      project files, and during uninstall to remove the project folder
+    -->
+    <% if fastmsi %>
+    <SetProperty Id="FastUnzip"
+                 Value="FASTZIPDIR=[INSTALLLOCATION];FASTZIPAPPNAME=$(var.ProjectLocationDir)"
+                 Sequence="execute"
+                 Before="FastUnzip" />
+
+    <CustomAction Id="FastUnzip"
+                  BinaryKey="CustomActionFastMsiDLL"
+                  DllEntry="FastUnzip"
+                  Execute="deferred"
+                  Impersonate="no"
+                  Return="check" />
+
+    <Binary Id="CustomActionFastMsiDLL"
+            SourceFile="CustomActionFastMsi.CA.dll" />
+
+    <CustomAction Id="Cleanup"
+                  Directory="INSTALLLOCATION"
+                  ExeCommand="cmd /C &quot;rd /S /Q $(var.ProjectLocationDir)&quot;"
+                  Execute="deferred"
+                  Impersonate="no"
+                  Return="ignore" />
+
+    <InstallExecuteSequence>
+      <Custom Action="FastUnzip" After="InstallFiles">NOT Installed</Custom>
+      <Custom Action="Cleanup" After="RemoveFiles">REMOVE~="ALL"</Custom>
+    </InstallExecuteSequence>
+
+    <UI>
+      <ProgressText Action="FastUnzip">!(loc.FileExtractionProgress)</ProgressText>
+    </UI>
+    <% end %>
 
     <InstallExecuteSequence>
       <RemoveExistingProducts After="InstallValidate" />
@@ -32,16 +74,15 @@
 
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="WindowsVolume">
-        <!-- Service needs chef directory to be present. -->
         <Directory Id="INSTALLLOCATION" Name="opt">
-          <Directory Id="PROJECTLOCATION" Name="harmony">
+          <Directory Id="PROJECTLOCATION" Name="$(var.ProjectLocationDir)">
           </Directory>
         </Directory>
       </Directory>
     </Directory>
 
     <!-- Set the components defined in our fragment files that will be used for our feature  -->
-    <Feature Id="ProjectFeature" Title="!(loc.FeatureMainName)" Absent="disallow" AllowAdvertise="no" Level="1" ConfigurableDirectory="INSTALLLOCATION">
+    <Feature Id="HarmonyFeature" Title="!(loc.FeatureMainName)" Absent="disallow" AllowAdvertise="no" Level="1" ConfigurableDirectory="INSTALLLOCATION">
       <ComponentGroupRef Id="ProjectDir" />
     </Feature>
 
