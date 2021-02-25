@@ -21,12 +21,11 @@
     <Media Id="1" Cabinet="Project.cab" EmbedCab="yes" CompressionLevel="high" />
 
     <!--
-      Uncomment launch condition below to check for minimum OS
-      601 = Windows 7/Server 2008R2.
+    Take advantage of Windows Installer 5.0 feature (if available) to disable
+    checkpointing and other costings that take significant amounts of time
+    ref: https://msdn.microsoft.com/en-us/library/windows/desktop/dd408005(v=vs.85).aspx
     -->
-    <!-- Condition Message="!(loc.MinimumOSVersionMessage)">
-      <![CDATA[Installed OR VersionNT >= 601]]>
-    </Condition -->
+    <Property Id="MSIFASTINSTALL" Value="7" />
 
     <!-- We always do Major upgrades -->
     <MajorUpgrade DowngradeErrorMessage="!(loc.DowngradeErrorMessage)" />
@@ -59,7 +58,7 @@
                   Return="ignore" />
 
     <InstallExecuteSequence>
-      <Custom Action="FastUnzip" After="InstallFiles">NOT Installed</Custom>
+      <Custom Action="FastUnzip" After="InstallFiles">NOT Installed OR REINSTALL</Custom>
       <Custom Action="Cleanup" After="RemoveFiles">REMOVE~="ALL"</Custom>
     </InstallExecuteSequence>
 
