@@ -9,7 +9,7 @@
     Name is made of localized product name and version number.
   -->
   <Product Id="*" Name="!(loc.ProductName) v$(var.DisplayVersionNumber)" Language="!(loc.LANG)"
-          Version="$(var.VersionNumber)" Manufacturer="!(loc.ManufacturerName)" UpgradeCode="$(var.UpgradeCode)">
+           Version="$(var.VersionNumber)" Manufacturer="!(loc.ManufacturerName)" UpgradeCode="$(var.UpgradeCode)">
 
     <!--
       Define the minimum supported installer version (2.0).
@@ -66,10 +66,6 @@
       <ProgressText Action="FastUnzip">!(loc.FileExtractionProgress)</ProgressText>
     </UI>
     <% end %>
-
-    <InstallExecuteSequence>
-      <RemoveExistingProducts After="InstallValidate" />
-    </InstallExecuteSequence>
 
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="WindowsVolume">
