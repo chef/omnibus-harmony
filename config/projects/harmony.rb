@@ -26,6 +26,10 @@ unless windows?
   dependency 'discord'
 end
 
+# 1.1.1i+ builds on m1 and we don't reasonably expect 1.0.2
+# to be made buildable on m1.
+override :openssl, version: "1.1.1i" if mac_os_x?
+
 exclude '\.git*'
 exclude 'bundler\/git'
 exclude 'man\/'
