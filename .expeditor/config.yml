@@ -27,7 +27,7 @@ pipelines:
         - EXPIRE_CACHE: true
   - omnibus/adhoc-canary:
       canary: true
-      definition: .expeditor/adhoc.omnibus.yml
+      definition: .expeditor/adhoc-canary.omnibus.yml
       env:
         - ADHOC: true
 
