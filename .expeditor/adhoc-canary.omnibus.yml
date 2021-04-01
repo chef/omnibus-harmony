@@ -1,5 +1,6 @@
 ---
 project-name: harmony
+config: omnibus/omnibus.rb
 test-path: omnibus-test.sh
 builder-to-testers-map:
   # aix-7.1-powerpc:
