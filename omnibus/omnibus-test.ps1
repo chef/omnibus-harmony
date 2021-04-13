@@ -13,11 +13,12 @@ If ([string]::IsNullOrEmpty($version)) { $version = "latest" }
 $package_file = "$Env:PACKAGE_FILE"
 If ([string]::IsNullOrEmpty($package_file)) { $package_file = "" }
 
-Write-Output "--- Installing $channel $product $version"
-If ($package_file = "") {
+If ($package_file -eq "") {
+  Write-Output "--- Installing $channel $product $version"
   $package_file = $(.omnibus-buildkite-plugin\install-omnibus-product.ps1 -Product "$product" -Channel "$channel" -Version "$version" | Select-Object -Last 1)
 } 
 Else {
+  Write-Output "--- Installing $product $version"
   $package_file = $(.omnibus-buildkite-plugin\install-omnibus-product.ps1 -Package_file "$package_file" -Product "$product" -Version "$version" | Select-Object -Last 1)
 }
 
