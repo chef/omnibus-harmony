@@ -8,7 +8,9 @@ package_file=${PACKAGE_FILE:-""}
 
 echo "--- Installing $channel $product $version"
 if [[ -z $package_file ]]; then
-  package_file="$(/opt/omnibus-toolchain/bin/install-omnibus-product -c "$channel" -P "$product" -v "$version" | tail -n 1)"
+  package_file="$(.omnibus-buildkite-plugin/install-omnibus-product.sh -c "$channel" -P "$product" -v "$version" | tail -n 1)"
+else
+  package_file="$(.omnibus-buildkite-plugin/install-omnibus-product.sh -f "$package_file" -P "$product" -v "$version" | tail -n 1)"
 fi
 
 echo "--- Verifying omnibus package is signed"

@@ -10,8 +10,16 @@ If ([string]::IsNullOrEmpty($product)) { $product = "harmony" }
 $version = "$Env:VERSION"
 If ([string]::IsNullOrEmpty($version)) { $version = "latest" }
 
+$package_file = "$Env:PACKAGE_FILE"
+If ([string]::IsNullOrEmpty($package_file)) { $package_file = "" }
+
 Write-Output "--- Installing $channel $product $version"
-$package_file = $(C:\opscode\omnibus-toolchain\bin\install-omnibus-product.ps1 -Product "$product" -Channel "$channel" -Version "$version" | Select-Object -Last 1)
+If ($package_file = "") {
+  $package_file = $(.omnibus-buildkite-plugin\install-omnibus-product.ps1 -Product "$product" -Channel "$channel" -Version "$version" | Select-Object -Last 1)
+} 
+Else {
+  $package_file = $(.omnibus-buildkite-plugin\install-omnibus-product.ps1 -Package_file "$package_file" -Product "$product" -Version "$version" | Select-Object -Last 1)
+}
 
 Write-Output "--- Verifying omnibus package is signed"
 C:\opscode\omnibus-toolchain\bin\check-omnibus-package-signed.ps1 "$package_file"
