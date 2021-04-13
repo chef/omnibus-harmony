@@ -7,7 +7,7 @@ version="${VERSION:-latest}"
 package_file=${PACKAGE_FILE:-""}
 
 echo "$PWD"
-ls -al
+ls -al .omnibus-buildkite-plugin
 
 echo "--- Installing $channel $product $version"
 if [[ -z $package_file ]]; then
