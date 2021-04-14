@@ -19,7 +19,8 @@ If ($package_file -eq "") {
 } 
 Else {
   Write-Output "--- Installing $product $version"
-  $package_file = $(.omnibus-buildkite-plugin\install-omnibus-product.ps1 -Package "$package_file" -Product "$product" -Version "$version" | Select-Object -Last 1)
+  .omnibus-buildkite-plugin\install-omnibus-product.ps1 -Package "$package_file" -Product "$product" -Version "$version"
+  # $package_file = $(.omnibus-buildkite-plugin\install-omnibus-product.ps1 -Package "$package_file" -Product "$product" -Version "$version" | Select-Object -Last 1)
 }
 
 Write-Output "--- Verifying omnibus package is signed"
