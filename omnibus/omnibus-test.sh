@@ -6,9 +6,6 @@ product="${PRODUCT:-harmony}"
 version="${VERSION:-latest}"
 package_file=${PACKAGE_FILE:-""}
 
-echo "$PWD"
-ls -al .omnibus-buildkite-plugin
-
 echo "--- Installing $channel $product $version"
 if [[ -z $package_file ]]; then
   package_file="$(.omnibus-buildkite-plugin/install-omnibus-product.sh -c "$channel" -P "$product" -v "$version" | tail -n 1)"
