@@ -3,7 +3,6 @@ project-name: harmony
 config: omnibus/omnibus.rb
 test-path: omnibus/omnibus-test.sh
 test-path-windows: omnibus/omnibus-test.ps1
-test-version: 0.1.0+20210415143748.git.108.497bf62
 builder-to-testers-map:
   aix-7.1-powerpc:
     - aix-7.1-powerpc

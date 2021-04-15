@@ -3,7 +3,6 @@ project-name: harmony
 config: omnibus/omnibus.rb
 test-path: omnibus/omnibus-test.sh
 test-path-windows: omnibus/omnibus-test.ps1
-test-version: 0.1.0+20210415135557.git.107.6fe4a53
 skip-artifactory-platforms:
   - sles-15-x86_64
   - mac_os_x-10.14-x86_64
