@@ -8,6 +8,7 @@ package_file=${PACKAGE_FILE:-""}
 
 if [[ -z $package_file ]]; then
   package_file="$(.omnibus-buildkite-plugin/install-omnibus-product.sh -c "$channel" -P "$product" -v "$version" | tail -n 1)"
+  echo "PACKAGE FILE $package_file"
 else
   .omnibus-buildkite-plugin/install-omnibus-product.sh -f "$package_file" -P "$product" -v "$version" &> /dev/null
 fi
