@@ -3,6 +3,10 @@ project-name: harmony
 config: omnibus/omnibus.rb
 test-path: omnibus/omnibus-test.sh
 test-path-windows: omnibus/omnibus-test.ps1
+skip-artifactory-platforms:
+  - sles-15-x86_64
+  - mac_os_x-10.14-x86_64
+  - freebsd*
 builder-to-testers-map:
   # aix-7.1-powerpc:
   #   - aix-7.1-powerpc
