@@ -3,7 +3,9 @@ project-name: harmony
 config: omnibus/omnibus.rb
 test-path: omnibus/omnibus-test.sh
 test-path-windows: omnibus/omnibus-test.ps1
-test-version: 0.1.0+20210415211807.git.111.31cb183
+skip-artifactory-platforms:
+  - el-7-ppc64
+  - solaris*
 builder-to-testers-map:
   aix-7.1-powerpc:
     - aix-7.1-powerpc
