@@ -2,7 +2,7 @@
 $ErrorActionPreference = "Stop"
 
 Write-Output "--- Checking OpenSSL"
-If (C:\harmony\embedded\bin\openssl version | Select-String -Quiet -Pattern "OpenSSL [0-9]\.[0-9]\.[0-9][a-z]") {
+If (C:\opt\harmony\embedded\bin\openssl version | Select-String -Quiet -Pattern "OpenSSL [0-9]\.[0-9]\.[0-9][a-z]") {
   Write-Output "openssl version found"
 }
 Else {
