@@ -25,8 +25,8 @@ dependency 'preparation'
   # see the discord software def. for more details
 #  dependency 'discord'
 #end
-#override :expat, version: "2.4.1"
-dependency "expat"
+override :expat, version: "2.4.1"
+#dependency "expat"
 
 # 1.1.1i+ builds on m1 and we don't reasonably expect 1.0.2
 # to be made buildable on m1.
