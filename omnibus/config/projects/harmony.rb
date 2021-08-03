@@ -13,18 +13,18 @@ build_iteration 1
 dependency 'preparation'
 
 # harmony dependencies/components
-#dependency "libxml2"
-#dependency "libxslt"
-#dependency "libiconv"
-#dependency "liblzma"
-#dependency "zlib"
-#dependency 'openssl'
+dependency "libxml2"
+dependency "libxslt"
+dependency "libiconv"
+dependency "liblzma"
+dependency "zlib"
+dependency 'openssl'
 
-#unless windows?
+unless windows?
   # builds the 'discord' dummy project
   # see the discord software def. for more details
-#  dependency 'discord'
-#end
+  dependency 'discord'
+end
 dependency "expat"
 
 # 1.1.1i+ builds on m1 and we don't reasonably expect 1.0.2
