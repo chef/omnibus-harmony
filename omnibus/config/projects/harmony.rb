@@ -28,7 +28,7 @@ end
 
 # 1.1.1i+ builds on m1 and we don't reasonably expect 1.0.2
 # to be made buildable on m1.
-override :openssl, version: "1.1.1l" if mac_os_x?
+override :openssl, version: "1.1.1m" if mac_os_x?
 
 exclude '\.git*'
 exclude 'bundler\/git'
