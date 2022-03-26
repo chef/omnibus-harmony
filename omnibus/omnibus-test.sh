@@ -1,5 +1,5 @@
 #!/bin/bash
 set -ueo pipefail
 
-echo "--- Checking OpenSSL"
-/opt/harmony/embedded/bin/openssl version | grep "OpenSSL [0-9]\.[0-9]\.[0-9]"
+echo "--- Checking Ruby"
+/opt/harmony/embedded/bin/ruby --version | grep "ruby [0-9]\.[0-9]\.[0-9]"
