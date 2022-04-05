@@ -30,6 +30,12 @@ end
 # to be made buildable on m1.
 override :openssl, version: "1.1.1m" if mac_os_x?
 
+# libxslt 1.1.35 does not build successfully with libxml2 2.9.13 on Windows so we will pin
+# windows builds to libxslt 1.1.34 and libxml2 2.9.10 for now and followup later with the
+# work to fix that issue in IPACK-145.
+override "libxml2", version: "2.9.10" if windows?
+override "libxslt", version: "1.1.34" if windows?
+
 exclude '\.git*'
 exclude 'bundler\/git'
 exclude 'man\/'
