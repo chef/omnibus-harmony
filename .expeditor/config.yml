@@ -30,6 +30,7 @@ pipelines:
       definition: .expeditor/adhoc-canary.omnibus.yml
       env:
         - ADHOC: true
+  - omnibus/release
 
 subscriptions:
   - workload: pull_request_merged:{{github_repo}}:{{release_branch}}:*
@@ -38,6 +39,7 @@ subscriptions:
           ignore_labels:
             - "Expeditor: Skip Omnibus"
             - "Expeditor: Skip All"
+      - trigger_pipeline:omnibus/release
   - workload: pull_request_merged:chef/omnibus-software:main:*
     actions:
       - trigger_pipeline:omnibus/adhoc-expire-cache
