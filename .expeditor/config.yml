@@ -39,7 +39,7 @@ subscriptions:
           ignore_labels:
             - "Expeditor: Skip Omnibus"
             - "Expeditor: Skip All"
-      - trigger_pipeline:omnibus/release
+      #- trigger_pipeline:omnibus/release
   - workload: pull_request_merged:chef/omnibus-software:main:*
     actions:
       - trigger_pipeline:omnibus/adhoc-expire-cache
