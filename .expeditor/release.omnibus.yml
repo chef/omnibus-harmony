@@ -3,7 +3,7 @@ project-name: harmony
 config: omnibus/omnibus.rb
 test-path: omnibus/omnibus-test.sh
 test-path-windows: omnibus/omnibus-test.ps1
-manual_promote_release: true
+manual-promote-release: true
 skip-artifactory-platforms:
   - el-7-ppc64
   - solaris*
