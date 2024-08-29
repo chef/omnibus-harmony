@@ -31,6 +31,10 @@ pipelines:
       env:
         - ADHOC: true
   - omnibus/release
+  - habitat/build:
+      canary: true  
+      env:
+        - ADHOC: true  
 
 subscriptions:
   - workload: pull_request_merged:{{github_repo}}:{{release_branch}}:*

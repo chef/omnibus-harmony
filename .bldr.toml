@@ -1,0 +1,4 @@
+[chef-infra-client-harmony]
+build_targets = [
+  "arm-linux"
+]
