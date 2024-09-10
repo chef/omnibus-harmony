@@ -1,4 +1,4 @@
-chef_repo_path "{{pkg.svc_data_path}}/chef"
+chef_repo_path "{{pkg.svc_data_path}}/chef-harmony"
 file_backup_path "{{pkg.svc_data_path}}/{{cfg.file_backup_path}}"
 pid_file "{{pkg.svc_data_path}}/{{cfg.pid_file}}"
 data_collector.server_url "{{cfg.data_collector.url}}"
