@@ -54,6 +54,6 @@ project_location_dir = name
 package :msi do
   fast_msi true
   upgrade_code "3AA89B1F-D8F3-4D46-8CB2-534C8313DBFD"
-  signing_identity "13B510D1CF1B3467856A064F1BEA12D0884D2528", machine_store: true
+  signing_identity "7D16AE73AB249D473362E9332D029089DBBB89B2", machine_store: true
   parameters ProjectLocationDir: project_location_dir
 end
