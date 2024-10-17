@@ -45,9 +45,8 @@ staging_areas:
       workload: pull_request_merged:{{github_repo}}:{{release_branch}}:*
 
 artifact_channels:
+  - unstable
   - dev
-  - acceptance
-  - current
   - stable
 
 subscriptions:
@@ -62,6 +61,6 @@ subscriptions:
             - "Expeditor: Skip Habitat"
             - "Expeditor: Skip All" 
       #- trigger_pipeline:omnibus/release
-  - workload: pull_request_merged:chef/omnibus-software:main:*
-    actions:
-      - trigger_pipeline:omnibus/adhoc-expire-cache:
+  # - workload: pull_request_merged:chef/omnibus-software:main:*
+  #   actions:
+  #     - trigger_pipeline:omnibus/adhoc-expire-cache:
