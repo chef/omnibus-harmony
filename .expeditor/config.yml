@@ -17,7 +17,12 @@ github:
   minor_bump_labels:
     - "Expeditor: Bump Version Minor"
   major_bump_labels:
-    - "Expeditor: Bump Version Major"  
+    - "Expeditor: Bump Version Major"
+
+artifact_channels:
+  - unstable
+  - current
+  - stable
 
 pipelines:
   - verify:
@@ -39,11 +44,6 @@ pipelines:
   - omnibus/release:
   - habitat/build:
       definition: .expeditor/build.habitat.yml
-
-artifact_channels:
-  - unstable
-  - current
-  - stable
 
 subscriptions:
   - workload: pull_request_merged:{{github_repo}}:{{release_branch}}:*
