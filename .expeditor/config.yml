@@ -65,10 +65,3 @@ subscriptions:
   - workload: pull_request_merged:chef/omnibus-software:main:*
     actions:
       - trigger_pipeline:omnibus/adhoc-expire-cache:
-  # Each package is uploaded to the unstable channel as it is finished
-  - workload: staged_workload_released:{{agent_id}}:post_merge:*
-    actions:
-      - trigger_pipeline:habitat/build:
-          ignore_labels:
-            - "Expeditor: Skip Omnibus"
-            - "Expeditor: Skip All"      
