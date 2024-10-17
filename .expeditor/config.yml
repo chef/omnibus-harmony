@@ -32,7 +32,7 @@ pipelines:
       definition: .expeditor/adhoc-canary.omnibus.yml
       env:
         - ADHOC: true
-  - omnibus/release
+  - omnibus/release:
   - habitat/build:
       definition: .expeditor/build.habitat.yml
 
@@ -64,5 +64,4 @@ subscriptions:
   # Each package is uploaded to the unstable channel as it is finished
   - workload: staged_workload_released:{{agent_id}}:post_merge:*
     actions:
-      - ... # your other merge actions
       - trigger_pipeline:habitat/build
