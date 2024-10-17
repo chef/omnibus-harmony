@@ -14,10 +14,10 @@ slack:
 # enable Expire Cache PR label to trigger Omnibus build with Expire Cache
 github:
   delete_branch_on_merge: true
-  minor_bump_labels:
-    - "Expeditor: Bump Version Minor"
-  major_bump_labels:
-    - "Expeditor: Bump Version Major"
+  # minor_bump_labels:
+  #   - "Expeditor: Bump Version Minor"
+  # major_bump_labels:
+  #   - "Expeditor: Bump Version Major"
 
 # artifact_channels:
 #   - unstable
@@ -41,7 +41,7 @@ pipelines:
       definition: .expeditor/adhoc-canary.omnibus.yml
       env:
         - ADHOC: true
-  - omnibus/release:
+  - omnibus/release
   # - habitat/build:
   #     definition: .expeditor/build.habitat.yml
 
