@@ -14,15 +14,15 @@ slack:
 # enable Expire Cache PR label to trigger Omnibus build with Expire Cache
 github:
   delete_branch_on_merge: true
-  # minor_bump_labels:
-  #   - "Expeditor: Bump Version Minor"
-  # major_bump_labels:
-  #   - "Expeditor: Bump Version Major"
+  minor_bump_labels:
+    - "Expeditor: Bump Version Minor"
+  major_bump_labels:
+    - "Expeditor: Bump Version Major"
 
-# artifact_channels:
-#   - unstable
-#   - current
-#   - stable
+artifact_channels:
+  - unstable
+  - current
+  - stable
 
 pipelines:
   - verify:
@@ -51,10 +51,10 @@ subscriptions:
           ignore_labels:
             - "Expeditor: Skip Omnibus"
             - "Expeditor: Skip All"
-      # - trigger_pipeline:habitat/build:
-      #     ignore_labels:
-      #       - "Expeditor: Skip Habitat"
-      #       - "Expeditor: Skip All" 
+      - trigger_pipeline:habitat/build:
+          ignore_labels:
+            - "Expeditor: Skip Habitat"
+            - "Expeditor: Skip All" 
       #- trigger_pipeline:omnibus/release
   # - workload: pull_request_merged:chef/omnibus-software:main:*
   #   actions:
