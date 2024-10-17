@@ -1,2 +1,3 @@
 ---
-origin: chef
+bldr_toml: .bldr.toml
+origin: chef-demo
