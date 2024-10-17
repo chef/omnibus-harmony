@@ -35,9 +35,6 @@ pipelines:
   - omnibus/release
   - habitat/build:
       definition: .expeditor/build.habitat.yml
-      canary: true  
-      env:
-        - ADHOC: true
 
 staging_areas:
   - post_merge:
