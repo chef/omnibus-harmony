@@ -40,13 +40,9 @@ pipelines:
   - habitat/build:
       definition: .expeditor/build.habitat.yml
 
-staging_areas:
-  - post_merge:
-      workload: pull_request_merged:{{github_repo}}:{{release_branch}}:*
-
 artifact_channels:
   - unstable
-  - dev
+  - current
   - stable
 
 subscriptions:
