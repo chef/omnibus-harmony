@@ -36,6 +36,8 @@ do_build() {
   # as though we were in that same directory. By the time we reach this
   # callback, `npm` will have been installed for us.
 
+  pwd
+  ls -lah
   cp -R src $REPO_PATH
   cd $REPO_PATH
   cd src
