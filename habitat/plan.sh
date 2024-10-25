@@ -1,5 +1,5 @@
 pkg_name=hello-omnibus-harmony
-pkg_origin=chef-demo
+pkg_origin=chefops
 pkg_version="1.0.0"
 pkg_maintainer="The Chef Best team, training"
 pkg_license=('Apache-2.0')
