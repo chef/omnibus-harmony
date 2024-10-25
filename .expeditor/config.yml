@@ -47,6 +47,10 @@ pipelines:
 subscriptions:
   - workload: pull_request_merged:{{github_repo}}:{{release_branch}}:*
     actions:
+      - built_in:bump_version:
+          ignore_labels:
+            - "Expeditor: Skip All"
+            - "Expeditor: Skip Version Bump"
       - trigger_pipeline:omnibus/adhoc:
           ignore_labels:
             - "Expeditor: Skip Omnibus"
@@ -54,7 +58,8 @@ subscriptions:
       - trigger_pipeline:habitat/build:
           ignore_labels:
             - "Expeditor: Skip Habitat"
-            - "Expeditor: Skip All" 
+            - "Expeditor: Skip All"
+
       #- trigger_pipeline:omnibus/release
   # - workload: pull_request_merged:chef/omnibus-software:main:*
   #   actions:
