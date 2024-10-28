@@ -7,9 +7,9 @@ pkg_deps=()
 pkg_bin_dirs=(bin)
 
 pkg_version() {
-  echo "--- pgk_version function"
   cat "${SRC_PATH}/VERSION"
 }
+
 
 do_download() {
   echo "--- do_download function"
@@ -18,6 +18,7 @@ do_download() {
 
 do_setup_environment() {
   echo "--- do_setup_environment function"
+  update_pkg_version
   REPO_PATH="$HAB_CACHE_SRC_PATH/$pkg_dirname"
   set_runtime_env APP_VERSION "$pkg_version"
   set_runtime_env APP_RELEASE "$pkg_release"
