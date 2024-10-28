@@ -1,4 +1,4 @@
-require "simple_gem_test_ssimmons/version"
+require "omnibus-harmony/version"
 
 module OmnibusHarmony
   class Error < StandardError; end

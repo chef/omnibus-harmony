@@ -55,7 +55,7 @@ subscriptions:
           ignore_labels:
             - "Expeditor: Skip Version Bump"
             - "Expeditor: Skip All"
-      - bash:.expeditor/scripts/update_version.sh:
+      - bash:.expeditor/update_version.sh:
           only_if: built_in:bump_version
           ignore_labels:
             - "Expeditor: Skip All"
