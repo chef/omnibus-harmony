@@ -8,6 +8,7 @@ pkg_bin_dirs=(bin)
 
 pkg_version() {
   echo "--- pgk_version function"
+  echo "${SRC_PATH}
   cat "${SRC_PATH}/VERSION"
 }
 
