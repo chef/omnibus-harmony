@@ -69,6 +69,7 @@ subscriptions:
             - "Expeditor: Skip Habitat"
             - "Expeditor: Skip All"
       - built_in:build_gem:
+          only_if: built_in:bump_version
 
       #- trigger_pipeline:omnibus/release
   # - workload: pull_request_merged:chef/omnibus-software:main:*
