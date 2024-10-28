@@ -7,7 +7,6 @@ pkg_deps=()
 pkg_bin_dirs=(bin)
 
 pkg_version() {
-  echo "--- pgk_version function"
   cat "${SRC_PATH}/VERSION"
 }
 
