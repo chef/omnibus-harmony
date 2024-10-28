@@ -12,6 +12,8 @@ pkg_version() {
   ls -lah "${SRC_PATH}"
   cat "${SRC_PATH}/VERSION"
   VERSION=$(cat ${SRC_PATH}/VERSION)
+  pkg_version=${VERSION}
+  echo "my pkg version is now ${pkg_version}"
 }
 
 do_before() {
