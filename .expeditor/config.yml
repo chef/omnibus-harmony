@@ -24,7 +24,7 @@ github:
     - "Expeditor: Bump Version Major"
 
 artifact_channels:
-  - unstable
+  - dev
   - current
   - stable
 
@@ -46,7 +46,8 @@ pipelines:
       env:
         - ADHOC: true
   - omnibus/release
-  - habitat/build
+  - habitat/build:
+      definition: .expeditor/build.habitat.yml
 
 subscriptions:
   - workload: pull_request_merged:{{github_repo}}:{{release_branch}}:*
@@ -70,6 +71,11 @@ subscriptions:
             - "Expeditor: Skip All"
       - built_in:build_gem:
           only_if: built_in:bump_version
+  - workload: project_promoted:{{agent_id}}:*
+    actions:
+    - built_in:publish_rubygems
+    - built_in:promote_habitat_packages
+      
 
       #- trigger_pipeline:omnibus/release
   # - workload: pull_request_merged:chef/omnibus-software:main:*
