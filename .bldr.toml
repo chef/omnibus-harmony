@@ -1,4 +1,4 @@
-[chef-infra-client-harmony]
+[hello-omnibus-harmony]
 build_targets = [
   "x86_64-linux"
 ]
