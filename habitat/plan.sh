@@ -8,16 +8,12 @@ pkg_bin_dirs=(bin)
 
 pkg_version() {
   echo "--- pgk_version function"
-  echo "${SRC_PATH}"
-  ls -lah "${SRC_PATH}"
   cat "${SRC_PATH}/VERSION"
-  VERSION=$(cat ${SRC_PATH}/VERSION)
-  pkg_version=${VERSION}
-  echo "my pkg version is now ${pkg_version}"
 }
 
 do_before() {
   echo "--- do_before function"
+  echo "--- my pkg version is now ${pkg_version}"
   update_pkg_version
   rm -rf "$REPO_PATH"
 }
