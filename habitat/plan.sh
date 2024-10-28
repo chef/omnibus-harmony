@@ -26,7 +26,6 @@ do_setup_environment() {
 
 do_before() {
   echo "--- do_before function"
-  echo "--- my pkg version is now ${pkg_version}"
   rm -rf "$REPO_PATH"
 }
 
