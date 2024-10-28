@@ -10,6 +10,10 @@ product_key: harmony
 slack:
   notify_channel: releng-notify
 
+
+rubygems:
+  - omnibus-harmony
+
 # Configures github to delete the PR branch to delete after merged to main and
 # enable Expire Cache PR label to trigger Omnibus build with Expire Cache
 github:
@@ -49,16 +53,23 @@ subscriptions:
     actions:
       - built_in:bump_version:
           ignore_labels:
+            - "Expeditor: Skip Version Bump"
+            - "Expeditor: Skip All"
+      - bash:.expeditor/update_version.sh:
+          only_if: built_in:bump_version
+          ignore_labels:
             - "Expeditor: Skip All"
             - "Expeditor: Skip Version Bump"
-      - trigger_pipeline:omnibus/adhoc:
-          ignore_labels:
-            - "Expeditor: Skip Omnibus"
-            - "Expeditor: Skip All"
+      # - trigger_pipeline:omnibus/adhoc:
+      #     ignore_labels:
+      #       - "Expeditor: Skip Omnibus"
+      #       - "Expeditor: Skip All"
       - trigger_pipeline:habitat/build:
           ignore_labels:
             - "Expeditor: Skip Habitat"
             - "Expeditor: Skip All"
+      - built_in:build_gem:
+          only_if: built_in:bump_version
 
       #- trigger_pipeline:omnibus/release
   # - workload: pull_request_merged:chef/omnibus-software:main:*
