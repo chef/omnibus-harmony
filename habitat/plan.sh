@@ -13,6 +13,13 @@ pkg_version() {
   cat "${SRC_PATH}/VERSION"
 }
 
+do_before() {
+  echo "--- do_before function"
+  update_pkg_version
+  rm -rf "$REPO_PATH"
+}
+
+
 do_download() {
   echo "--- do_download function"
   return 0
@@ -23,11 +30,6 @@ do_setup_environment() {
   REPO_PATH="$HAB_CACHE_SRC_PATH/$pkg_dirname"
   set_runtime_env APP_VERSION "$pkg_version"
   set_runtime_env APP_RELEASE "$pkg_release"
-}
-
-do_before() {
-  echo "--- do_before function"
-  rm -rf "$REPO_PATH"
 }
 
 do_build() {
