@@ -29,7 +29,7 @@ do_before() {
   rm -rf "$REPO_PATH"
 }
 
-do_prepare(){
+do_prepare() {
     export HAB_BLDR_CHANNEL="dev"
     echo "--- do_prepare"
 }
