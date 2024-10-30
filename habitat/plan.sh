@@ -30,7 +30,6 @@ do_before() {
 }
 
 do_prepare() {
-    export HAB_BLDR_CHANNEL="dev"
     echo "--- do_prepare"
 }
 
