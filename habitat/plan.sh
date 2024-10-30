@@ -29,8 +29,12 @@ do_before() {
   rm -rf "$REPO_PATH"
 }
 
+do_prepare() {
+    echo "--- do_prepare"
+}
+
 do_build() {
-  echo --- "do_build function"
+  echo "--- do_build function"
   # By default, we're in the directory in which the Studio was entered
   # (in this case, presumably the project root), so we can run commands
   # as though we were in that same directory. By the time we reach this
