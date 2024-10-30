@@ -1,3 +1,4 @@
+export HAB_BLDR_CHANNEL="dev"
 pkg_name=hello-omnibus-harmony
 pkg_origin=chef-demo
 pkg_maintainer="The Chef Best team, training"
