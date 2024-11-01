@@ -10,6 +10,12 @@ product_key: harmony
 slack:
   notify_channel: releng-notify
 
+artifact_channels:
+  - unstable
+  # - dev
+  # - acceptance
+  # - current
+  - stable
 
 rubygems:
   - omnibus-harmony
@@ -22,12 +28,6 @@ github:
     - "Expeditor: Bump Version Minor"
   major_bump_labels:
     - "Expeditor: Bump Version Major"
-
-artifact_channels:
-  - dev
-  # - acceptance
-  # - current
-  # - stable
 
 pipelines:
   - verify:
