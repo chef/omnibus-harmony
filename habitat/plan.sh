@@ -26,8 +26,6 @@ do_setup_environment() {
 
 do_before() {
   echo "--- do_before function"
-  hab bldr channel create -o chef-demo acceptance
-  hab bldr channel create -o chef-demo current
   rm -rf "$REPO_PATH"
 }
 
