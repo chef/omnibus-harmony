@@ -10,7 +10,7 @@ expeditor:
     buildkite:
       timeout_in_minutes: 45
       env:
-        HAB_ORIGIN: "chef"
+        HAB_ORIGIN: "chef-demo"
         PIPELINE_HAB_BLDR_URL: "https://bldr.habitat.sh"
         # Necessary to prevent old studios from poisoning builds after core plans refreshes
         HAB_STUDIO_SECRET_HAB_PREFER_LOCAL_CHEF_DEPS: "true"
@@ -20,7 +20,7 @@ steps:
 
   - label: "[:linux: build hab-pkg-export-tar and uplaod to :amazon-s3:]"
     command:
-      - hab pkg export tar chef/chef-infra-client
+      - hab pkg export tar chef-demo/hello-omnibus-harmony
       - buildkite-agent artifact upload "/hab/cache/artifacts/*.tar"
     expeditor:
       executor:
