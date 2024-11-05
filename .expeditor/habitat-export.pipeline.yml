@@ -18,7 +18,6 @@ expeditor:
 
 steps:
 
-
   - label: "[:linux: build hab-pkg-export-tar and uplaod to :amazon-s3:]"
     command:
       - hab pkg export tar chef/chef-infra-client
