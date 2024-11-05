@@ -49,7 +49,7 @@ pipelines:
   - omnibus/release
   - habitat/build:
       definition: .expeditor/build.habitat.yml
-  - habitat_export:
+  - hab-export:
       definition: .expeditor/habitat-export.pipeline.yml
 
 subscriptions:
