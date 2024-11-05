@@ -20,6 +20,7 @@ steps:
 
   - label: "[:linux: build hab-pkg-export-tar and uplaod to :amazon-s3:]"
     command:
+      - echo "--- testing hab export tar chef-demo/hello-omnibus-harmony "
       - hab pkg export tar chef-demo/hello-omnibus-harmony
       - buildkite-agent artifact upload "/hab/cache/artifacts/*.tar"
     expeditor:
