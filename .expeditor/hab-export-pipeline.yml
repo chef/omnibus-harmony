@@ -22,17 +22,7 @@ steps:
     command:
       - echo "--- testing hab export tar chef-demo/hello-omnibus-harmony"
       - hab pkg export tar chef-demo/hello-omnibus-harmony
-      - |
-        files=($(ls *.tar.gz 2>/dev/null))
-        if [ ${#files[@]} -eq 0 ]; then
-          echo "No matching .tar.gz files found."
-          exit 1
-        else
-          echo "Found .tar.gz files:"
-          for file in "${files[@]}"; do
-            echo "$file"
-          done
-        fi
+      - buildkite-agent artifact upload "*.tar.gz"
       # - buildkite-agent artifact upload $(sed 's/\//-/g' <<< $EXPEDITOR_PKG_IDENTS_HELLOOMNIBUSHARMONYX86_64LINUX).${tar.gz}*
     expeditor:
       executor:
