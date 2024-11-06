@@ -18,12 +18,13 @@ expeditor:
 
 steps:
 
-  - label: "[:linux: build hab-pkg-export-tar and uplaod to :amazon-s3:]"
+  - label: "[:linux: build hab-pkg-export-tar and upload to :amazon-s3:]"
     command:
       - echo "--- testing hab export tar chef-demo/hello-omnibus-harmony"
       - hab pkg export tar chef-demo/hello-omnibus-harmony
       - buildkite-agent artifact upload "*.tar.gz"
-      # - buildkite-agent artifact upload $(sed 's/\//-/g' <<< $EXPEDITOR_PKG_IDENTS_HELLOOMNIBUSHARMONYX86_64LINUX).${tar.gz}*
+      - aws s3 sync . s3://your-bucket-name/ --exclude "*" --include "*.tar.gz" --region us-west-2 --profile chef-cd
+
     expeditor:
       executor:
         docker:
