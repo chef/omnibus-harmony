@@ -22,8 +22,9 @@ steps:
     command:
       - echo "--- testing hab export tar chef-demo/hello-omnibus-harmony"
       - hab pkg export tar chef-demo/hello-omnibus-harmony
-      - echo "--- uploading tar.gz file to buldkite, artifactory, and s3" && buildkite-agent artifact upload "*.tar.gz"
-      - aws s3 cp $tar_filename $s3_bucket_uri/$tar_filename --content-type "application/gzip" --profile "<profile to use>"
+      - echo "--- uploading tar.gz file to buldkite, artifactory, and s3"
+      - buildkite-agent artifact upload $(sed 's/\//-/g' <<< $EXPEDITOR_PKG_IDENTS_HELLOOMNIBUSHARMONYX86_64LINUX).${tar.gz}*
+      # - aws s3 cp $tar_filename $s3_bucket_uri/$tar_filename --content-type "application/gzip" --profile "<profile to use>"
       # - curl -ussimmons@progress.com:<PASSWORD> -T <PATH_TO_FILE> "https://artifactory-internal.ps.chef.co/artifactory/unstable-habitat-tarbal/<TARGET_FILE_PATH>"
     expeditor:
       accounts:
