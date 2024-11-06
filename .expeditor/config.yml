@@ -52,7 +52,7 @@ pipelines:
   - habitat/export:
       definition: .expeditor/habitat-export.pipeline.yml
   - hab-export:
-      definition: .expeditor/hab-export.pipeline.yml
+      definition: .expeditor/hab-export-pipeline.yml
 
 subscriptions:
   - workload: pull_request_merged:{{github_repo}}:{{release_branch}}:*
