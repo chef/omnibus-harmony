@@ -24,6 +24,7 @@ steps:
       - ls -lah .
       - hab pkg export tar chef-demo/hello-omnibus-harmony
       - ls -lah .
+      - ls -lah /hab/cache/artifacts/
       - buildkite-agent artifact upload "/hab/cache/artifacts/*.tar"
     expeditor:
       executor:
