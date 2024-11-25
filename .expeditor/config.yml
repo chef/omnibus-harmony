@@ -12,9 +12,9 @@ slack:
 
 artifact_channels:
   - unstable
-  - dev
-  - acceptance
-  - current
+  # - dev
+  # - acceptance
+  # - current
   - stable
 
 rubygems:
@@ -101,6 +101,9 @@ subscriptions:
       # - built_in:publish_rubygems
       - built_in:promote_habitat_packages
 
+  - workload: hab_package_published:stable:chef-demo/hello-omnibus-harmony/{{version_constraint}}
+    actions:
+      - trigger_pipeline:habitat/export
 # Subscribe to the promotion of the stable channel then do the s3 publish
   # - workload: hab_package_published:stable:chef-demo/hello-omnibus-harmony/1*
   #   actions:
