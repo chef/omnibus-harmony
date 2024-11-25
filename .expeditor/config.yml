@@ -103,7 +103,7 @@ subscriptions:
 
   - workload: hab_package_published:stable:chef-demo/hello-omnibus-harmony/{{version_constraint}}
     actions:
-      - trigger_pipeline:habitat/export:
+      - trigger_pipeline:habitat/export
 # Subscribe to the promotion of the stable channel then do the s3 publish
   # - workload: hab_package_published:stable:chef-demo/hello-omnibus-harmony/1*
   #   actions:
