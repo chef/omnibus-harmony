@@ -34,10 +34,9 @@ steps:
   #         environment:
   #           - BUILD_PKG_TARGET=x86_64-linux
 
-steps:
   - label: ":habitat: export chef-demo/hello-omnibus-harmony"
     plugins:
-      - chef/habitat#2a479e94e3dec3d2def59f6a7d831d9ab9ee336a
+      - chef/habitat#2a479e94e3dec3d2def59f6a7d831d9ab9ee336a:
           export: chef-demo/hello-omnibus-harmony
           format: docker
     command:
@@ -45,12 +44,12 @@ steps:
       - bash commands/export.sh
     expeditor:
       accounts:
-      - aws/chef-cd
+        - aws/chef-cd
       executor:
         linux:
           privileged: true
           single-use: true
-
+ 
   # - label: "[:windows: build hab-pkg-export-tar]"
   #   command:
   #     - powershell .expeditor/scripts/release_habitat/build_component.ps1 pkg-export-tar
@@ -61,3 +60,4 @@ steps:
   #         environment:
   #           - BUILD_PKG_TARGET=x86_64-windows
   #           - BUILDKITE_AGENT_ACCESS_TOKEN
+
