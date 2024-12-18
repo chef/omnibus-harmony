@@ -51,18 +51,6 @@ steps:
           privileged: true
           single-use: true
 
-  - label: ":habitat: execute export script"
-    command:
-      - echo "--- Executing commands/export.sh from habitat-plugin"
-      - bash commands/export.sh
-    expeditor:
-      accounts:
-      - aws/chef-cd
-      executor:
-        linux:
-          privileged: true
-          single-use: true
-
   # - label: "[:windows: build hab-pkg-export-tar]"
   #   command:
   #     - powershell .expeditor/scripts/release_habitat/build_component.ps1 pkg-export-tar
