@@ -40,6 +40,21 @@ steps:
       - chef/habitat#2a479e94e3dec3d2def59f6a7d831d9ab9ee336a
           export: chef-demo/hello-omnibus-harmony
           format: docker
+    command:
+      - echo "--- Executing commands/export.sh from habitat-plugin"
+      - bash commands/export.sh
+    expeditor:
+      accounts:
+      - aws/chef-cd
+      executor:
+        linux:
+          privileged: true
+          single-use: true
+
+  - label: ":habitat: execute export script"
+    command:
+      - echo "--- Executing commands/export.sh from habitat-plugin"
+      - bash commands/export.sh
     expeditor:
       accounts:
       - aws/chef-cd
