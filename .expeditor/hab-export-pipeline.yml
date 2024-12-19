@@ -40,8 +40,8 @@ steps:
           export: chef-demo/hello-omnibus-harmony
           format: docker
     command:
-      - echo "--- Executing commands/export.sh from habitat-plugin"
-      - bash commands/export.sh
+      - echo "--- Executing  hooks/command from habitat-plugin"
+     # - bash commands/export.sh
     expeditor:
       accounts:
         - aws/chef-cd
