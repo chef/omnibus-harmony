@@ -15,6 +15,7 @@ expeditor:
         # Necessary to prevent old studios from poisoning builds after core plans refreshes
         HAB_STUDIO_SECRET_HAB_PREFER_LOCAL_CHEF_DEPS: "true"
         HAB_STUDIO_SECRET_HAB_REFRESH_CHANNEL: "stable"
+        HAB_AUTH_TOKEN: "super-secret-auth-token"
 
 steps:
 
@@ -36,7 +37,7 @@ steps:
 
   - label: ":habitat: export chef-demo/hello-omnibus-harmony"
     plugins:
-      - chef/habitat#f075f0bb07e3ce7da1067eb09354e2450aaab115:
+      - chef/habitat#ce30ebd2c2e392fc096e80b1d8a56dc0f4283e65:
           export: chef-demo/hello-omnibus-harmony
           format: docker
     command:
