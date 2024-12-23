@@ -34,14 +34,28 @@ steps:
   #         privileged: true
   #         environment:
   #           - BUILD_PKG_TARGET=x86_64-linux
-
+  - label: ":habitat: export chef-demo/hello-omnibus-harmony"
+    plugins:
+      - chef/habitat#8b7b84c5a3bef4093391b8df491679ef97347989:
+          export: chef-demo/hello-omnibus-harmony
+          format: docker
+    command:
+      - echo "--- Executing  hooks/command from habitat-plugin -Docker"
+     # - bash commands/export.sh
+    expeditor:
+      accounts:
+        - aws/chef-cd
+      executor:
+        linux:
+          privileged: true
+          single-use: true
   - label: ":habitat: export chef-demo/hello-omnibus-harmony"
     plugins:
       - chef/habitat#8b7b84c5a3bef4093391b8df491679ef97347989:
           export: chef-demo/hello-omnibus-harmony
           format: tar
     command:
-      - echo "--- Executing  hooks/command from habitat-plugin"
+      - echo "--- Executing  hooks/command from habitat-plugin -TAR "
      # - bash commands/export.sh
     expeditor:
       accounts:
