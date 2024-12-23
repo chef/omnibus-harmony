@@ -12,9 +12,9 @@ slack:
 
 artifact_channels:
   - unstable
-  # - dev
-  # - acceptance
-  # - current
+  - dev
+  - acceptance
+  - current
   - stable
 
 rubygems:
