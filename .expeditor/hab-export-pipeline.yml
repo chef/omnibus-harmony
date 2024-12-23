@@ -15,7 +15,6 @@ expeditor:
         # Necessary to prevent old studios from poisoning builds after core plans refreshes
         HAB_STUDIO_SECRET_HAB_PREFER_LOCAL_CHEF_DEPS: "true"
         HAB_STUDIO_SECRET_HAB_REFRESH_CHANNEL: "stable"
-        HAB_AUTH_TOKEN: "super-secret-auth-token"
 
 steps:
 
@@ -35,38 +34,21 @@ steps:
   #         environment:
   #           - BUILD_PKG_TARGET=x86_64-linux
 
-  # - label: ":habitat: export chef-demo/hello-omnibus-harmon -DOCKER "
-  #   plugins:
-  #     - chef/habitat#5ebbe1e75087a0d9de93739b92f277db3d112fc2:
-  #         export: chef-demo/hello-omnibus-harmony
-  #         format: docker
-  #   command:
-  #     - echo "--- Executing  hooks/command from habitat-plugin -DOCKER"
-  #    # - bash commands/export.sh
-  #   expeditor:
-  #     accounts:
-  #       - aws/chef-cd
-  #     executor:
-  #       linux:
-  #         privileged: true
+  - label: ":habitat: export chef-demo/hello-omnibus-harmony"
+    plugins:
+      - chef/habitat#4a81d45d59d132081ab18a438337ad3f6de93114:
+          export: chef-demo/hello-omnibus-harmony
+          format: tar
+    command:
+      - echo "--- Executing  hooks/command from habitat-plugin"
+     # - bash commands/export.sh
+    expeditor:
+      accounts:
+        - aws/chef-cd
+      executor:
+        linux:
+          privileged: true
           single-use: true
-
-   - label: ":habitat: export chef-demo/hello-omnibus-harmony -TAR "
-     plugins:
-       - chef/habitat#5ebbe1e75087a0d9de93739b92f277db3d112fc2:
-         export: chef-demo/hello-omnibus-harmony
-           format: tar
-     command:
-       - echo "--- Executing  hooks/command from habitat-plugin -TAR"
-      # - bash commands/export.sh
-     expeditor:
-       accounts:
-         - aws/chef-cd
-       executor:
-         linux:
-           privileged: true
-          single-use: true
-
   # - label: "[:windows: build hab-pkg-export-tar]"
   #   command:
   #     - powershell .expeditor/scripts/release_habitat/build_component.ps1 pkg-export-tar
@@ -77,4 +59,3 @@ steps:
   #         environment:
   #           - BUILD_PKG_TARGET=x86_64-windows
   #           - BUILDKITE_AGENT_ACCESS_TOKEN
-
