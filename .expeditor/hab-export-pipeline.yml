@@ -37,7 +37,7 @@ steps:
 
   - label: ":habitat: export chef-demo/hello-omnibus-harmony"
     plugins:
-      - chef/habitat#4a81d45d59d132081ab18a438337ad3f6de93114:
+      - chef/habitat#8dc7e9d4cfced290e8d0def4bc5f683ff5886753:
           export: chef-demo/hello-omnibus-harmony
           format: tar
     command:
