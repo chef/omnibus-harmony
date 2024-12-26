@@ -18,7 +18,7 @@ artifact_channels:
   - stable
 
 rubygems:
-  - omnibus-harmony
+  - OmnibusHarmony-Test-Gem
 
 # Configures github to delete the PR branch to delete after merged to main and
 # enable Expire Cache PR label to trigger Omnibus build with Expire Cache
