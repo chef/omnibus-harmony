@@ -32,21 +32,21 @@ github:
 pipelines:
   - verify:
       description: Pull Request validation tests
-  - omnibus/adhoc:
-      definition: .expeditor/adhoc.omnibus.yml
-      env:
-        - ADHOC: true
-  - omnibus/adhoc-expire-cache:
-      definition: .expeditor/adhoc.omnibus.yml
-      env:
-        - ADHOC: true
-        - EXPIRE_CACHE: true
-  - omnibus/adhoc-canary:
-      canary: true
-      definition: .expeditor/adhoc-canary.omnibus.yml
-      env:
-        - ADHOC: true
-  - omnibus/release
+  # - omnibus/adhoc:
+  #     definition: .expeditor/adhoc.omnibus.yml
+  #     env:
+  #       - ADHOC: true
+  # - omnibus/adhoc-expire-cache:
+  #     definition: .expeditor/adhoc.omnibus.yml
+  #     env:
+  #       - ADHOC: true
+  #       - EXPIRE_CACHE: true
+  # - omnibus/adhoc-canary:
+  #     canary: true
+  #     definition: .expeditor/adhoc-canary.omnibus.yml
+  #     env:
+  #       - ADHOC: true
+  # - omnibus/release
   - habitat/build:
       definition: .expeditor/build.habitat.yml
   - habitat/export:
@@ -81,8 +81,9 @@ subscriptions:
 # this is the only way currently to promote built-in rubygems publish
   - workload: project_promoted:{{agent_id}}:*
     actions:
+      - built_in:publish_rubygems      
       - built_in:promote_habitat_packages
-      - built_in:publish_rubygems
+
 
   # # Automatically promote the Habitat packages from unstable to dev upon successful build
   # - workload: buildkite_hab_build_group_published:{{agent_id}}:*
