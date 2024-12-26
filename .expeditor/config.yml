@@ -77,30 +77,72 @@ subscriptions:
       - built_in:build_gem:
           only_if: built_in:bump_version
   
+
+# this is the only way currently to promote built-in rubygems publish
+  - workload: project_promoted:{{agent_id}}:*
+    actions:
+      - built_in:promote_habitat_packages
+      - built_in:publish_rubygems
+
   # Automatically promote the Habitat packages from unstable to dev upon successful build
   - workload: buildkite_hab_build_group_published:{{agent_id}}:*
     actions:
       - built_in:promote_habitat_packages
 
-  # Subscribe to the promotion of the dev channel to acceptance
-  - workload: project_promoted:{{agent_id}}:dev:*
+ # Once habitat package is promoted to dev, run the promote script
+  - workload: hab_package_published:dev:chef-demo/hello-omnibus-harmony/{{version_constraint}}
     actions:
-      - built_in:promote_habitat_packages
-  
-  # Subscribe to the promotion of the acceptance channel to current
-  - workload: project_promoted:{{agent_id}}:acceptance:*
-    actions:
-      - built_in:promote_habitat_packages
+    - bash:.expeditor/scripts/promote-hab-pkgs.sh:
+        post_commit: true
 
-  # Subscribe to the promotion of the acceptance channel to stable then promote rubygems as well
-  - workload: project_promoted:{{agent_id}}:current:*
+  # subscription hab_dev_promote fire off acceptance
+  - workload: staged_workload_released:{{agent_id}}:hab_dev_promote:*
     actions:
-      - built_in:promote_habitat_packages
+    - bash:.expeditor/scripts/promote-hab-pkgs.sh:
+        post_commit: true
 
+  # subscription hab_acceptance_promote fire off promote to current
+  - workload: staged_workload_released:{{agent_id}}:hab_acceptance_promote:*
+    actions:
+    - bash:.expeditor/scripts/promote-hab-pkgs.sh:
+        post_commit: true  
+
+  # subscription hab_acceptance_promote fire off promote to stable
+  - workload: staged_workload_released:{{agent_id}}:hab_current_promote:*
+    actions:
+    - bash:.expeditor/scripts/promote-hab-pkgs.sh:
+        post_commit: true
+
+  # this workload should fire off when hab_current_promote:* fires off
   - workload: hab_package_published:stable:chef-demo/hello-omnibus-harmony/{{version_constraint}}
     actions:
       - trigger_pipeline:habitat/export
-      - built_in:publish_rubygems
+
+staging_areas:
+  - hab_dev_promote:
+      workload: hab_package_published:dev:chef-demo/hello-omnibus-harmony/{{version_constraint}}
+  - hab_acceptance_promote:
+      workload: staged_workload_released:{{agent_id}}:hab_dev_promote:*
+  - hab_current_promote:
+      workload: staged_workload_released:{{agent_id}}:hab_acceptance_promote:*
+
+  # # Subscribe to the promotion of the dev channel to acceptance
+  # - workload: project_promoted:{{agent_id}}:dev:*
+  #   actions:
+  #     - built_in:promote_habitat_packages
+  
+  # # Subscribe to the promotion of the acceptance channel to current
+  # - workload: project_promoted:{{agent_id}}:acceptance:*
+  #   actions:
+  #     - built_in:promote_habitat_packages
+
+  # # Subscribe to the promotion of the acceptance channel to stable then promote rubygems as well
+  # - workload: project_promoted:{{agent_id}}:current:*
+  #   actions:
+  #     - built_in:promote_habitat_packages
+
+
+
 
 # Subscribe to the promotion of the stable channel then do the s3 publish
   # - workload: hab_package_published:stable:chef-demo/hello-omnibus-harmony/1*
