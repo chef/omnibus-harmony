@@ -36,7 +36,7 @@ steps:
   #           - BUILD_PKG_TARGET=x86_64-linux
   - label: ":habitat: export chef-demo/hello-omnibus-harmony"
     plugins:
-      - chef/habitat#fc58c8f976984a141716c9d4956cd42da3a74a73:
+      - chef/habitat#27a088c1f8910a48228c1f515c88804455c13cb3:
           export: chef-demo/hello-omnibus-harmony
           format: docker
     command:
@@ -51,8 +51,8 @@ steps:
           single-use: true
   - label: ":habitat: export chef-demo/hello-omnibus-harmony"
     plugins:
-      - chef/habitat#fc58c8f976984a141716c9d4956cd42da3a74a73:
-          export: chef-demo/hello-omnibus-harmony
+      - chef/habitat#27a088c1f8910a48228c1f515c88804455c13cb3:
+          export_tar: chef-demo/hello-omnibus-harmony
           format: tar
     command:
       - echo "--- Executing  hooks/command from habitat-plugin -TAR "
