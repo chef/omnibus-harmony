@@ -38,10 +38,10 @@ else
 fi
 
 # Promote the artifacts in Habitat Depot
-  if [[ "$pkg_origin" == "core" ]];
+  if [[ "${EXPEDITOR_PKG_ORIGIN}" == "core" ]];
   then
-    echo "Skipping promotion of core origin package ${pkg_origin}"
+    echo "Skipping promotion of core origin package ${EXPEDITOR_PKG_ORIGIN}"
   else
-    echo "Promoting ${pkg_origin} to the ${EXPEDITOR_TARGET_CHANNEL} channel"
-    hab pkg promote "${pkg_origin}" "${EXPEDITOR_TARGET_CHANNEL}"
+    echo "Promoting ${EXPEDITOR_PKG_ORIGIN} to the ${EXPEDITOR_TARGET_CHANNEL} channel"
+    hab pkg promote "${EXPEDITOR_PKG_ORIGIN}" "${EXPEDITOR_TARGET_CHANNEL}"
   fi
