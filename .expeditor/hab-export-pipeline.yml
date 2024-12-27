@@ -50,21 +50,21 @@ steps:
         linux:
           privileged: true
           single-use: true
-  # - label: ":habitat: export chef-demo/hello-omnibus-harmony"
-  #   plugins:
-  #     - chef/habitat#fc58c8f976984a141716c9d4956cd42da3a74a73:
-  #         export: chef-demo/hello-omnibus-harmony
-  #         format: tar
-  #   command:
-  #     - echo "--- Executing  hooks/command from habitat-plugin -TAR "
-  #    # - bash commands/export.sh
-  #   expeditor:
-  #     accounts:
-  #       - aws/chef-cd
-  #     executor:
-  #       linux:
-  #         privileged: true
-  #         single-use: true
+  - label: ":habitat: export chef-demo/hello-omnibus-harmony"
+    plugins:
+      - chef/habitat#07cf1e211a1faf01a2a7b407da882165b0cf7625:
+          export: chef-demo/hello-omnibus-harmony
+          format: tar
+    command:
+      - echo "--- Executing  hooks/command from habitat-plugin -TAR "
+     # - bash commands/export.sh
+    expeditor:
+      accounts:
+        - aws/chef-cd
+      executor:
+        linux:
+          privileged: true
+          single-use: true
   # - label: "[:windows: build hab-pkg-export-tar]"
   #   command:
   #     - powershell .expeditor/scripts/release_habitat/build_component.ps1 pkg-export-tar
