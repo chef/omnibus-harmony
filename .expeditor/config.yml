@@ -91,7 +91,7 @@ subscriptions:
   - workload: hab_package_published:dev:chef-demo/hello-omnibus-harmony/{{version_constraint}}
     actions:
       - bash:.expeditor/scripts/promote-hab-pkgs.sh:
-        post_commit: true
+          post_commit: true
       - trigger_pipeline:habitat/export
       - built_in:publish_rubygems
 
