@@ -15,25 +15,55 @@ expeditor:
         # Necessary to prevent old studios from poisoning builds after core plans refreshes
         HAB_STUDIO_SECRET_HAB_PREFER_LOCAL_CHEF_DEPS: "true"
         HAB_STUDIO_SECRET_HAB_REFRESH_CHANNEL: "stable"
+        HAB_AUTH_TOKEN: "super-secret-auth-token"
 
 steps:
 
-  - label: "[:linux: build hab-pkg-export-tar and uplaod to :amazon-s3:]"
+  # - label: "[:linux: build hab-pkg-export-tar and uplaod to :amazon-s3:]"
+  #   command:
+  #     - echo "--- testing hab export tar chef-demo/hello-omnibus-harmony"
+  #     - hab pkg export tar chef-demo/hello-omnibus-harmony
+  #     - echo "--- uploading tar.gz file to buldkite, artifactory, and s3" && buildkite-agent artifact upload "*.tar.gz"
+  #     - aws s3 cp $tar_filename $s3_bucket_uri/$tar_filename --content-type "application/gzip" --profile "<profile to use>"
+  #     # - curl -ussimmons@progress.com:<PASSWORD> -T <PATH_TO_FILE> "https://artifactory-internal.ps.chef.co/artifactory/unstable-habitat-tarbal/<TARGET_FILE_PATH>"
+  #   expeditor:
+  #     accounts:
+  #       - aws/chef-cd
+  #     executor:
+  #       docker:
+  #         privileged: true
+  #         environment:
+  #           - BUILD_PKG_TARGET=x86_64-linux
+  - label: ":habitat: export chef-demo/hello-omnibus-harmony"
+    plugins:
+      - chef/habitat#dd7f815842f90af0d588ce3843968853503463ba:
+          export: chef-demo/hello-omnibus-harmony
+          format: docker
     command:
-      - echo "--- testing hab export tar chef-demo/hello-omnibus-harmony"
-      - hab pkg export tar chef-demo/hello-omnibus-harmony
-      - echo "--- uploading tar.gz file to buldkite, artifactory, and s3" && buildkite-agent artifact upload "*.tar.gz"
-      - aws s3 cp $tar_filename $s3_bucket_uri/$tar_filename --content-type "application/gzip" --profile "<profile to use>"
-      # - curl -ussimmons@progress.com:<PASSWORD> -T <PATH_TO_FILE> "https://artifactory-internal.ps.chef.co/artifactory/unstable-habitat-tarbal/<TARGET_FILE_PATH>"
+      - echo "--- Executing  hooks/command from habitat-plugin -Docker"
+     # - bash commands/export.sh
     expeditor:
       accounts:
         - aws/chef-cd
       executor:
-        docker:
+        linux:
           privileged: true
-          environment:
-            - BUILD_PKG_TARGET=x86_64-linux
-
+          single-use: true
+  # - label: ":habitat: export chef-demo/hello-omnibus-harmony"
+  #   plugins:
+  #     - chef/habitat#fc58c8f976984a141716c9d4956cd42da3a74a73:
+  #         export: chef-demo/hello-omnibus-harmony
+  #         format: tar
+  #   command:
+  #     - echo "--- Executing  hooks/command from habitat-plugin -TAR "
+  #    # - bash commands/export.sh
+  #   expeditor:
+  #     accounts:
+  #       - aws/chef-cd
+  #     executor:
+  #       linux:
+  #         privileged: true
+  #         single-use: true
   # - label: "[:windows: build hab-pkg-export-tar]"
   #   command:
   #     - powershell .expeditor/scripts/release_habitat/build_component.ps1 pkg-export-tar
