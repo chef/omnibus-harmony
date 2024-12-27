@@ -82,10 +82,10 @@ subscriptions:
       - built_in:promote_habitat_packages
 
 
-  # # Automatically promote the Habitat packages from unstable to dev upon successful build
-  # - workload: buildkite_hab_build_group_published:{{agent_id}}:*
-  #   actions:
-  #     - built_in:promote_habitat_packages
+  # Automatically promote the Habitat packages from unstable to dev upon successful build
+  - workload: buildkite_hab_build_group_published:{{agent_id}}:*
+    actions:
+      - built_in:promote_habitat_packages
 
  # Once habitat package is promoted to dev, run the promote script to stable and release the rubygems
   - workload: hab_package_published:dev:chef-demo/hello-omnibus-harmony/{{version_constraint}}
