@@ -37,7 +37,7 @@ steps:
   - label: ":habitat: export chef-demo/hello-omnibus-harmony"
     plugins:
       - chef/habitat#cda67152dcb96d68e8ea87fee9defb71181c47f8:
-          export: chef-demo/hello-omnibus-harmony
+          export_docker: chef-demo/hello-omnibus-harmony
           format: docker
     command:
       - echo "--- Executing  hooks/command from habitat-plugin -Docker"
