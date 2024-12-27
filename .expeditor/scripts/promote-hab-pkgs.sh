@@ -45,4 +45,3 @@ fi
     echo "Promoting ${pkg_origin} to the ${EXPEDITOR_TARGET_CHANNEL} channel"
     hab pkg promote "${pkg_origin}" "${EXPEDITOR_TARGET_CHANNEL}"
   fi
-done
