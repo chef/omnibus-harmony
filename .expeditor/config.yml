@@ -4,7 +4,7 @@
 project:
   alias: harmony
 
-product_key: harmony
+# product_key: harmony
 
 # Slack channel in Chef Software slack to send notifications about build failures, etc
 slack:
@@ -81,7 +81,7 @@ subscriptions:
 # this is the only way currently to promote built-in rubygems publish
   - workload: project_promoted:{{agent_id}}:*
     actions:
-      - built_in:publish_rubygems      
+      - built_in:publish_rubygems
       - built_in:promote_habitat_packages
 
 
