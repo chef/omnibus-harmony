@@ -38,14 +38,11 @@ else
 fi
 
 # Promote the artifacts in Habitat Depot
-jq -r -c ".packages[]" manifest.json | while read -r service_ident; do
-  pkg_origin=${service_ident%/*/*/*}
-
-  if [ "$pkg_origin" = "core" ];
+  if [[ "$pkg_origin" == "core" ]];
   then
-    echo "Skipping promotion of core origin package ${service_ident}"
+    echo "Skipping promotion of core origin package ${pkg_origin}"
   else
-    echo "Promoting ${service_ident} to the ${EXPEDITOR_TARGET_CHANNEL} channel"
-    hab pkg promote "${service_ident}" "${EXPEDITOR_TARGET_CHANNEL}"
+    echo "Promoting ${pkg_origin} to the ${EXPEDITOR_TARGET_CHANNEL} channel"
+    hab pkg promote "${pkg_origin}" "${EXPEDITOR_TARGET_CHANNEL}"
   fi
 done
