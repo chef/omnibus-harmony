@@ -24,14 +24,14 @@ if [[ "${EXPEDITOR_CHANNEL}" == "unstable" ]]; then
   echo "This file does not support actions for artifacts promoted to unstable"
   exit 1
 elif [[ "${EXPEDITOR_CHANNEL}" == "dev" ]]; then
-  export EXPEDITOR_TARGET_CHANNEL="acceptance"
-  echo "My current package is in channel: ${EXPEDITOR_CHANNEL}. I am promoting to ${EXPEDITOR_TARGET_CHANNEL}"
-elif [[ "${EXPEDITOR_CHANNEL}" == "acceptance" ]]; then
-  export EXPEDITOR_TARGET_CHANNEL="current"
-  echo "My current package is in channel: ${EXPEDITOR_CHANNEL}. I am promoting to ${EXPEDITOR_TARGET_CHANNEL}"
-elif [[ "${EXPEDITOR_CHANNEL}" == "current" ]]; then
   export EXPEDITOR_TARGET_CHANNEL="stable"
   echo "My current package is in channel: ${EXPEDITOR_CHANNEL}. I am promoting to ${EXPEDITOR_TARGET_CHANNEL}"
+# elif [[ "${EXPEDITOR_CHANNEL}" == "acceptance" ]]; then
+#   export EXPEDITOR_TARGET_CHANNEL="current"
+#   echo "My current package is in channel: ${EXPEDITOR_CHANNEL}. I am promoting to ${EXPEDITOR_TARGET_CHANNEL}"
+# elif [[ "${EXPEDITOR_CHANNEL}" == "current" ]]; then
+#   export EXPEDITOR_TARGET_CHANNEL="stable"
+#   echo "My current package is in channel: ${EXPEDITOR_CHANNEL}. I am promoting to ${EXPEDITOR_TARGET_CHANNEL}"
 else
   echo "Unknown EXPEDITOR_CHANNEL: ${EXPEDITOR_CHANNEL}"
   exit 1
