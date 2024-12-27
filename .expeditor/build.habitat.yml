@@ -1,3 +1,4 @@
 ---
 bldr_toml: .bldr.toml
 origin: chef-demo
+channels: dev
