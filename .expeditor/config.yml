@@ -12,9 +12,9 @@ slack:
 
 artifact_channels:
   - unstable
-  # - dev
-  # - acceptance
-  # - current
+  - dev
+  - acceptance
+  - current
   - stable
 
 rubygems:
@@ -85,22 +85,22 @@ subscriptions:
       - built_in:promote_habitat_packages
 
 
-  # # Automatically promote the Habitat packages from unstable to dev upon successful build
-  # - workload: buildkite_hab_build_group_published:{{agent_id}}:*
-  #   actions:
-  #     - built_in:promote_habitat_packages
+  # Automatically promote the Habitat packages from unstable to dev upon successful build
+  - workload: buildkite_hab_build_group_published:{{agent_id}}:*
+    actions:
+      - built_in:promote_habitat_packages
 
-#  # Once habitat package is promoted to dev, run the promote script
-#   - workload: hab_package_published:dev:chef-demo/hello-omnibus-harmony/{{version_constraint}}
-#     actions:
-#     - bash:.expeditor/scripts/promote-hab-pkgs.sh:
-#         post_commit: true
+ # Once habitat package is promoted to dev, run the promote script
+  - workload: hab_package_published:dev:chef-demo/hello-omnibus-harmony/{{version_constraint}}
+    actions:
+    - bash:.expeditor/scripts/promote-hab-pkgs.sh:
+        post_commit: true
 
-#   # subscription hab_dev_promote fire off acceptance
-#   - workload: staged_workload_released:{{agent_id}}:hab_dev_promote:*
-#     actions:
-#     - bash:.expeditor/scripts/promote-hab-pkgs.sh:
-#         post_commit: true
+  # subscription hab_dev_promote fire off acceptance
+  - workload: staged_workload_released:{{agent_id}}:hab_dev_promote:*
+    actions:
+    - bash:.expeditor/scripts/promote-hab-pkgs.sh:
+        post_commit: true
 
 #   # subscription hab_acceptance_promote fire off promote to current
 #   - workload: staged_workload_released:{{agent_id}}:hab_acceptance_promote:*
@@ -119,9 +119,9 @@ subscriptions:
 #     actions:
 #       - trigger_pipeline:habitat/export
 
-# staging_areas:
-#   - hab_dev_promote:
-#       workload: hab_package_published:dev:chef-demo/hello-omnibus-harmony/{{version_constraint}}
+staging_areas:
+  - hab_dev_promote:
+      workload: hab_package_published:dev:chef-demo/hello-omnibus-harmony/{{version_constraint}}
 #   - hab_acceptance_promote:
 #       workload: staged_workload_released:{{agent_id}}:hab_dev_promote:*
 #   - hab_current_promote:
