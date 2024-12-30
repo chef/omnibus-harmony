@@ -85,6 +85,7 @@ subscriptions:
   - workload: staged_workload_released:{{agent_id}}:hab_unstable_promote:*
     actions:
     - trigger_pipeline:habitat/export:
+        post_commit: true
     - bash:.expeditor/scripts/promote-hab-pkgs.sh:
         post_commit: true
       
