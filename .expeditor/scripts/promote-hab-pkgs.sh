@@ -20,20 +20,20 @@ export HAB_AUTH_TOKEN
 
 
 # when this workflow runs, there are env vars that are available to us in the running pod, we are grabbing the source ENV, then assigning it to our next channel
-if [[ "${EXPEDITOR_CHANNEL}" == "unstable" ]]; then
+if [[ "${EXPEDITOR_SOURCE_CHANNEL}" == "unstable" ]]; then
   echo "This file does not support actions for artifacts promoted to unstable"
   exit 1
-elif [[ "${EXPEDITOR_CHANNEL}" == "stable" ]]; then
+elif [[ "${EXPEDITOR_SOURCE_CHANNEL}" == "stable" ]]; then
   export EXPEDITOR_TARGET_CHANNEL="acceptance"
-  echo "My current package is in channel: ${EXPEDITOR_CHANNEL}. I am promoting to ${EXPEDITOR_TARGET_CHANNEL}"
-# elif [[ "${EXPEDITOR_CHANNEL}" == "acceptance" ]]; then
+  echo "My current package is in channel: ${EXPEDITOR_SOURCE_CHANNEL}. I am promoting to ${EXPEDITOR_TARGET_CHANNEL}"
+# elif [[ "${EXPEDITOR_SOURCE_CHANNEL}" == "acceptance" ]]; then
 #   export EXPEDITOR_TARGET_CHANNEL="current"
-#   echo "My current package is in channel: ${EXPEDITOR_CHANNEL}. I am promoting to ${EXPEDITOR_TARGET_CHANNEL}"
-# elif [[ "${EXPEDITOR_CHANNEL}" == "current" ]]; then
+#   echo "My current package is in channel: ${EXPEDITOR_SOURCE_CHANNEL}. I am promoting to ${EXPEDITOR_TARGET_CHANNEL}"
+# elif [[ "${EXPEDITOR_SOURCE_CHANNEL}" == "current" ]]; then
 #   export EXPEDITOR_TARGET_CHANNEL="stable"
-#   echo "My current package is in channel: ${EXPEDITOR_CHANNEL}. I am promoting to ${EXPEDITOR_TARGET_CHANNEL}"
+#   echo "My current package is in channel: ${EXPEDITOR_SOURCE_CHANNEL}. I am promoting to ${EXPEDITOR_TARGET_CHANNEL}"
 else
-  echo "Unknown EXPEDITOR_CHANNEL: ${EXPEDITOR_CHANNEL}"
+  echo "Unknown EXPEDITOR_SOURCE_CHANNEL: ${EXPEDITOR_SOURCE_CHANNEL}"
   exit 1
 fi
 
