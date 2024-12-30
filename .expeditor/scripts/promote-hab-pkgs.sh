@@ -23,8 +23,8 @@ export HAB_AUTH_TOKEN
 if [[ "${EXPEDITOR_CHANNEL}" == "unstable" ]]; then
   echo "This file does not support actions for artifacts promoted to unstable"
   exit 1
-elif [[ "${EXPEDITOR_CHANNEL}" == "dev" ]]; then
-  export EXPEDITOR_TARGET_CHANNEL="stable"
+elif [[ "${EXPEDITOR_CHANNEL}" == "stable" ]]; then
+  export EXPEDITOR_TARGET_CHANNEL="acceptance"
   echo "My current package is in channel: ${EXPEDITOR_CHANNEL}. I am promoting to ${EXPEDITOR_TARGET_CHANNEL}"
 # elif [[ "${EXPEDITOR_CHANNEL}" == "acceptance" ]]; then
 #   export EXPEDITOR_TARGET_CHANNEL="current"
