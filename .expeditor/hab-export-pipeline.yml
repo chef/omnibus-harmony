@@ -36,7 +36,7 @@ steps:
   #           - BUILD_PKG_TARGET=x86_64-linux
   - label: ":habitat: export chef-demo/hello-omnibus-harmony"
     plugins:
-      - chef/habitat#833e544ba5002ed49cfbedeefbd060da38aa37c9:
+      - chef/habitat#a3cc5458d7b8fac365b539292deb7761412d8045:
           export: chef-demo/hello-omnibus-harmony
           export_docker: chef-demo/hello-omnibus-harmony
           format: docker
@@ -52,7 +52,7 @@ steps:
           single-use: true
   - label: ":habitat: export chef-demo/hello-omnibus-harmony"
     plugins:
-      - chef/habitat#833e544ba5002ed49cfbedeefbd060da38aa37c9:
+      - chef/habitat#a3cc5458d7b8fac365b539292deb7761412d8045:
           export: chef-demo/hello-omnibus-harmony
           export_tar: chef-demo/hello-omnibus-harmony
           format: tar
