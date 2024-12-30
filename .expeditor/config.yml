@@ -84,8 +84,9 @@ subscriptions:
   # subscription to fire off any other promotions that you may need for an additional channnel like LTS or something. 
   - workload: staged_workload_released:{{agent_id}}:hab_unstable_promote:*
     actions:
-    - bash:.expeditor/scripts/promote-hab-pkgs.sh:
+      - bash:.expeditor/scripts/promote-hab-pkgs.sh:
         post_commit: true
+      - trigger_pipeline:habitat/export
 
 staging_areas:
   - hab_unstable_promote:
