@@ -86,7 +86,7 @@ subscriptions:
     actions:
     - bash:.expeditor/scripts/promote-hab-pkgs.sh:
         post_commit: true
-      - trigger_pipeline:habitat/export
+    - trigger_pipeline:habitat/export
 
 staging_areas:
   - hab_unstable_promote:
