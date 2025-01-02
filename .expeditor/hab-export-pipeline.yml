@@ -54,7 +54,7 @@ steps:
     plugins:
       - chef/habitat#e9ee3a12edb27569bb5aec2fdfe097bf4b5b21bd:
           export: chef-demo/hello-omnibus-harmony
-          export_tar: chef-demo/hello-omnibus-harmony
+          export_tarball: chef-demo/hello-omnibus-harmony
           format: tar
     command:
       - echo "--- Executing  hooks/command from habitat-plugin -TAR "
