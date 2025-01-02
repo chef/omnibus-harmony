@@ -10,9 +10,7 @@
 # HAB_AUTH_TOKEN - GitHub Auth token used to communicate with the
 #                  Habitat depot and private repos in Chef's GitHub org
 #
-set -eoux pipefail
-
-printenv
+set -eou pipefail
 
 # Export the HAB_AUTH_TOKEN for use of promoting habitat packages to {{TARGET_CHANNEL}}
 HAB_AUTH_TOKEN=$(vault kv get -field auth_token account/static/habitat/chef-ci)
