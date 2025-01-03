@@ -19,7 +19,7 @@ printenv | grep EXPEDITOR
 HAB_AUTH_TOKEN=$(vault kv get -field auth_token account/static/habitat/chef-ci)
 export HAB_AUTH_TOKEN
 
-if [[ "${EXPEDITOR_SOURCE_CHANNEL}" == "dev" ]]; then
+if [[ "${EXPEDITOR_SOURCE_CHANNEL}" == "acceptance" ]]; then
     echo "Promoting ${EXPEDITOR_PKG_IDENT} to the ${EXPEDITOR_TARGET_CHANNEL} channel"
     hab pkg promote "${EXPEDITOR_PKG_IDENT}" "${EXPEDITOR_TARGET_CHANNEL}"
 else

@@ -100,4 +100,4 @@ subscriptions:
 
 staging_areas:
   - hab_unstable_promote:
-      workload: hab_package_published:dev:chef-demo/hello-omnibus-harmony/{{version_constraint}}
+      workload: hab_package_published:acceptance:chef-demo/hello-omnibus-harmony/{{version_constraint}}
