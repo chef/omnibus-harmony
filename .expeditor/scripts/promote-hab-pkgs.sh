@@ -10,36 +10,51 @@
 # HAB_AUTH_TOKEN - GitHub Auth token used to communicate with the
 #                  Habitat depot and private repos in Chef's GitHub org
 #
-set -eou pipefail
+set -eoux pipefail
 
-# Export the HAB_AUTH_TOKEN for use of promoting habitat packages to {{TARGET_CHANNEL}}
+printenv | grep EXPEDITOR
+
+# Export the HAB_AUTH_TOKEN for use of promoting habitat packages to {{EXPEDITOR_TARGET_CHANNEL}}
+# Export a default EXPEDITOR_CHANNEL to workstation-build, this should match the first channel in your expeditor config under artifact_channels, and if you have it auto promoting to that channel
 HAB_AUTH_TOKEN=$(vault kv get -field auth_token account/static/habitat/chef-ci)
 export HAB_AUTH_TOKEN
 
-
-# when this workflow runs, there are env vars that are available to us in the running pod, we are grabbing the source ENV, then assigning it to our next channel
-if [[ "${EXPEDITOR_CHANNEL}" == "unstable" ]]; then
-  echo "This file does not support actions for artifacts promoted to unstable"
-  exit 1
-elif [[ "${EXPEDITOR_CHANNEL}" == "stable" ]]; then
-  export EXPEDITOR_TARGET_CHANNEL="acceptance"
-  echo "My current package is in channel: ${EXPEDITOR_CHANNEL}. I am promoting to ${EXPEDITOR_TARGET_CHANNEL}"
-# elif [[ "${EXPEDITOR_CHANNEL}" == "acceptance" ]]; then
-#   export EXPEDITOR_TARGET_CHANNEL="current"
-#   echo "My current package is in channel: ${EXPEDITOR_CHANNEL}. I am promoting to ${EXPEDITOR_TARGET_CHANNEL}"
-# elif [[ "${EXPEDITOR_CHANNEL}" == "current" ]]; then
-#   export EXPEDITOR_TARGET_CHANNEL="stable"
-#   echo "My current package is in channel: ${EXPEDITOR_CHANNEL}. I am promoting to ${EXPEDITOR_TARGET_CHANNEL}"
+if [[ "${EXPEDITOR_SOURCE_CHANNEL}" == "acceptance" ]]; then
+    echo "Promoting ${EXPEDITOR_PKG_IDENT} to the ${EXPEDITOR_TARGET_CHANNEL} channel"
+    hab pkg promote "${EXPEDITOR_PKG_IDENT}" "${EXPEDITOR_TARGET_CHANNEL}"
 else
-  echo "Unknown EXPEDITOR_CHANNEL: ${EXPEDITOR_CHANNEL}"
+  echo "Unknown EXPEDITOR_SOURCE_CHANNEL: ${EXPEDITOR_SOURCE_CHANNEL}"
   exit 1
 fi
 
-# Promote the artifacts in Habitat Depot
-  if [[ "${EXPEDITOR_PKG_ORIGIN}" == "core" ]];
-  then
-    echo "Skipping promotion of core origin package ${EXPEDITOR_PKG_ORIGIN}"
-  else
-    echo "Promoting ${EXPEDITOR_PKG_IDENT} to the ${EXPEDITOR_TARGET_CHANNEL} channel"
-    hab pkg promote "${EXPEDITOR_PKG_IDENT}" "${EXPEDITOR_TARGET_CHANNEL}"
-  fi
+# # Export the HAB_AUTH_TOKEN for use of promoting habitat packages to {{TARGET_CHANNEL}}
+# HAB_AUTH_TOKEN=$(vault kv get -field auth_token account/static/habitat/chef-ci)
+# export HAB_AUTH_TOKEN
+
+
+# # when this workflow runs, there are env vars that are available to us in the running pod, we are grabbing the source ENV, then assigning it to our next channel
+# if [[ "${EXPEDITOR_CHANNEL}" == "unstable" ]]; then
+#   echo "This file does not support actions for artifacts promoted to unstable"
+#   exit 1
+# elif [[ "${EXPEDITOR_CHANNEL}" == "stable" ]]; then
+#   export EXPEDITOR_TARGET_CHANNEL="acceptance"
+#   echo "My current package is in channel: ${EXPEDITOR_CHANNEL}. I am promoting to ${EXPEDITOR_TARGET_CHANNEL}"
+# # elif [[ "${EXPEDITOR_CHANNEL}" == "acceptance" ]]; then
+# #   export EXPEDITOR_TARGET_CHANNEL="current"
+# #   echo "My current package is in channel: ${EXPEDITOR_CHANNEL}. I am promoting to ${EXPEDITOR_TARGET_CHANNEL}"
+# # elif [[ "${EXPEDITOR_CHANNEL}" == "current" ]]; then
+# #   export EXPEDITOR_TARGET_CHANNEL="stable"
+# #   echo "My current package is in channel: ${EXPEDITOR_CHANNEL}. I am promoting to ${EXPEDITOR_TARGET_CHANNEL}"
+# else
+#   echo "Unknown EXPEDITOR_CHANNEL: ${EXPEDITOR_CHANNEL}"
+#   exit 1
+# fi
+
+# # Promote the artifacts in Habitat Depot
+#   if [[ "${EXPEDITOR_PKG_ORIGIN}" == "core" ]];
+#   then
+#     echo "Skipping promotion of core origin package ${EXPEDITOR_PKG_ORIGIN}"
+#   else
+#     echo "Promoting ${EXPEDITOR_PKG_IDENT} to the ${EXPEDITOR_TARGET_CHANNEL} channel"
+#     hab pkg promote "${EXPEDITOR_PKG_IDENT}" "${EXPEDITOR_TARGET_CHANNEL}"
+#   fi

@@ -11,8 +11,9 @@ slack:
   notify_channel: releng-notify
 
 artifact_channels:
-  - dev
   - unstable
+  - dev
+  - acceptance
   - stable
 
 rubygems:
@@ -99,4 +100,4 @@ subscriptions:
 
 staging_areas:
   - hab_unstable_promote:
-      workload: hab_package_published:stable:chef-demo/hello-omnibus-harmony/{{version_constraint}}
+      workload: hab_package_published:acceptance:chef-demo/hello-omnibus-harmony/{{version_constraint}}
