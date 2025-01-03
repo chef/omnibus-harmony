@@ -19,36 +19,35 @@ printenv | grep EXPEDITOR
 HAB_AUTH_TOKEN=$(vault kv get -field auth_token account/static/habitat/chef-ci)
 export HAB_AUTH_TOKEN
 
-if [[ "${EXPEDITOR_SOURCE_CHANNEL}" == "acceptance" ]]; then
+# # Export the HAB_AUTH_TOKEN for use of promoting habitat packages to {{TARGET_CHANNEL}}
+# HAB_AUTH_TOKEN=$(vault kv get -field auth_token account/static/habitat/chef-ci)
+# export HAB_AUTH_TOKEN
+
+
+# when this workflow runs, there are env vars that are available to us in the running pod, we are grabbing the source ENV, then assigning it to our next channel
+if [[ "${EXPEDITOR_CHANNEL}" == "unstable" ]]; then
+  echo "This file does not support actions for artifacts promoted to unstable"
+  exit 1
+elif [[ "${EXPEDITOR_CHANNEL}" == "acceptance" ]]; then
+  export EXPEDITOR_TARGET_CHANNEL="stable"
+# elif [[ "${EXPEDITOR_CHANNEL}" == "acceptance" ]]; then
+#   export EXPEDITOR_TARGET_CHANNEL="current"
+#   echo "My current package is in channel: ${EXPEDITOR_CHANNEL}. I am promoting to ${EXPEDITOR_TARGET_CHANNEL}"
+# elif [[ "${EXPEDITOR_CHANNEL}" == "current" ]]; then
+#   export EXPEDITOR_TARGET_CHANNEL="stable"
+#   echo "My current package is in channel: ${EXPEDITOR_CHANNEL}. I am promoting to ${EXPEDITOR_TARGET_CHANNEL}"
+else
+  echo "Unknown EXPEDITOR_CHANNEL: ${EXPEDITOR_CHANNEL}"
+  exit 1
+fi
+
+if [[ "${EXPEDITOR_CHANNEL}" == "acceptance" ]]; then
     echo "Promoting ${EXPEDITOR_PKG_IDENT} to the ${EXPEDITOR_TARGET_CHANNEL} channel"
     hab pkg promote "${EXPEDITOR_PKG_IDENT}" "${EXPEDITOR_TARGET_CHANNEL}"
 else
   echo "Unknown EXPEDITOR_SOURCE_CHANNEL: ${EXPEDITOR_SOURCE_CHANNEL}"
   exit 1
 fi
-
-# # Export the HAB_AUTH_TOKEN for use of promoting habitat packages to {{TARGET_CHANNEL}}
-# HAB_AUTH_TOKEN=$(vault kv get -field auth_token account/static/habitat/chef-ci)
-# export HAB_AUTH_TOKEN
-
-
-# # when this workflow runs, there are env vars that are available to us in the running pod, we are grabbing the source ENV, then assigning it to our next channel
-# if [[ "${EXPEDITOR_CHANNEL}" == "unstable" ]]; then
-#   echo "This file does not support actions for artifacts promoted to unstable"
-#   exit 1
-# elif [[ "${EXPEDITOR_CHANNEL}" == "stable" ]]; then
-#   export EXPEDITOR_TARGET_CHANNEL="acceptance"
-#   echo "My current package is in channel: ${EXPEDITOR_CHANNEL}. I am promoting to ${EXPEDITOR_TARGET_CHANNEL}"
-# # elif [[ "${EXPEDITOR_CHANNEL}" == "acceptance" ]]; then
-# #   export EXPEDITOR_TARGET_CHANNEL="current"
-# #   echo "My current package is in channel: ${EXPEDITOR_CHANNEL}. I am promoting to ${EXPEDITOR_TARGET_CHANNEL}"
-# # elif [[ "${EXPEDITOR_CHANNEL}" == "current" ]]; then
-# #   export EXPEDITOR_TARGET_CHANNEL="stable"
-# #   echo "My current package is in channel: ${EXPEDITOR_CHANNEL}. I am promoting to ${EXPEDITOR_TARGET_CHANNEL}"
-# else
-#   echo "Unknown EXPEDITOR_CHANNEL: ${EXPEDITOR_CHANNEL}"
-#   exit 1
-# fi
 
 # # Promote the artifacts in Habitat Depot
 #   if [[ "${EXPEDITOR_PKG_ORIGIN}" == "core" ]];
