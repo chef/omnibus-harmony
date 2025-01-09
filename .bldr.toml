@@ -1,5 +1,4 @@
 [hello-omnibus-harmony]
 build_targets = [
-  "x86_64-linux",
-  "x86_64-windows"
+  "x86_64-linux"
 ]
