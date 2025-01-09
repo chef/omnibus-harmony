@@ -23,7 +23,7 @@ steps:
     plugins:
       - chef/habitat#e41bce4d0254f63e81bdf19b1a3340bdd7c6b198:
           export_docker: chef-demo/hello-omnibus-harmony
-          #export: chef-demo/hello-omnibus-harmony
+          export: chef-demo/hello-omnibus-harmony
           format: docker
     command:
       - echo "--- Executing  hooks/command from habitat-plugin -Docker"
@@ -39,7 +39,7 @@ steps:
     plugins:
       - chef/habitat#e41bce4d0254f63e81bdf19b1a3340bdd7c6b198:
           export_tarball: chef-demo/hello-omnibus-harmony
-          #export: chef-demo/hello-omnibus-harmony
+          export: chef-demo/hello-omnibus-harmony
           format: tarball
     command:
       - echo "--- Executing  hooks/command from habitat-plugin -TAR "
