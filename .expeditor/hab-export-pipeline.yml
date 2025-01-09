@@ -34,7 +34,7 @@ steps:
   #         privileged: true
   #         environment:
   #           - BUILD_PKG_TARGET=x86_64-linux
-  - label: ":habitat: export chef-demo/hello-omnibus-harmony"
+  - label: ":habitat: export docker chef-demo/hello-omnibus-harmony"
     plugins:
       - chef/habitat#c5fd76b3e333790e1d78be3371272edc9f3d3dad:
           export: chef-demo/hello-omnibus-harmony
@@ -50,12 +50,12 @@ steps:
         linux:
           privileged: true
           single-use: true
-  - label: ":habitat: export chef-demo/hello-omnibus-harmony"
+  - label: ":habitat: export tarball chef-demo/hello-omnibus-harmony"
     plugins:
       - chef/habitat#c5fd76b3e333790e1d78be3371272edc9f3d3dad:
           export: chef-demo/hello-omnibus-harmony
           export_tarball: chef-demo/hello-omnibus-harmony
-          format: tar
+          format: tarball
     command:
       - echo "--- Executing  hooks/command from habitat-plugin -TAR "
      # - bash commands/export.sh
