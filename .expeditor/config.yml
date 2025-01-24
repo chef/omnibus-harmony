@@ -86,7 +86,8 @@ subscriptions:
   - workload: project_promoted:{{agent_id}}:dev:*
     actions:
       - built_in:promote_habitat_packages
-      - built_in:publish_rubygems_chef
+      - built_in:publish_rubygems      
+      # - built_in:publish_rubygems_chef
 
   # subscription to fire off any other promotions that you may need for an additional channnel like LTS or something. 
   - workload: staged_workload_released:{{agent_id}}:hab_unstable_promote:*
