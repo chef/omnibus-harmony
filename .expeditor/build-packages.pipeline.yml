@@ -1,6 +1,6 @@
 expeditor:
   accounts:
-    - aws/chef-cd
+    - aws/chef-artifactory
 
 steps:
   - label: ":linux: Build RPM package"
