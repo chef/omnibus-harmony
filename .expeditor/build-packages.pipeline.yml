@@ -1,17 +1,17 @@
 expeditor:
   accounts:
-    - aws/chef-artifactory
+    - aws/chef-cd
 
 steps:
   - label: ":linux: Build RPM package"
     commands:
       # - pkg_identifier=$(sed 's/\//-/g' <<< $EXPEDITOR_PKG_IDENTS_CHEFINFRACLIENTX86_64LINUX).tar.gz
-      - export CHEF_INFRA_MIGRATE_TAR=s3://chef-hab-migration-tool-bucket/rc2_hab_pkg_chef_client/rc2_migration_tool/migration-tools_Linux_x86_64.tar.gz
-      - export CHEF_INFRA_HAB_TAR=s3://chef-hab-migration-tool-bucket/rc2_hab_pkg_chef_client/rc2_tar_folder/chef-chef-infra-client-19.0.54-20241121145703.tar.gz
+      - export CHEF_INFRA_MIGRATE_TAR=s3://rc2_hab_pkg_chef_client/rc2_migration_tool/migration-tools_Linux_x86_64.tar.gz
+      - export CHEF_INFRA_HAB_TAR=s3://rc2-hab-pkg-chef-client/rc2_tar/chef-chef-infra-client-19.0.54-20241121145703.tar.gz
       - ./.expeditor/scripts/build-infra-rpm.sh
       - pkg_name=$(cat RPM_PKG_NAME)
       - buildkite-agent artifact upload $pkg_name
-      - aws s3 cp $pkg_name s3://chef-hab-migration-tool-bucket/rc2_hab_pkg_chef_client/rc2_installer_folder/$pkg_name
+      - aws s3 cp $pkg_name s3://rc2-hab-pkg-chef-client/rc2_tar/rc2_installer/$pkg_name
     expeditor:
       executor:
         linux:
@@ -20,12 +20,12 @@ steps:
   - label: ":linux: Build Debian package"
     commands:
       # - pkg_identifier=$(sed 's/\//-/g' <<< $EXPEDITOR_PKG_IDENTS_CHEFINFRACLIENTX86_64LINUX).tar.gz
-      - export CHEF_INFRA_MIGRATE_TAR=s3://chef-hab-migration-tool-bucket/rc2_hab_pkg_chef_client/rc2_migration_tool/migration-tools_Linux_x86_64.tar.gz
-      - export CHEF_INFRA_HAB_TAR=s3://chef-hab-migration-tool-bucket/rc2_hab_pkg_chef_client/rc2_tar_folder/chef-chef-infra-client-19.0.54-20241121145703.tar.gz
+      - export CHEF_INFRA_MIGRATE_TAR=s3://rc2_hab_pkg_chef_client/rc2_migration_tool/migration-tools_Linux_x86_64.tar.gz
+      - export CHEF_INFRA_HAB_TAR=s3://rc2_hab_pkg_chef_client/rc2_tar/chef-chef-infra-client-19.0.54-20241121145703.tar.gz
       - ./.expeditor/scripts/build-infra-deb.sh
       - pkg_name=$(cat DEB_PKG_NAME)
       - buildkite-agent artifact upload $pkg_name
-      - aws s3 cp $pkg_name s3://chef-hab-migration-tool-bucket/rc2_hab_pkg_chef_client/rc2_installer_folder/$pkg_name
+      - aws s3 cp $pkg_name s3://rc2_hab_pkg_chef_client/rc2_installer/$pkg_name
     expeditor:
       executor:
         linux:
