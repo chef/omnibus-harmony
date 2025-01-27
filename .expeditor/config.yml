@@ -51,6 +51,8 @@ pipelines:
       definition: .expeditor/habitat-export.pipeline.yml
   - hab-export:
       definition: .expeditor/hab-export-pipeline.yml
+  - build-packages:
+      definition: .expeditor/build-packages.pipeline.yml
 
 subscriptions:
   - workload: pull_request_merged:{{github_repo}}:{{release_branch}}:*
