@@ -11,8 +11,9 @@ slack:
   notify_channel: releng-notify
 
 artifact_channels:
-  - dev
-  - acceptance
+  - unstable
+  # - dev
+  # - acceptance
   - stable
 
 rubygems:
@@ -78,26 +79,26 @@ subscriptions:
       #     only_if: built_in:bump_version
 
   # Automatically promote the Habitat packages from unstable to dev upon successful build
-  - workload: buildkite_hab_build_group_published:{{agent_id}}:*
-    actions:
-      - built_in:promote_habitat_packages
+  # - workload: buildkite_hab_build_group_published:{{agent_id}}:*
+  #   actions:
+  #     - built_in:promote_habitat_packages
 
 # this is the only way currently to promote built-in rubygems publish
-  - workload: project_promoted:{{agent_id}}:dev:*
+  - workload: project_promoted:{{agent_id}}:*
     actions:
       - built_in:promote_habitat_packages
       - built_in:publish_rubygems
       # - built_in:publish_rubygems_chef
 
-  # subscription to fire off any other promotions that you may need for an additional channnel like LTS or something. 
-  - workload: staged_workload_released:{{agent_id}}:hab_unstable_promote:*
-    actions:
-    - trigger_pipeline:habitat/export:
-        post_commit: true
-    - bash:.expeditor/scripts/promote-hab-pkgs.sh:
-        post_commit: true
-      
+  # subscription to fire off any other promotions that you may need for an additional channnel like LTS or something.
+  # - workload: staged_workload_released:{{agent_id}}:hab_unstable_promote:*
+  #   actions:
+  #   - trigger_pipeline:habitat/export:
+  #       post_commit: true
+  #   - bash:.expeditor/scripts/promote-hab-pkgs.sh:
+  #       post_commit: true
 
-staging_areas:
-  - hab_unstable_promote:
-      workload: hab_package_published:acceptance:chef-demo/hello-omnibus-harmony/{{version_constraint}}
+
+# staging_areas:
+#   - hab_unstable_promote:
+#       workload: hab_package_published:acceptance:chef-demo/hello-omnibus-harmony/{{version_constraint}}
