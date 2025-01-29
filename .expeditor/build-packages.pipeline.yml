@@ -58,6 +58,8 @@ steps:
           privileged: true
 
   - label: ":linux: Build Debian package"
+    agents:
+      queue: omnibus-ubuntu-18.04-aarch64
     commands:
       # - pkg_identifier=$(sed 's/\//-/g' <<< $EXPEDITOR_PKG_IDENTS_CHEFINFRACLIENTX86_64LINUX).tar.gz
       - export CHEF_INFRA_MIGRATE_TAR=s3://rc2-hab-pkg-chef-client/rc2_migration_tool/migration-tools_Linux_x86_64.tar.gz
@@ -67,8 +69,6 @@ steps:
       - pkg_name=$(cat DEB_PKG_NAME)
       - buildkite-agent artifact upload $pkg_name
       - aws s3 cp $pkg_name s3://chef-hab-migration-tool-bucket/rc2_hab_pkg_chef_client/rc2_installer_folder/$pkg_name
-    agents:
-      queue: omnibus-ubuntu-2004-x86-64
     expeditor:
       executor:
         linux:
