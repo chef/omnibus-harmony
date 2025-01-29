@@ -32,7 +32,7 @@ steps:
       #- set HAB_PACKAGE_TAR_FILENAME=$(find . -regex "./chef-chef-infra-client-[0-9]+\.[0-9]+\.[0-9]+-[0-9]+\.tar\.gz" -type f -exec basename {} \;)
       - echo "BUILDKITE_AGENT_ACCESS_TOKEN  $BUILDKITE_AGENT_ACCESS_TOKEN"
       - buildkite-agent meta-data set "HAB_PACKAGE_TAR_FILENAME" "chef-chef-infra-client-19.0.82-20250128214643.tar.gz" 
-      - set HAB_PACKAGE_TAR_FILENAME_TEST=$(buildkite-agent meta-data get "HAB_PACKAGE_TAR_FILENAME")
+      - set HAB_PACKAGE_TAR_FILENAME_TEST=(buildkite-agent meta-data get "HAB_PACKAGE_TAR_FILENAME")
       - echo "hab pkg tar name - $HAB_PACKAGE_TAR_FILENAME_TEST"
       # - cd upload/ && buildkite-agent artifact upload "*.tar.gz" && aws s3 sync . s3://rc2-hab-pkg-chef-client/rc2_tar/ --exclude "*" --include "*.tar.gz" --region us-west-2 --profile chef-cd
 
