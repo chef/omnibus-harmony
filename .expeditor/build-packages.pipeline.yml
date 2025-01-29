@@ -15,10 +15,8 @@ expeditor:
         # Necessary to prevent old studios from poisoning builds after core plans refreshes
         HAB_STUDIO_SECRET_HAB_PREFER_LOCAL_CHEF_DEPS: "true"
         HAB_STUDIO_SECRET_HAB_REFRESH_CHANNEL: "unstable"
-        HAB_PACKAGE_TAR_FILENAME: "$(find . -regex \"./chef-chef-infra-client-[0-9]+\.[0-9]+\.[0-9]+-[0-9]+\.tar\.gz\" -type f -exec basename {} \;)"
-
+        HAB_PACKAGE_TAR_FILENAME:  '$(find . -regex "./chef-chef-infra-client-[0-9]+\.[0-9]+\.[0-9]+-[0-9]+\.tar\.gz" -type f -exec basename {} \;)'
 steps:
-
   - label: "[:linux: build hab-pkg-export-tar and upload to :amazon-s3:]"
     command:
       - echo "--- testing hab export tar chef/chef-infra-client"
