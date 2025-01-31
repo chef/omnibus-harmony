@@ -10,7 +10,7 @@ tar_name=$(buildkite-agent meta-data get "PACKAGE_TAR_FILENAME")
 echo "--- using PACKAGE_TAR_FILENAME=$tar_name from meta-data"
 
 echo "--- setting env variables CHEF_INFRA_MIGRATE_TAR and CHEF_INFRA_HAB_TAR"
-export CHEF_INFRA_MIGRATE_TAR=https://github.com/chef/migration-tools/releases/download/latest/migration-tools_Linux_x86_64.tar.gz
+export CHEF_INFRA_MIGRATE_TAR=chef/migration-tools/migration-tools_Linux_x86_64.tar.gz
 export CHEF_INFRA_HAB_TAR=$tar_name
 
 echo "--- running build script"

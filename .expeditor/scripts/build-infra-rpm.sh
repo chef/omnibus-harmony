@@ -52,11 +52,12 @@ download_tarball_from_buildkite_artifactory() {
 }
 
 download_migration_tool() {
-  local url="$1"
+  local repo_path=$(dirname "$1")
+  local target=$(basename "$1")
   local output_path="$2"
 
-  if ! curl -fSL "$url" -o "$output_path"; then
-      echo "Error: Failed to download migration tool from $url"
+  if ! gh release download --repo "$repo_path" --dir "$output_path"; then
+      echo "Error: Failed to download migration tool $target from $repo_path"
       exit 1
   fi
 }
@@ -66,7 +67,7 @@ hab_filename=$(basename "${CHEF_INFRA_HAB_TAR%%\?*}")
 
 # download_file "$CHEF_INFRA_MIGRATE_TAR" "$TARS_DIR/$migrate_filename"
 # download_file "$CHEF_INFRA_HAB_TAR" "$TARS_DIR/$hab_filename"
-download_migration_tool "$CHEF_INFRA_MIGRATE_TAR" "$TARS_DIR/$migrate_filename"
+download_migration_tool "$CHEF_INFRA_MIGRATE_TAR" "$TARS_DIR"
 download_tarball_from_buildkite_artifactory "$CHEF_INFRA_HAB_TAR" "$TARS_DIR"
 
 # Set final paths to the downloaded files
