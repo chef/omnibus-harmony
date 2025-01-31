@@ -5,7 +5,7 @@ expeditor:
       field: auth_token # Production Builder
       # acceptance_auth_token = acceptance
   accounts:
-    - aws/chef-artifactory
+    - aws/chef-cd
   defaults:
     buildkite:
       timeout_in_minutes: 45
