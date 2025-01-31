@@ -28,18 +28,6 @@ if [ -z "$CHEF_INFRA_MIGRATE_TAR" ] || [ -z "$CHEF_INFRA_HAB_TAR" ]; then
   exit 1
 fi
 
-# # Function to download a file
-# download_file() {
-#   local url="$1"
-#   local output_path="$2"
-
-#   echo "Downloading $url to $output_path..."
-#   if ! aws s3 cp "$url" "$output_path"; then
-#     echo "Error: Failed to download $url"
-#     exit 1
-#   fi
-# }
-
 download_tarball_from_buildkite_artifactory() {
   local tarball_name="$1"
   local output_path="$2"
@@ -55,10 +43,20 @@ download_migration_tool() {
   local url="$1"
   local output_path="$2"
 
-  if ! curl -H "Authorization: token $GITHUB_TOKEN" -L "$url" -o "$output_path"; then
+  echo "--- Downloading $url to $output_path.."
+
+  if [ -z "$GITHUB_TOKEN" ]; then
+    echo "GITHUB_TOKEN is not set. Cannot download migration tool from $url"
+    exit 1
+  fi
+
+  if ! curl -H "Authorization: token $GITHUB_TOKEN" -fSL "$url" -o "$output_path"; then
       echo "Error: Failed to download migration tool from $url"
       exit 1
   fi
+
+  echo "--- Downloaded to $output_path"
+  file $output_path
 }
 
 migrate_filename=$(basename "${CHEF_INFRA_MIGRATE_TAR%%\?*}")

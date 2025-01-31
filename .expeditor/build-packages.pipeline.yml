@@ -25,6 +25,10 @@ steps:
     command:
       - ./.expeditor/scripts/export-infra-tar.sh
     expeditor:
+      secrets:
+        GITHUB_TOKEN:
+          account: github/chef
+          field: token
       accounts:
         - aws/chef-artifactory
       executor:
