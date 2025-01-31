@@ -1,5 +1,8 @@
 expeditor:
   secrets:
+    GITHUB_TOKEN:
+      account: github/chef
+      field: token
     PIPELINE_HAB_AUTH_TOKEN:
       path: account/static/habitat/chef-ci
       field: auth_token # Production Builder
@@ -22,6 +25,8 @@ steps:
     command:
       - ./.expeditor/scripts/export-infra-tar.sh
     expeditor:
+      accounts:
+        - aws/chef-artifactory
       executor:
         docker:
           privileged: true
