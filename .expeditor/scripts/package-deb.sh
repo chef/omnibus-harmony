@@ -7,7 +7,7 @@ echo "--- using PACKAGE_TAR_FILENAME=$tar_name from meta-data"
 
 echo "--- setting env variables CHEF_INFRA_MIGRATE_TAR and CHEF_INFRA_HAB_TAR"
 export CHEF_INFRA_MIGRATE_TAR=s3://rc2-hab-pkg-chef-client/rc2_migration_tool/migration-tools_Linux_x86_64.tar.gz
-export CHEF_INFRA_HAB_TAR=s3://rc2-hab-pkg-chef-client/rc2_tar/$tar_name
+export CHEF_INFRA_HAB_TAR=$tar_name
 
 echo "--- running build script"
 ./.expeditor/scripts/build-infra-deb.sh

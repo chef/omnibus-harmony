@@ -28,23 +28,46 @@ if [ -z "$CHEF_INFRA_MIGRATE_TAR" ] || [ -z "$CHEF_INFRA_HAB_TAR" ]; then
   exit 1
 fi
 
-# Function to download a file
-download_file() {
+# # Function to download a file
+# download_file() {
+#   local url="$1"
+#   local output_path="$2"
+
+#   echo "Downloading $url to $output_path..."
+#   if ! aws s3 cp "$url" "$output_path"; then
+#     echo "Error: Failed to download $url"
+#     exit 1
+#   fi
+# }
+
+download_tarball_from_buildkite_artifactory() {
+  local tarball_name="$1"
+  local output_path="$2"
+
+  echo "Downloading $tarball_name to $output_path.."
+  if ! buildkite-agent artifact download "$tarball_name" "$output_path"; then
+    echo "Error: Failed to download $tarball_name"
+    exit 1
+  fi
+}
+
+download_migration_tool() {
   local url="$1"
   local output_path="$2"
 
-  echo "Downloading $url to $output_path..."
-  if ! aws s3 cp "$url" "$output_path"; then
-    echo "Error: Failed to download $url"
-    exit 1
+  if ! curl -fSL "$url" -o "$output_path"; then
+      echo "Error: Failed to download migration tool from $url"
+      exit 1
   fi
 }
 
 migrate_filename=$(basename "${CHEF_INFRA_MIGRATE_TAR%%\?*}")
 hab_filename=$(basename "${CHEF_INFRA_HAB_TAR%%\?*}")
 
-download_file "$CHEF_INFRA_MIGRATE_TAR" "$TARS_DIR/$migrate_filename"
-download_file "$CHEF_INFRA_HAB_TAR" "$TARS_DIR/$hab_filename"
+# download_file "$CHEF_INFRA_MIGRATE_TAR" "$TARS_DIR/$migrate_filename"
+# download_file "$CHEF_INFRA_HAB_TAR" "$TARS_DIR/$hab_filename"
+download_migration_tool "$CHEF_INFRA_MIGRATE_TAR" "$TARS_DIR/$migrate_filename"
+download_tarball_from_buildkite_artifactory "$CHEF_INFRA_HAB_TAR" "$TARS_DIR"
 
 # Set final paths to the downloaded files
 CHEF_MIGRATE_TAR="$TARS_DIR/$migrate_filename"
