@@ -5,7 +5,7 @@ expeditor:
       field: auth_token # Production Builder
       # acceptance_auth_token = acceptance
   accounts:
-    - aws/chef-cd
+    - aws/chef-artifactory
   defaults:
     buildkite:
       timeout_in_minutes: 45
@@ -34,6 +34,8 @@ steps:
     commands:
       - ./.expeditor/scripts/package-rpm.sh
     expeditor:
+      accounts:
+        - aws/chef-artifactory
       executor:
         linux:
           privileged: true
