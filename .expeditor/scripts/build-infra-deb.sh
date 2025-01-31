@@ -40,10 +40,13 @@ create_temp_dir() {
     echo "Temporary directory created at $TEMP_DIR."
 }
 
+# TODO: split this to two 
 download_files() {
     echo "Downloading migration tool..."
+    # NOTE: this should be pulling from artifactory in the future along with some versioning. 
     aws s3 cp "$CHEF_INFRA_MIGRATE_TAR" "$TEMP_DIR/migration-tools.tar.gz" || { echo "Error: Failed to download migration tool from $CHEF_INFRA_MIGRATE_TAR"; exit 1; }
 
+    # TODO: use buildkite download to get the tarball
     echo "Downloading Chef Infra tarball..."
     aws s3 cp "$CHEF_INFRA_HAB_TAR" "$TEMP_DIR/$TAR_NAME" || { echo "Error: Failed to download Chef Infra tarball from $CHEF_INFRA_HAB_TAR"; exit 1; }
 
