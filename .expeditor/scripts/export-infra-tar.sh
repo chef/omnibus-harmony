@@ -4,7 +4,7 @@ set -euo pipefail
 
 # curl -fSL -H "Authorization: Bearer $GITHUB_TOKEN" https://api.github.com/repos/chef/migration-tools/releases/latest
 
-curl -fSL -H "Authorization: Bearer $GITHUB_TOKEN" https://github.com/chef/migration-tools/releases/download/v1.0.18-rc2-test/migration-tools_Linux_x86_64.tar.gz
+curl -fSL -H "Authorization: Bearer $GITHUB_TOKEN" -H "Accept: application/octet-stream" https://api.github.com/repos/chef/migration-tools/releases/assets/217686273
 
 # echo "--- hab export tar chef/chef-infra-client"
 # hab pkg export tar chef/chef-infra-client --channel unstable
