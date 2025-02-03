@@ -40,15 +40,56 @@ create_temp_dir() {
     echo "Temporary directory created at $TEMP_DIR."
 }
 
+download_migration_tool() {
+  local url="$1"
+  local output_path="$2"
+
+  echo "--- Downloading $url to $output_path.."
+
+  # if [ -z "$GITHUB_TOKEN" ]; then
+  #   echo "GITHUB_TOKEN is not set. Cannot download migration tool from $url"
+  #   exit 1
+  # fi
+
+  # if ! curl -H "Authorization: token $GITHUB_TOKEN" -fSL "$url" -o "$output_path"; then
+  #     echo "Error: Failed to download migration tool from $url"
+  #     exit 1
+  # fi
+
+  # NOTE: remove this once github access is fixed.
+  if ! aws s3 cp "$url" "$output_path"; then
+    echo "Error: Failed to download migration tool from $CHEF_INFRA_MIGRATE_TAR"
+    exit 1
+  fi
+
+  file "$output_path"
+
+  echo "--- Downloaded to $output_path"
+  file $output_path
+}
+
+download_tarball_from_buildkite_artifactory() {
+  local tarball_name="$1"
+  local output_path="$2"
+
+  echo "Downloading $tarball_name to $output_path.."
+  if ! buildkite-agent artifact download "$tarball_name" "$output_path"; then
+    echo "Error: Failed to download $tarball_name"
+    exit 1
+  fi
+}
+
 # TODO: split this to two 
 download_files() {
     echo "Downloading migration tool..."
     # NOTE: this should be pulling from artifactory in the future along with some versioning. 
-    aws s3 cp "$CHEF_INFRA_MIGRATE_TAR" "$TEMP_DIR/migration-tools.tar.gz" || { echo "Error: Failed to download migration tool from $CHEF_INFRA_MIGRATE_TAR"; exit 1; }
+    download_migration_tool "$CHEF_INFRA_MIGRATE_TAR" "$TEMP_DIR/migration-tools.tar.gz"
+    # aws s3 cp "$CHEF_INFRA_MIGRATE_TAR" "$TEMP_DIR/migration-tools.tar.gz" || { echo "Error: Failed to download migration tool from $CHEF_INFRA_MIGRATE_TAR"; exit 1; }
 
     # TODO: use buildkite download to get the tarball
     echo "Downloading Chef Infra tarball..."
-    aws s3 cp "$CHEF_INFRA_HAB_TAR" "$TEMP_DIR/$TAR_NAME" || { echo "Error: Failed to download Chef Infra tarball from $CHEF_INFRA_HAB_TAR"; exit 1; }
+    download_tarball_from_buildkite_artifactory "$CHEF_INFRA_HAB_TAR" "$TEMP_DIR"
+    # aws s3 cp "$CHEF_INFRA_HAB_TAR" "$TEMP_DIR/$TAR_NAME" || { echo "Error: Failed to download Chef Infra tarball from $CHEF_INFRA_HAB_TAR"; exit 1; }
 
     echo "Files downloaded successfully."
 }
