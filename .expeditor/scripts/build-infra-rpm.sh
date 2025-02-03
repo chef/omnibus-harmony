@@ -45,14 +45,20 @@ download_migration_tool() {
 
   echo "--- Downloading $url to $output_path.."
 
-  if [ -z "$GITHUB_TOKEN" ]; then
-    echo "GITHUB_TOKEN is not set. Cannot download migration tool from $url"
-    exit 1
-  fi
+  # if [ -z "$GITHUB_TOKEN" ]; then
+  #   echo "GITHUB_TOKEN is not set. Cannot download migration tool from $url"
+  #   exit 1
+  # fi
 
-  if ! curl -H "Authorization: token $GITHUB_TOKEN" -fSL "$url" -o "$output_path"; then
-      echo "Error: Failed to download migration tool from $url"
-      exit 1
+  # if ! curl -H "Authorization: token $GITHUB_TOKEN" -fSL "$url" -o "$output_path"; then
+  #     echo "Error: Failed to download migration tool from $url"
+  #     exit 1
+  # fi
+
+  # NOTE: remove this once github access is fixed.
+  if ! aws s3 cp "$url" "$output_path"; then
+    echo "Error: Failed to download migration tool from $CHEF_INFRA_MIGRATE_TAR"
+    exit 1
   fi
 
   echo "--- Downloaded to $output_path"
