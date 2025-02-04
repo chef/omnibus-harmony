@@ -2,7 +2,7 @@ require_relative 'lib/omnibus-harmony/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "OmnibusHarmony-Test-Gem"
-  spec.version       = "#{OmnibusHarmony::VERSION}"
+  spec.version       = "#{OmnibusHarmony::VERSION}.rc.1"
   spec.authors       = ["Sean Simmons"]
   spec.email         = ["ssimmons@progress.com"]
 
