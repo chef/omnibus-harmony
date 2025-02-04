@@ -40,50 +40,55 @@ create_temp_dir() {
     echo "Temporary directory created at $TEMP_DIR."
 }
 
-download_migration_tool() {
-  local url="$1"
-  local output_path="$2"
+download_migration_tool_from_github_releases() {
+    local output_path="$1"
 
-  echo "--- Downloading $url to $output_path.."
+    echo "--- Downloading migration tools to $output_path.."
 
-  if [ -z "$GITHUB_TOKEN" ]; then
-    echo "GITHUB_TOKEN is not set. Cannot download migration tool from $url"
+
+  if [ -z "${GITHUB_TOKEN:-}" ]; then
+    echo "GITHUB_TOKEN is not set. Cannot download migration tool from github"
     exit 1
   fi
 
-  if ! curl -H "Authorization: token $GITHUB_TOKEN" -fSL "$url" -o "$output_path"; then
-      echo "Error: Failed to download migration tool from $url"
+    echo "fetching latest release of migration tool"
+    if ! curl -fSL -H "Authorization: Bearer $GITHUB_TOKEN" "https://api.github.com/repos/chef/migration-tools/releases/latest" -o migration-tool-latest-release.json; then
+      echo "Error: Failed to fetch latest release information of migration tools from github"
       exit 1
-  fi
+    fi
+    latest_version=$(cat migration-tool-latest-release.json | jq -r '.tag_name')
 
-  file "$output_path"
+    echo "requesting migration-tools_Linux_x86_64.tar.gz from '$latest_version' release"
+    if ! cat migration-tool-latest-release.json \
+        | jq '.assets[] | select (.name == "migration-tools_Linux_x86_64.tar.gz") | .url' \
+        | xargs curl -fSL -H "Authorization: Bearer $GITHUB_TOKEN" -H "Accept: application/octet-stream" -o "$output_path"; then
+      echo "Error: Failed to download latest release '$latest_version' of migration tools from github"
+      exit 1
+    fi
 
-  echo "--- Downloaded to $output_path"
-  file $output_path
+    file "$output_path"
+
+    echo "Downloaded to $output_path"
 }
 
 download_tarball_from_buildkite_artifactory() {
-  local tarball_name="$1"
-  local output_path="$2"
+    local tarball_name="$1"
+    local output_path="$2"
 
-  echo "Downloading $tarball_name to $output_path.."
-  if ! buildkite-agent artifact download "$tarball_name" "$output_path"; then
-    echo "Error: Failed to download $tarball_name"
-    exit 1
-  fi
+    echo "Downloading $tarball_name to $output_path.."
+    if ! buildkite-agent artifact download "$tarball_name" "$output_path"; then
+        echo "Error: Failed to download $tarball_name"
+        exit 1
+    fi
 }
 
-# TODO: split this to two 
 download_files() {
     echo "Downloading migration tool..."
-    # NOTE: this should be pulling from artifactory in the future along with some versioning. 
-    download_migration_tool "$CHEF_INFRA_MIGRATE_TAR" "$TEMP_DIR/migration-tools.tar.gz"
-    # aws s3 cp "$CHEF_INFRA_MIGRATE_TAR" "$TEMP_DIR/migration-tools.tar.gz" || { echo "Error: Failed to download migration tool from $CHEF_INFRA_MIGRATE_TAR"; exit 1; }
+    # NOTE: this should be pulling from artifactory in the future along with some versioning.
+    download_migration_tool_from_github_releases "$TEMP_DIR/$CHEF_INFRA_MIGRATE_TAR"
 
-    # TODO: use buildkite download to get the tarball
     echo "Downloading Chef Infra tarball..."
     download_tarball_from_buildkite_artifactory "$CHEF_INFRA_HAB_TAR" "$TEMP_DIR"
-    # aws s3 cp "$CHEF_INFRA_HAB_TAR" "$TEMP_DIR/$TAR_NAME" || { echo "Error: Failed to download Chef Infra tarball from $CHEF_INFRA_HAB_TAR"; exit 1; }
 
     echo "Files downloaded successfully."
 }
@@ -95,7 +100,7 @@ prepare_package() {
     mkdir -p "$PACKAGE_DIR$CHEF_BUNDLE_DIR" || { echo "Error: Failed to create Chef bundle directory"; exit 1; }
 
     echo "Unpacking migration tool..."
-    tar -xf "$TEMP_DIR/migration-tools.tar.gz" -C "$PACKAGE_DIR$CHEF_BIN_DIR/" || { echo "Error: Failed to unpack migration tool"; exit 1; }
+    tar -xf "$TEMP_DIR/$CHEF_INFRA_MIGRATE_TAR" -C "$PACKAGE_DIR$CHEF_BIN_DIR/" || { echo "Error: Failed to unpack migration tool"; exit 1; }
 
     echo "Copying Chef Infra tarball..."
     cp "$TEMP_DIR/$TAR_NAME" "$PACKAGE_DIR$CHEF_BUNDLE_DIR/" || { echo "Error: Failed to copy Chef Infra tarball"; exit 1; }

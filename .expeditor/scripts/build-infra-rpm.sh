@@ -39,32 +39,38 @@ download_tarball_from_buildkite_artifactory() {
   fi
 }
 
-download_migration_tool() {
-  local url="$1"
-  local output_path="$2"
+download_migration_tool_from_github_releases() {
+  local output_path="$1"
 
-  echo "--- Downloading $url to $output_path.."
+  echo "--- Downloading migration tools to $output_path.."
 
-  if [ -z "$GITHUB_TOKEN" ]; then
-    echo "GITHUB_TOKEN is not set. Cannot download migration tool from $url"
+  if [ -z "${GITHUB_TOKEN:-}" ]; then
+    echo "GITHUB_TOKEN is not set. Cannot download migration tool from github"
     exit 1
   fi
 
-  if ! curl -H "Authorization: token $GITHUB_TOKEN" -fSL "$url" -o "$output_path"; then
-      echo "Error: Failed to download migration tool from $url"
-      exit 1
+  echo "fetching latest release of migration tool"
+  if ! curl -fSL -H "Authorization: Bearer $GITHUB_TOKEN" "https://api.github.com/repos/chef/migration-tools/releases/latest" -o migration-tool-latest-release.json; then
+    echo "Error: Failed to fetch latest release information of migration tools from github"
+    exit 1
+  fi
+  latest_version=$(cat migration-tool-latest-release.json | jq -r '.tag_name')
+
+  echo "requesting migration-tools_Linux_x86_64.tar.gz from '$latest_version' release"
+  if ! cat migration-tool-latest-release.json \
+      | jq '.assets[] | select (.name == "migration-tools_Linux_x86_64.tar.gz") | .url' \
+      | xargs curl -fSL -H "Authorization: Bearer $GITHUB_TOKEN" -H "Accept: application/octet-stream" -o "$output_path"; then
+    echo "Error: Failed to download latest release '$latest_version' of migration tools from github"
+    exit 1
   fi
 
-  echo "--- Downloaded to $output_path"
-  file $output_path
+  echo "Downloaded to $output_path"
 }
 
 migrate_filename=$(basename "${CHEF_INFRA_MIGRATE_TAR%%\?*}")
 hab_filename=$(basename "${CHEF_INFRA_HAB_TAR%%\?*}")
 
-# download_file "$CHEF_INFRA_MIGRATE_TAR" "$TARS_DIR/$migrate_filename"
-# download_file "$CHEF_INFRA_HAB_TAR" "$TARS_DIR/$hab_filename"
-download_migration_tool "$CHEF_INFRA_MIGRATE_TAR" "$TARS_DIR/$migrate_filename"
+download_migration_tool_from_github_releases "$TARS_DIR/$migrate_filename"
 download_tarball_from_buildkite_artifactory "$CHEF_INFRA_HAB_TAR" "$TARS_DIR"
 
 # Set final paths to the downloaded files
