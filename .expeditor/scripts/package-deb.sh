@@ -1,12 +1,6 @@
 #!/usr/bin/env bash
 echo "-- debug" 
-set -euox pipefail
-
-# Ensure GITHUB_TOKEN is set
-if [[ -z "${GITHUB_TOKEN:-}" ]]; then
-  echo "GITHUB_TOKEN is not set in package-deb.sh. Please set it and try again."
-  exit 1
-fi
+set -euo pipefail
 
 tar_name=$(buildkite-agent meta-data get "PACKAGE_TAR_FILENAME")
 echo "--- using PACKAGE_TAR_FILENAME=$tar_name from meta-data"
@@ -21,4 +15,4 @@ echo "--- running build script"
 echo "--- uploading deb package to artifactory and s3"
 pkg_name=$(cat DEB_PKG_NAME)
 buildkite-agent artifact upload $pkg_name
-aws s3 cp $pkg_name s3://chef-hab-migration-tool-bucket/rc2_hab_pkg_chef_client /rc2_installer_folder/$pkg_name
+aws s3 cp $pkg_name s3://chef-hab-migration-tool-bucket/rc2_hab_pkg_chef_client/rc2_installer_folder/$pkg_name
