@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+echo "-- debug" 
 set -euox pipefail
 
 # Ensure GITHUB_TOKEN is set

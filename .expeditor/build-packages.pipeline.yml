@@ -24,37 +24,37 @@ expeditor:
 
 steps:
 
-  - label: "[:linux: build hab-pkg-export-tar and upload to :amazon-s3:]"
-    command:
-      - ./.expeditor/scripts/export-infra-tar.sh
-    expeditor:
-      secrets:
-        GITHUB_TOKEN:
-          account: github/chef
-          field: token
-      accounts:
-        - aws/chef-artifactory
-      executor:
-        docker:
-          privileged: true
-          environment:
-            - BUILD_PKG_TARGET=x86_64-linux
+  # - label: "[:linux: build hab-pkg-export-tar and upload to :amazon-s3:]"
+  #   command:
+  #     - ./.expeditor/scripts/export-infra-tar.sh
+  #   expeditor:
+  #     secrets:
+  #       GITHUB_TOKEN:
+  #         account: github/chef
+  #         field: token
+  #     accounts:
+  #       - aws/chef-artifactory
+  #     executor:
+  #       docker:
+  #         privileged: true
+  #         environment:
+  #           - BUILD_PKG_TARGET=x86_64-linux
 
-  - wait
+  # - wait
 
-  - label: ":linux: Build RPM package"
-    commands:
-      - ./.expeditor/scripts/package-rpm.sh
-    expeditor:
-      secrets:
-        GITHUB_TOKEN:
-          account: github/chef
-          field: token
-      accounts:
-        - aws/chef-artifactory
-      executor:
-        linux:
-          privileged: true
+  # - label: ":linux: Build RPM package"
+  #   commands:
+  #     - ./.expeditor/scripts/package-rpm.sh
+  #   expeditor:
+  #     secrets:
+  #       GITHUB_TOKEN:
+  #         account: github/chef
+  #         field: token
+  #     accounts:
+  #       - aws/chef-artifactory
+  #     executor:
+  #       linux:
+  #         privileged: true
 
   - label: ":linux: Build Debian package"
     commands:
