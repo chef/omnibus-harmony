@@ -59,13 +59,11 @@ steps:
   - label: ":linux: Build Debian package"
     commands:
       - ./.expeditor/scripts/package-deb.sh
-    agents:
-      queue: omnibus-ubuntu-16.04-x86_64
     expeditor:
+      executor:
+        docker:
+          image: ubuntu:16.04
       secrets:
         GITHUB_TOKEN:
           account: github/chef
-          field: token
-      accounts:
-        - aws/chef-artifactory
-        
+          field: token          
