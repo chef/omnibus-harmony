@@ -57,6 +57,7 @@ steps:
           privileged: true
 
   - label: ":linux: Build Debian package"
+  # FYI - you must set a chmod 555 on .expeditor/scripts/package-deb.sh which allows it to be executed via docker - commit it back to source once permissions are changed
     commands:
       - .expeditor/scripts/package-deb.sh
     expeditor:
