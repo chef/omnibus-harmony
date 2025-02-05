@@ -60,10 +60,7 @@ steps:
     commands:
       - ./.expeditor/scripts/package-deb.sh
     expeditor:
-      executor:
-        docker:
-          image_sha256: 1f1a2d56de1d604801a9671f301190704c25d604a416f59e03c04f5c6ffee0d6
-      secrets:
-        GITHUB_TOKEN:
-          account: github/chef
-          field: token
+        secrets: true
+    plugins:
+      - docker#v3.7.0:
+          image: ubuntu:16.04
