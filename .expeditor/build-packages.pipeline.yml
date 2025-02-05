@@ -62,8 +62,8 @@ steps:
     expeditor:
       executor:
         docker:
-          image: ubuntu:16.04
+          image: chefes/omnibus-ubuntu1604
       secrets:
         GITHUB_TOKEN:
           account: github/chef
-          field: token          
+          field: token
