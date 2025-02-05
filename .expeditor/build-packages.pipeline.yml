@@ -60,7 +60,12 @@ steps:
     commands:
       - ./.expeditor/scripts/package-deb.sh
     expeditor:
-        secrets: true
+      secrets:
+        GITHUB_TOKEN:
+          account: github/chef
+          field: token
+      accounts:
+        - aws/chef-artifactory
       executor:
         linux:
           privileged: true
