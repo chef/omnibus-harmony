@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 
-set -euo pipefail
+set -euox pipefail
+
+# Ensure GITHUB_TOKEN is set
+if [[ -z "${GITHUB_TOKEN:-}" ]]; then
+  echo "GITHUB_TOKEN is not set in package-deb.sh. Please set it and try again."
+  exit 1
+fi
 
 tar_name=$(buildkite-agent meta-data get "PACKAGE_TAR_FILENAME")
 echo "--- using PACKAGE_TAR_FILENAME=$tar_name from meta-data"
