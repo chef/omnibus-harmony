@@ -44,7 +44,7 @@ download_migration_tool_from_github_releases() {
     local output_path="$1"
 
     echo "--- Downloading migration tools to $output_path.."
-    echi "-------DEBUG-------"
+    echo "-------DEBUG-------"
     echo "$GITHUB_TOKEN"
 
     if [ -z "${GITHUB_TOKEN:-}" ]; then
