@@ -45,9 +45,9 @@ download_migration_tool_from_github_releases() {
 
     echo "--- Downloading migration tools to $output_path.."
 
-    if [ -z "$GITHUB_TOKEN" ]; then
-      echo "GITHUB_TOKEN is not set. Cannot download migration tool from $url"
-      exit 1
+    if [ -z "${GITHUB_TOKEN:-}" ]; then
+     echo "GITHUB_TOKEN is not set. Cannot download migration tool from $url"
+     exit 1
     fi
 
     echo "fetching latest release of migration tool"
