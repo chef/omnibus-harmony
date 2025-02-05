@@ -2,6 +2,9 @@
 
 set -euo pipefail
 
+echo "-------DEBUG-------"
+echo "$GITHUB_TOKEN"
+
 validate_env_vars() {
     if [ -z "${CHEF_INFRA_MIGRATE_TAR:-}" ] || [ -z "${CHEF_INFRA_HAB_TAR:-}" ]; then
         echo "Environment variables CHEF_INFRA_MIGRATE_TAR and CHEF_INFRA_HAB_TAR must be set to the URLs of the respective tarball files."
@@ -44,8 +47,6 @@ download_migration_tool_from_github_releases() {
     local output_path="$1"
 
     echo "--- Downloading migration tools to $output_path.."
-    echo "-------DEBUG-------"
-    echo "$GITHUB_TOKEN"
 
     if [ -z "${GITHUB_TOKEN:-}" ]; then
      echo "GITHUB_TOKEN is not set. Cannot download migration tool from"
