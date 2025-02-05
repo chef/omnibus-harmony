@@ -13,6 +13,9 @@ expeditor:
     buildkite:
       timeout_in_minutes: 45
       env:
+        GITHUB_TOKEN:
+        account: github/chef
+        field: token
         HAB_ORIGIN: "chef"
         PIPELINE_HAB_BLDR_URL: "https://bldr.habitat.sh"
         # Necessary to prevent old studios from poisoning builds after core plans refreshes
@@ -65,7 +68,4 @@ steps:
           field: token
       accounts:
         - aws/chef-artifactory
-      executor:
-        debian:
-          privileged: true
         
