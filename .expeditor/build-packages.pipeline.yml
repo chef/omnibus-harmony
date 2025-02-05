@@ -58,7 +58,7 @@ steps:
 
   - label: ":linux: Build Debian package"
     commands:
-      - ./.expeditor/scripts/package-deb.sh
+      - .expeditor/scripts/package-deb.sh
     expeditor:
       secrets:
         GITHUB_TOKEN:
