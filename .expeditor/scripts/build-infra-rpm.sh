@@ -1,0 +1,136 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+arch=$(uname -m)
+if [ "$arch" != "x86_64" ]; then
+  echo "Architecture '$arch' is not supported. Only x86_64 is supported."
+  exit 1
+fi
+
+TEMP_DIR=$(mktemp -d)
+TARS_DIR="$TEMP_DIR/tars"
+mkdir -p "$TARS_DIR"
+trap 'rm -rf "$TEMP_DIR"' EXIT
+
+CHEF_INFRA_MIGRATE_TAR="${CHEF_INFRA_MIGRATE_TAR:-}"
+CHEF_INFRA_HAB_TAR="${CHEF_INFRA_HAB_TAR:-}"
+
+# Check if required environment variables pointing to tarball URLs are set
+if [ -z "$CHEF_INFRA_MIGRATE_TAR" ] || [ -z "$CHEF_INFRA_HAB_TAR" ]; then
+  echo "Environment variables CHEF_INFRA_MIGRATE_TAR and CHEF_INFRA_HAB_TAR must be set to the URLs of the respective tarball files."
+  echo "Usage: Set the following environment variables before running the script:"
+  echo "  export CHEF_INFRA_MIGRATE_TAR=<url_to_chef-migrate-tarball>"
+  echo "  export CHEF_INFRA_HAB_TAR=<url_to_chef-infra-client-tarball>"
+  echo "Example:"
+  echo "  export CHEF_INFRA_MIGRATE_TAR=https://example.com/migration-tools_Linux_x86_64.tar.gz"
+  echo "  export CHEF_INFRA_HAB_TAR=https://example.com/chef-chef-infra-client-19.0.54.tar.gz"
+  exit 1
+fi
+
+download_tarball_from_buildkite_artifactory() {
+  local tarball_name="$1"
+  local output_path="$2"
+
+  echo "Downloading $tarball_name to $output_path.."
+  if ! buildkite-agent artifact download "$tarball_name" "$output_path"; then
+    echo "Error: Failed to download $tarball_name"
+    exit 1
+  fi
+}
+
+download_migration_tool_from_github_releases() {
+  local output_path="$1"
+
+  echo "--- Downloading migration tools to $output_path.."
+
+  echo "------DEBUG-----"
+
+  echo "$GITHUB_TOKEN"
+
+  if [ -z "$GITHUB_TOKEN" ]; then
+    echo "GITHUB_TOKEN is not set. Cannot download migration tool from $url"
+    exit 1
+  fi
+
+  echo "fetching latest release of migration tool"
+  if ! curl -fSL -H "Authorization: Bearer $GITHUB_TOKEN" "https://api.github.com/repos/chef/migration-tools/releases/latest" -o migration-tool-latest-release.json; then
+    echo "Error: Failed to fetch latest release information of migration tools from $url"
+    exit 1
+  fi
+  latest_version=$(cat migration-tool-latest-release.json | jq -r '.tag_name')
+
+  echo "requesting migration-tools_Linux_x86_64.tar.gz from '$latest_version' release"
+  if ! cat migration-tool-latest-release.json \
+      | jq '.assets[] | select (.name == "migration-tools_Linux_x86_64.tar.gz") | .url' \
+      | xargs curl -fSL -H "Authorization: Bearer $GITHUB_TOKEN" -H "Accept: application/octet-stream" -o "$output_path"; then
+    echo "Error: Failed to download latest release '$latest_version' of migration tools from $url"
+    exit 1
+  fi
+
+  file "$output_path"
+
+  echo "Downloaded to $output_path"
+}
+
+migrate_filename=$(basename "${CHEF_INFRA_MIGRATE_TAR%%\?*}")
+hab_filename=$(basename "${CHEF_INFRA_HAB_TAR%%\?*}")
+
+# download_file "$CHEF_INFRA_MIGRATE_TAR" "$TARS_DIR/$migrate_filename"
+# download_file "$CHEF_INFRA_HAB_TAR" "$TARS_DIR/$hab_filename"
+download_migration_tool_from_github_releases "$TARS_DIR/$migrate_filename"
+download_tarball_from_buildkite_artifactory "$CHEF_INFRA_HAB_TAR" "$TARS_DIR"
+
+# Set final paths to the downloaded files
+CHEF_MIGRATE_TAR="$TARS_DIR/$migrate_filename"
+CHEF_INFRA_TAR="$TARS_DIR/$hab_filename"
+
+echo "migration tools tarball info $CHEF_MIGRATE_TAR"
+file "$CHEF_MIGRATE_TAR"
+echo "infra tarball info $CHEF_MIGRATE_TAR"
+file "$CHEF_INFRA_TAR"
+
+echo "Tarballs downloaded and variables set:"
+echo "  CHEF_INFRA_TAR=$CHEF_INFRA_TAR"
+echo "  CHEF_MIGRATE_TAR=$CHEF_MIGRATE_TAR"
+
+SPEC_NAME="chef-infra-client.spec"
+SPEC_FILE=".expeditor/scripts/$SPEC_NAME"
+
+CHEF_INFRA_TAR_NAME=$(basename "$CHEF_INFRA_TAR")
+CHEF_MIGRATE_TAR_NAME=$(basename "$CHEF_MIGRATE_TAR")
+VERSION=$(echo "$CHEF_INFRA_TAR_NAME" | grep -oP '(?<=chef-chef-infra-client-)[0-9]+\.[0-9]+\.[0-9]+')
+#VERSION=$(echo "$CHEF_INFRA_TAR_NAME" | grep -oP '(?<=chef-chef-infra-client-)[0-9]+\.[0-9]+\.[0-9]+-[0-9]+')
+
+# Create the directory structure
+RPMBUILD_ROOT=$TEMP_DIR/rpmbuild
+mkdir -p "$RPMBUILD_ROOT"/{BUILD,RPMS/x86_64,SOURCES,SPECS,SRPMS}
+
+echo "RPM build directory structure created under $RPMBUILD_ROOT"
+
+cp "$CHEF_INFRA_TAR" "$RPMBUILD_ROOT/SOURCES/"
+cp "$CHEF_MIGRATE_TAR" "$RPMBUILD_ROOT/SOURCES/"
+cp "$SPEC_FILE" "$RPMBUILD_ROOT/SPECS/"
+
+# Replace the VERSION and file name place holders
+sed -i "s/%{VERSION}/$VERSION/" "$RPMBUILD_ROOT/SPECS/$SPEC_NAME"
+sed -i "s/%{CHEF_INFRA_TAR}/$CHEF_INFRA_TAR_NAME/" "$RPMBUILD_ROOT/SPECS/$SPEC_NAME"
+sed -i "s/%{CHEF_MIGRATE_TAR}/$CHEF_MIGRATE_TAR_NAME/" "$RPMBUILD_ROOT/SPECS/$SPEC_NAME"
+
+# Run the rpmbuild command
+rpmbuild -bb --target $arch --buildroot "$RPMBUILD_ROOT/BUILD" --define "_topdir $RPMBUILD_ROOT" "$RPMBUILD_ROOT/SPECS/$SPEC_NAME"
+
+# RPM_PATH=$(find "$RPMBUILD_ROOT/RPMS/$arch" -type f -name "chef-infra-client-${version}~${release}-*.${arch}.rpm" | head -n 1)
+find "$RPMBUILD_ROOT/RPMS/$arch" -type f
+RPM_PATH=$(find "$RPMBUILD_ROOT/RPMS/$arch" -type f -name "chef-infra-client-${VERSION}-*.${arch}.rpm" | head -n 1)
+
+# Check if the RPM was created
+if [ -f "$RPM_PATH" ]; then
+  echo "RPM created successfully: $RPM_PATH"
+  cp "$RPM_PATH" .  # Copy the RPM to the current directory
+  echo "RPM copied to current directory."
+  echo `basename $RPM_PATH` > RPM_PKG_NAME
+else
+  echo "RPM creation failed or the RPM is not located in the expected directory."
+  exit 1
+fi
