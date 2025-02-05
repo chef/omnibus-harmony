@@ -48,13 +48,13 @@ download_migration_tool_from_github_releases() {
     echo "$GITHUB_TOKEN"
 
     if [ -z "${GITHUB_TOKEN:-}" ]; then
-     echo "GITHUB_TOKEN is not set. Cannot download migration tool from $url"
+     echo "GITHUB_TOKEN is not set. Cannot download migration tool from"
      exit 1
     fi
 
     echo "fetching latest release of migration tool"
     if ! curl -fSL -H "Authorization: Bearer $GITHUB_TOKEN" "https://api.github.com/repos/chef/migration-tools/releases/latest" -o migration-tool-latest-release.json; then
-      echo "Error: Failed to fetch latest release information of migration tools from $url"
+      echo "Error: Failed to fetch latest release information of migration tools from"
       exit 1
     fi
     latest_version=$(cat migration-tool-latest-release.json | jq -r '.tag_name')
@@ -63,7 +63,7 @@ download_migration_tool_from_github_releases() {
     if ! cat migration-tool-latest-release.json \
         | jq '.assets[] | select (.name == "migration-tools_Linux_x86_64.tar.gz") | .url' \
         | xargs curl -fSL -H "Authorization: Bearer $GITHUB_TOKEN" -H "Accept: application/octet-stream" -o "$output_path"; then
-      echo "Error: Failed to download latest release '$latest_version' of migration tools from $url"
+      echo "Error: Failed to download latest release '$latest_version' of migration tools from"
       exit 1
     fi
 
