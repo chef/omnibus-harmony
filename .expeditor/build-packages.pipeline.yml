@@ -66,6 +66,5 @@ steps:
       accounts:
         - aws/chef-artifactory
       executor:
-        linux:
-          privileged: true  
+          privileged: true
         
