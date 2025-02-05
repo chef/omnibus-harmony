@@ -58,7 +58,7 @@ steps:
 
   - label: ":linux: Build Debian package"
     commands:
-      - sudo ./.expeditor/scripts/package-deb.sh
+      - ./.expeditor/scripts/package-deb.sh
     expeditor:
       secrets:
         GITHUB_TOKEN:
@@ -67,8 +67,5 @@ steps:
       accounts:
         - aws/chef-artifactory
       executor:
-        linux:
+        docker:
           privileged: true
-    plugins:
-      - docker#v3.7.0:
-          image: ubuntu:16.04
