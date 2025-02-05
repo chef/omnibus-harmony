@@ -71,4 +71,4 @@ steps:
           privileged: true
     plugins:
       - docker#v3.7.0:
-          image: chef/ubuntu-18.04
+          image: ubuntu:16.04
