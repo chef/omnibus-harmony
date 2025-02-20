@@ -19,7 +19,7 @@ expeditor:
 
 steps:
 
-  - label: ":habitat: export docker chef-demo/hello-omnibus-harmony"
+  - label: ":habitat: export_docker docker chef-demo/hello-omnibus-harmony"
     plugins:
       - chef/habitat#506939995f8e044b3d7d02aef5b394006ece2cbf:
           export_docker: chef-demo/hello-omnibus-harmony
