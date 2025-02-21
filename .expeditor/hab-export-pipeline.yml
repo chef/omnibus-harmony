@@ -21,7 +21,7 @@ steps:
 
   - label: ":habitat: export docker chef-demo/hello-omnibus-harmony"
     plugins:
-      - chef/habitat#b95b1b20d8016d97f650acb95368980a52a98dc5:
+      - chef/habitat#af9a2d647565034a4816d86a886c6cf8fda9bc35:
           export: chef-demo/hello-omnibus-harmony
           format: docker
     command:
@@ -36,7 +36,7 @@ steps:
           single-use: true
   - label: ":habitat: export tarball chef-demo/hello-omnibus-harmony"
     plugins:
-      - chef/habitat#b95b1b20d8016d97f650acb95368980a52a98dc5:
+      - chef/habitat#af9a2d647565034a4816d86a886c6cf8fda9bc35:
           export: chef-demo/hello-omnibus-harmony
           format: tarball
     command:
