@@ -18,17 +18,31 @@ expeditor:
 
 steps:
 
-- label: "[:linux: build hab-pkg-export-tar and uplaod to :amazon-s3:]"
-  commands:
-    - sudo ./.expeditor/scripts/install-hab.sh x86_64-linux
-    - echo "--- Installing $EXPEDITOR_PKG_IDENTS_HELLOOMNIBUSHARMONYX86_64LINUX"
-    - sudo hab pkg install $EXPEDITOR_PKG_IDENTS_HELLOOMNIBUSHARMONYX86_64LINUX
-    - echo "--- Exporting to buildkite files $EXPEDITOR_PKG_IDENTS_HELLOOMNIBUSHARMONYX86_64LINUX"
-    - sudo hab pkg export tar $EXPEDITOR_PKG_IDENTS_HELLOOMNIBUSHARMONYX86_64LINUX
-    - buildkite-agent artifact upload "$(sed 's/\//-/g' <<< $EXPEDITOR_PKG_IDENTS_HELLOOMNIBUSHARMONYX86_64LINUX).${tar.gz}*"
-  expeditor:
+# - label: "[:linux: build hab-pkg-export-tar and uplaod to :amazon-s3:]"
+#   commands:
+#     - sudo ./.expeditor/scripts/install-hab.sh x86_64-linux
+#     - echo "--- Installing $EXPEDITOR_PKG_IDENTS_HELLOOMNIBUSHARMONYX86_64LINUX"
+#     - sudo hab pkg install $EXPEDITOR_PKG_IDENTS_HELLOOMNIBUSHARMONYX86_64LINUX
+#     - echo "--- Exporting to buildkite files $EXPEDITOR_PKG_IDENTS_HELLOOMNIBUSHARMONYX86_64LINUX"
+#     - sudo hab pkg export tar $EXPEDITOR_PKG_IDENTS_HELLOOMNIBUSHARMONYX86_64LINUX
+#     - buildkite-agent artifact upload "$(sed 's/\//-/g' <<< $EXPEDITOR_PKG_IDENTS_HELLOOMNIBUSHARMONYX86_64LINUX).${tar.gz}*"
+#   expeditor:
+#       accounts:
+#         - aws/chef-cd
+#       executor:
+#         linux:
+#           privileged: true
+#           single-use: true
+
+steps:
+  - label: ":habitat: export chef-demo/hello-omnibus-harmony"
+    plugins:
+      - chef/habitat#2a479e94e3dec3d2def59f6a7d831d9ab9ee336a
+          export: chef-demo/hello-omnibus-harmony
+          format: docker
+    expeditor:
       accounts:
-        - aws/chef-cd
+      - aws/chef-cd
       executor:
         linux:
           privileged: true
