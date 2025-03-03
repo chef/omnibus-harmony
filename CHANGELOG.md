@@ -7,7 +7,7 @@
 - introduce changelog tracking by expeditor [#148](https://github.com/chef/omnibus-harmony/pull/148) ([ahasunos](https://github.com/ahasunos))
 <!-- latest_release -->
 
-<!-- release_rollup -->
+<!-- release_rollup since=1.0.64.rc.1 -->
 ### Changes not yet released to rubygems.org
 
 #### Merged Pull Requests
@@ -15,4 +15,6 @@
 <!-- release_rollup -->
 
 <!-- latest_stable_release -->
+## [1.0.64.rc.1](https://github.com/chef/omnibus-harmony/tree/1.0.64.rc.1) (2025-03-03)
 <!-- latest_stable_release -->
+
