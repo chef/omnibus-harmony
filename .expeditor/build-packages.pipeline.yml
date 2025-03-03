@@ -1,0 +1,71 @@
+expeditor:
+  secrets:
+    GITHUB_TOKEN:
+      account: github/chef
+      field: token
+    PIPELINE_HAB_AUTH_TOKEN:
+      path: account/static/habitat/chef-ci
+      field: auth_token # Production Builder
+      # acceptance_auth_token = acceptance
+  accounts:
+    - aws/chef-artifactory
+  defaults:
+    buildkite:
+      timeout_in_minutes: 45
+      env:
+        GITHUB_TOKEN:
+        account: github/chef
+        field: token
+        HAB_ORIGIN: "chef"
+        PIPELINE_HAB_BLDR_URL: "https://bldr.habitat.sh"
+        # Necessary to prevent old studios from poisoning builds after core plans refreshes
+        HAB_STUDIO_SECRET_HAB_PREFER_LOCAL_CHEF_DEPS: "true"
+        HAB_STUDIO_SECRET_HAB_REFRESH_CHANNEL: "unstable"
+
+steps:
+
+  - label: "[:linux: build hab-pkg-export-tar and upload to :amazon-s3:]"
+    command:
+      - ./.expeditor/scripts/export-infra-tar.sh
+    expeditor:
+      secrets:
+        GITHUB_TOKEN:
+          account: github/chef
+          field: token
+      accounts:
+        - aws/chef-artifactory
+      executor:
+        docker:
+          privileged: true
+          environment:
+            - BUILD_PKG_TARGET=x86_64-linux
+
+  - wait
+
+  - label: ":linux: Build RPM package"
+    commands:
+      - ./.expeditor/scripts/package-rpm.sh
+    expeditor:
+      secrets:
+        GITHUB_TOKEN:
+          account: github/chef
+          field: token
+      accounts:
+        - aws/chef-artifactory
+      executor:
+        linux:
+          privileged: true
+
+  - label: ":linux: Build Debian package"
+    commands:
+      - ./.expeditor/scripts/package-deb.sh
+    agents:
+      queue: omnibus-ubuntu-16.04-x86_64
+    expeditor:
+      secrets:
+        GITHUB_TOKEN:
+          account: github/chef
+          field: token
+      accounts:
+        - aws/chef-artifactory
+        
