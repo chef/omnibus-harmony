@@ -28,6 +28,9 @@ github:
   major_bump_labels:
     - "Expeditor: Bump Version Major"
 
+changelog:
+  rollup_header: Changes not yet released to rubygems.org
+
 pipelines:
   - verify:
       description: Pull Request validation tests
@@ -70,9 +73,9 @@ subscriptions:
       #       - "Expeditor: Skip Omnibus"
       #       - "Expeditor: Skip All"
       - built_in:update_changelog:
-        ignore_labels:
-         - "Expeditor: Skip All"
-         - "Expeditor: Skip Changelog"
+          ignore_labels:
+            - "Expeditor: Skip All"
+            - "Expeditor: Skip Changelog"
       - trigger_pipeline:habitat/build:
           ignore_labels:
             - "Expeditor: Skip Habitat"
