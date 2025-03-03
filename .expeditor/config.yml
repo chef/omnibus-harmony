@@ -60,10 +60,6 @@ subscriptions:
           ignore_labels:
             - "Expeditor: Skip Version Bump"
             - "Expeditor: Skip All"
-      - built_in:update_changelog:
-        ignore_labels:
-         - "Expeditor: Skip All"
-         - "Expeditor: Skip Changelog"
       - bash:.expeditor/update_version.sh:
           only_if: built_in:bump_version
           ignore_labels:
@@ -73,6 +69,10 @@ subscriptions:
       #     ignore_labels:
       #       - "Expeditor: Skip Omnibus"
       #       - "Expeditor: Skip All"
+      - built_in:update_changelog:
+        ignore_labels:
+         - "Expeditor: Skip All"
+         - "Expeditor: Skip Changelog"
       - trigger_pipeline:habitat/build:
           ignore_labels:
             - "Expeditor: Skip Habitat"
