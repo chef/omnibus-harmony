@@ -1,7 +1,7 @@
 # Changelog
 
 <!-- latest_release 1.0.65 -->
-## [1.0.65](https://github.com/chef/omnibus-harmony/tree/1.0.65) (2025-03-03)
+## [1.0.65.rc.1](https://github.com/chef/omnibus-harmony/tree/1.0.65) (2025-03-03)
 
 #### Merged Pull Requests
 - Empty commit to bump version [#149](https://github.com/chef/omnibus-harmony/pull/149) ([ahasunos](https://github.com/ahasunos))
